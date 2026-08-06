@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Sparkles,
   ShieldCheck,
@@ -8,13 +8,11 @@ import {
   BadgeCheck,
   GraduationCap,
   ArrowRight,
-  Star,
 } from "lucide-react";
 
 import { Container } from "@/components/Container";
 import { Button } from "@/components/ui/button";
 import { DaftarDialog } from "@/components/DaftarDialog";
-import { cn } from "@/lib/utils";
 import { rplPromo, trustBadges } from "@/data/unibaData";
 
 const trustBadgeIcons = [ShieldCheck, Users, BadgeCheck];
@@ -23,68 +21,6 @@ const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0 },
 };
-
-/**
- * Premium "gold foil ticket" that replaces the old flat tilted box. Reads as a
- * promo coupon/seal — the framing the user asked for — with a sheen sweep,
- * perforation, seal chip and gentle float. Content is unchanged (rplPromo).
- */
-function RplTicket() {
-  const reduceMotion = useReducedMotion();
-
-  return (
-    <motion.aside
-      aria-label={`${rplPromo.title}: ${rplPromo.description}`}
-      initial={{ opacity: 0, y: -14, scale: 0.9, rotate: -5 }}
-      animate={{ opacity: 1, y: 0, scale: 1, rotate: -2 }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
-      whileHover={{ rotate: 0, y: -3, scale: 1.03 }}
-      className="relative z-20 mx-auto mt-4 mb-1 w-[11.5rem] sm:absolute sm:top-6 sm:left-6 sm:mx-0 sm:mt-0 sm:mb-0 sm:w-56"
-    >
-      <div
-        className={cn(
-          "gold-sheen relative overflow-hidden rounded-2xl bg-uniba-gold-gradient p-[3px] shadow-gold-glow",
-          !reduceMotion && "sm:animate-float"
-        )}
-      >
-        {/* Inner ticket face with dashed coupon border */}
-        <div className="relative rounded-[13px] border border-dashed border-uniba-navy/35 bg-uniba-gold-gradient px-3.5 py-3 sm:px-4 sm:py-3.5">
-          {/* Sparkle accent */}
-          <Star
-            aria-hidden="true"
-            className="absolute top-2 right-2 size-3 fill-white/70 text-white/70"
-          />
-
-          {/* Seal + kicker */}
-          <div className="flex items-center gap-2">
-            <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-uniba-navy text-uniba-gold shadow-sm ring-2 ring-white/40 sm:size-8">
-              <GraduationCap className="size-4 sm:size-[18px]" aria-hidden="true" />
-            </span>
-            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-uniba-navy/70">
-              Program
-            </span>
-          </div>
-
-          {/* Title */}
-          <p className="mt-2 font-heading text-base font-extrabold leading-none text-uniba-navy sm:text-lg">
-            {rplPromo.title}
-          </p>
-
-          {/* Perforation */}
-          <div
-            aria-hidden="true"
-            className="my-2.5 border-t border-dashed border-uniba-navy/25"
-          />
-
-          {/* Description */}
-          <p className="text-[11px] font-medium leading-snug text-uniba-navy/80 sm:text-xs">
-            {rplPromo.description}
-          </p>
-        </div>
-      </div>
-    </motion.aside>
-  );
-}
 
 export default function Hero() {
   return (
@@ -109,11 +45,8 @@ export default function Hero() {
         className="pointer-events-none absolute -right-24 bottom-0 size-72 rounded-full bg-uniba-blue-bright/30 blur-3xl sm:size-96"
       />
 
-      {/* RPL promo — premium gold ticket */}
-      <RplTicket />
-
       <Container>
-        <div className="relative flex flex-col items-center pt-8 pb-24 text-center sm:py-36">
+        <div className="relative flex flex-col items-center py-20 text-center sm:py-36">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -205,6 +138,39 @@ export default function Hero() {
                   </div>
                 );
               })}
+            </motion.div>
+
+            {/* Program RPL promo — highlight bar under the trust badges (batik kawung ground) */}
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="mt-4 w-full max-w-3xl"
+            >
+              <div className="relative overflow-hidden rounded-2xl border border-uniba-gold/35 bg-uniba-navy/40 px-4 py-3.5 shadow-lg shadow-black/10 backdrop-blur-sm sm:px-5">
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 bg-batik-kawung opacity-45"
+                />
+                <div className="relative flex items-center gap-3.5 text-left sm:gap-4">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-uniba-gold-gradient text-uniba-navy shadow-sm sm:size-11">
+                    <GraduationCap className="size-5 sm:size-6" aria-hidden="true" />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-uniba-gold-soft">
+                      {rplPromo.title}
+                    </p>
+                    <p className="mt-0.5 text-sm leading-snug text-white/85 sm:text-[15px]">
+                      {rplPromo.description}
+                    </p>
+                  </div>
+                  <span
+                    aria-hidden="true"
+                    className="hidden shrink-0 items-center justify-center rounded-full bg-uniba-gold/15 p-2 ring-1 ring-uniba-gold/25 sm:flex"
+                  >
+                    <ArrowRight className="size-4 text-uniba-gold" />
+                  </span>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         </div>

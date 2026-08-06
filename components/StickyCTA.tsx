@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { DaftarDialog } from "@/components/DaftarDialog";
 import { contactInfo } from "@/data/unibaData";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
@@ -53,15 +54,16 @@ export default function StickyCTA() {
             className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-between gap-3 bg-uniba-navy px-4 py-3 text-white shadow-[0_-4px_24px_rgba(0,0,0,0.2)] lg:hidden"
           >
             <p className="text-sm font-medium text-balance">Siap jadi bagian dari UNIBA?</p>
-            <Button
-              asChild
-              size="sm"
-              className="shrink-0 bg-uniba-gold-gradient font-semibold text-uniba-navy hover:brightness-105"
-            >
-              <a href={contactInfo.pmbWebsite} target="_blank" rel="noopener noreferrer">
-                Daftar Sekarang
-              </a>
-            </Button>
+            <DaftarDialog
+              trigger={
+                <Button
+                  size="sm"
+                  className="shrink-0 bg-uniba-gold-gradient font-semibold text-uniba-navy hover:brightness-105"
+                >
+                  Daftar Sekarang
+                </Button>
+              }
+            />
           </motion.div>
         ) : null}
       </AnimatePresence>
