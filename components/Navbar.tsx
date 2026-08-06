@@ -7,6 +7,7 @@ import { Menu } from "lucide-react";
 
 import { Container } from "@/components/Container";
 import { Button } from "@/components/ui/button";
+import { DaftarDialog } from "@/components/DaftarDialog";
 import {
   Sheet,
   SheetContent,
@@ -79,14 +80,13 @@ export default function Navbar() {
           >
             <a href="#simulasi-biaya">Simulasi Biaya</a>
           </Button>
-          <Button
-            asChild
-            className="h-10 bg-uniba-gold-gradient px-5 font-semibold text-uniba-navy shadow-sm transition-transform hover:-translate-y-0.5 hover:brightness-105"
-          >
-            <a href={contactInfo.pmbWebsite} target="_blank" rel="noopener noreferrer">
-              Daftar PMB
-            </a>
-          </Button>
+          <DaftarDialog
+            trigger={
+              <Button className="h-10 bg-uniba-gold-gradient px-5 font-semibold text-uniba-navy shadow-sm transition-transform hover:-translate-y-0.5 hover:brightness-105">
+                Daftar PMB
+              </Button>
+            }
+          />
         </div>
 
         {/* Mobile menu */}
@@ -130,15 +130,13 @@ export default function Navbar() {
               >
                 <a href="#simulasi-biaya">Simulasi Biaya</a>
               </Button>
-              <Button
-                asChild
-                className="h-11 w-full bg-uniba-gold-gradient font-semibold text-uniba-navy hover:brightness-105"
-                onClick={() => setMobileOpen(false)}
-              >
-                <a href={contactInfo.pmbWebsite} target="_blank" rel="noopener noreferrer">
-                  Daftar PMB
-                </a>
-              </Button>
+              <DaftarDialog
+                trigger={
+                  <Button className="h-11 w-full bg-uniba-gold-gradient font-semibold text-uniba-navy hover:brightness-105">
+                    Daftar PMB
+                  </Button>
+                }
+              />
             </div>
           </SheetContent>
         </Sheet>
