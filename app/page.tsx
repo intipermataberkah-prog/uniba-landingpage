@@ -11,7 +11,6 @@ import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 import StickyCTA from "@/components/StickyCTA";
 import SocialFloatingDock from "@/components/SocialFloatingDock";
-import BackgroundMusic from "@/components/BackgroundMusic";
 
 export default function Home() {
   return (
@@ -31,7 +30,6 @@ export default function Home() {
       <Footer />
       <StickyCTA />
       <SocialFloatingDock />
-      <BackgroundMusic />
     </>
   );
 }
