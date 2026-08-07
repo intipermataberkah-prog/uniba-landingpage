@@ -60,7 +60,7 @@ export default function Hero() {
             >
               <Sparkles className="size-4 text-uniba-gold" aria-hidden="true" />
               <span className="text-uniba-gold-soft">
-                Kampus Terjangkau, Berkualitas &amp; Paling Fleksibel di Solo
+                Kampus Terjangkau, Berkualitas &amp; Paling Fleksibel
               </span>
             </motion.div>
 
