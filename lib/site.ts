@@ -30,6 +30,7 @@ export const siteConfig = {
     "PMB UNIBA Surakarta",
     "Pendaftaran UNIBA Surakarta",
     "Universitas Islam Batik Surakarta",
+    "Kuliah Terjangkau Solo",
     "Kuliah Murah Solo",
     "Kuliah Karyawan Solo",
     "Kelas Malam Surakarta",

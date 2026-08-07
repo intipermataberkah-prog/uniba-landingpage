@@ -26,7 +26,7 @@ const playfair = Playfair_Display({
 });
 
 const baseUrl = getBaseUrl();
-const title = "PMB UNIBA Surakarta — Kuliah Murah Solo, Gratis Uang Gedung";
+const title = "PMB UNIBA Surakarta — Kuliah Terjangkau, Gratis Uang Gedung";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
