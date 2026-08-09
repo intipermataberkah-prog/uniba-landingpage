@@ -19,7 +19,7 @@ export function StructuredData() {
     url: baseUrl,
     logo: logoUrl,
     image: logoUrl,
-    description: siteConfig.description,
+    description: siteConfig.descriptionLong,
     email: contactInfo.email,
     telephone: contactInfo.phone,
     address: {
