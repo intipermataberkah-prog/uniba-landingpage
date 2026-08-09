@@ -55,13 +55,14 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  /* Card radii hold the 12–16px band; pills stay for small controls only. */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 14px;
+  --radius-2xl: 16px;
+  --radius-3xl: 18px;
+  --radius-4xl: 20px;
 
   /* Motion tokens — one rhythm across the whole product */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -173,10 +174,47 @@
   [id="kontak"] {
     scroll-margin-top: 5.5rem;
   }
-  /* Selection uses brand gold */
+  /* Browser surfaces we did not draw still belong to the design system. */
   ::selection {
     background-color: rgba(245, 158, 11, 0.28);
     color: #0f2c59;
+  }
+
+  html {
+    scrollbar-color: rgba(15, 44, 89, 0.32) transparent;
+    scrollbar-width: thin;
+  }
+
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(15, 44, 89, 0.28);
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(15, 44, 89, 0.45);
+  }
+
+  input,
+  textarea,
+  select {
+    caret-color: var(--color-uniba-blue-bright);
+  }
+
+  /* Money and countdown figures must not reflow as digits change. */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  a {
+    text-underline-offset: 0.18em;
   }
 }
 
@@ -202,11 +240,6 @@
         transparent 15px,
         transparent 39px
       );
-  }
-
-  /* Fine film grain for depth on dark surfaces */
-  .bg-grain {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
   }
 
   .bg-uniba-gradient {
@@ -235,35 +268,16 @@
     box-shadow: var(--shadow-gold-glow);
   }
 
+  /* A solid tinted surface: elevation declared once, by border. Blur is saved
+     for effects that actually sit over moving content. */
   .glass-panel {
-    background-color: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    box-shadow: var(--shadow-elev-2);
+    background-color: rgba(15, 44, 89, 0.045);
+    border: 1px solid rgba(15, 44, 89, 0.12);
   }
 
-  .glass-panel-dark {
-    background-color: rgba(15, 44, 89, 0.35);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-  }
-
-  .text-gradient-gold {
-    background-image: linear-gradient(135deg, #f5d67a 0%, #f59e0b 55%, #d4af37 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-  }
-
-  /* Merah-Putih (Indonesian flag) accent for independence-day style promos */
-  .text-gradient-merah-putih {
-    background-image: linear-gradient(to bottom, #ef4444 0%, #ef4444 45%, #ffffff 55%, #ffffff 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.15);
+  /* Emphasis comes from weight, size and solid colour — never gradient text. */
+  .text-emphasis-gold {
+    color: var(--color-uniba-gold-soft);
   }
 
   /* Animated gold sheen sweep — for premium seals/tickets */

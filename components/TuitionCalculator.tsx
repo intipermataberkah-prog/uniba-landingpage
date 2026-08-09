@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 
@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn, formatIDR } from "@/lib/utils";
+import { useAnimatedNumber } from "@/hooks/use-animated-number";
 import {
   calculateNextSemesterMonthly,
   calculateSemester1Detail,
@@ -62,39 +63,12 @@ export default function TuitionCalculator() {
     [program, classType, nextSemesterMonths]
   );
 
-  // Lightweight animated counter: eases the displayed down-payment figure from its
-  // previous value to the newly computed one whenever a selection changes.
-  const [displayedDownPayment, setDisplayedDownPayment] = useState(detail.downPayment);
-  const previousDownPayment = useRef(detail.downPayment);
-
-  useEffect(() => {
-    const from = previousDownPayment.current;
-    const to = detail.downPayment;
-
-    if (from === to) {
-      setDisplayedDownPayment(to);
-      return;
-    }
-
-    const durationMs = 500;
-    const start = performance.now();
-    let frameId: number;
-
-    const tick = (now: number) => {
-      const progress = Math.min((now - start) / durationMs, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplayedDownPayment(Math.round(from + (to - from) * eased));
-
-      if (progress < 1) {
-        frameId = requestAnimationFrame(tick);
-      } else {
-        previousDownPayment.current = to;
-      }
-    };
-
-    frameId = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frameId);
-  }, [detail.downPayment]);
+  // Money settles on a spring whenever a selection changes, so the figures read
+  // as a live calculation rather than a static swap.
+  const displayedDownPayment = useAnimatedNumber(detail.downPayment);
+  const displayedTotal = useAnimatedNumber(detail.semesterTotal);
+  const displayedRemaining = useAnimatedNumber(detail.remaining);
+  const displayedMonthly = useAnimatedNumber(nextSemester.monthly);
 
   function handleFacultyChange(nextFacultyId: string) {
     setFacultyId(nextFacultyId);
@@ -121,7 +95,6 @@ export default function TuitionCalculator() {
     <section id="simulasi-biaya" className="relative bg-alabaster py-20 sm:py-28">
       <Container>
         <SectionHeading
-          eyebrow="Simulasi Biaya"
           title="Hitung Skema Pembayaran Kuliahmu"
           description={`Rincian biaya resmi ${promoPeriod.name} ${promoPeriod.wave} — Pendaftaran & SPI gratis, cukup bayar 60% di semester pertama, sisanya fleksibel hingga akhir semester 1.`}
         />
@@ -131,7 +104,7 @@ export default function TuitionCalculator() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mx-auto mt-12 max-w-6xl overflow-hidden rounded-3xl bg-white shadow-elev-3 ring-1 ring-uniba-navy/5 lg:mt-16"
+          className="mx-auto mt-12 max-w-6xl overflow-hidden rounded-2xl bg-white shadow-elev-3 ring-1 ring-uniba-navy/5 lg:mt-16"
         >
           <div className="grid lg:grid-cols-2">
             {/* Controls */}
@@ -236,7 +209,7 @@ export default function TuitionCalculator() {
 
                 <p className="mt-2">
                   <span className="font-semibold text-uniba-navy">
-                    {formatIDR(nextSemester.monthly)} / bulan
+                    {formatIDR(displayedMonthly)} / bulan
                   </span>{" "}
                   <span>
                     (total {formatIDR(nextSemester.total)} / semester, dicicil {nextSemesterMonths}{" "}
@@ -262,9 +235,37 @@ export default function TuitionCalculator() {
                   <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/60">
                     Dibayar di Awal (60%)
                   </p>
-                  <p className="text-gradient-gold mt-1 font-heading text-4xl leading-tight font-extrabold tabular-nums drop-shadow-[0_2px_16px_rgba(245,158,11,0.35)] sm:text-5xl">
+                  <p className="mt-1 font-heading text-4xl leading-tight font-extrabold tabular-nums text-uniba-gold-soft sm:text-5xl">
                     {formatIDR(displayedDownPayment)}
                   </p>
+
+                  {/* Live 60/40 split: the payment scheme made visible */}
+                  <div className="mt-5">
+                    <div
+                      aria-hidden="true"
+                      className="flex h-2.5 w-full overflow-hidden rounded-full bg-white/10"
+                    >
+                      <div
+                        className="bg-uniba-gold-gradient transition-[flex-grow] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                        style={{ flexGrow: paymentScheme.downPaymentPercent }}
+                      />
+                      <div
+                        className="bg-white/25 transition-[flex-grow] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                        style={{ flexGrow: paymentScheme.remainingPercent }}
+                      />
+                    </div>
+                    <div className="mt-2.5 flex items-start justify-between gap-4 text-xs">
+                      <span className="flex items-center gap-1.5 font-medium text-uniba-gold-soft">
+                        <span aria-hidden="true" className="size-2 rounded-full bg-uniba-gold" />
+                        {paymentScheme.downPaymentPercent}% di awal
+                      </span>
+                      <span className="flex items-center gap-1.5 text-right text-white/60">
+                        <span aria-hidden="true" className="size-2 rounded-full bg-white/40" />
+                        {paymentScheme.remainingPercent}% fleksibel &middot;{" "}
+                        {formatIDR(displayedRemaining)}
+                      </span>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="space-y-2 rounded-2xl bg-white/5 p-4 text-sm ring-1 ring-white/10 backdrop-blur-sm">
@@ -303,17 +304,17 @@ export default function TuitionCalculator() {
                   <div className="my-1 h-px bg-white/15" />
                   <div className="flex items-center justify-between gap-3">
                     <span className="text-white/70 font-medium">Total Biaya Semester 1</span>
-                    <span className="font-bold">{formatIDR(detail.semesterTotal)}</span>
+                    <span className="font-bold tabular-nums">{formatIDR(displayedTotal)}</span>
                   </div>
                   <div className="flex items-center justify-between gap-3">
                     <span className="text-white/60">Apabila Bayar 60%</span>
-                    <span className="font-semibold">{formatIDR(detail.downPayment)}</span>
+                    <span className="font-semibold tabular-nums">{formatIDR(displayedDownPayment)}</span>
                   </div>
                   <div className="flex items-center justify-between gap-3">
                     <span className="text-white/60">
                       Sisa (40%, fleksibel hingga akhir semester 1)
                     </span>
-                    <span className="font-semibold">{formatIDR(detail.remaining)}</span>
+                    <span className="font-semibold tabular-nums">{formatIDR(displayedRemaining)}</span>
                   </div>
                 </div>
 

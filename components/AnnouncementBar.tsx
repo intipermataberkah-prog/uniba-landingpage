@@ -69,7 +69,7 @@ export default function AnnouncementBar() {
               <PartyPopper className="hidden size-4 shrink-0 text-uniba-gold sm:inline" aria-hidden="true" />
               <span>
                 Pendaftaran PMB Gelombang Utama Dibuka!{" "}
-                <span className="text-gradient-gold font-semibold">
+                <span className="font-semibold text-uniba-gold-soft">
                   Gratis Uang Gedung, Cukup Bayar 60% di Semester 1
                 </span>
               </span>

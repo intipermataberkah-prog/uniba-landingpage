@@ -39,7 +39,7 @@ function ProgramCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.5, delay: index * 0.06, ease: "easeOut" }}
-      className="group relative flex flex-col overflow-hidden rounded-2xl border border-uniba-navy/10 bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1.5 hover:border-uniba-navy/15 hover:shadow-elev-3"
+      className="group relative flex flex-col overflow-hidden rounded-2xl bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-elev-3"
     >
       <div
         aria-hidden="true"
@@ -108,7 +108,6 @@ export default function FacultyExplorer() {
     <section id="program-studi" className="bg-alabaster py-20 sm:py-28">
       <Container>
         <SectionHeading
-          eyebrow="Program Studi"
           title={`${faculties.length} Fakultas, ${studyPrograms.length} Program Studi Unggulan`}
           description="Semua program studi terakreditasi BAN-PT, dirancang untuk membekali kamu dengan kompetensi yang relevan dengan dunia kerja."
         />

@@ -32,7 +32,7 @@ const careerFields: { label: string; icon: LucideIcon }[] = [
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <article className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white p-8 shadow-elev-3 sm:p-10">
+    <article className="relative flex h-full flex-col overflow-hidden rounded-2xl bg-white p-8 shadow-elev-3 sm:p-10">
       <span
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-uniba-gold-gradient"
@@ -106,7 +106,6 @@ export default function TestimonialCarousel() {
   return (
     <section id="testimoni" className="relative overflow-hidden bg-uniba-navy py-20 sm:py-28">
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-batik-kawung opacity-20" />
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-grain opacity-[0.12] mix-blend-overlay" />
       <div
         aria-hidden
         className="pointer-events-none absolute -top-24 -right-16 size-96 rounded-full bg-uniba-blue-bright/20 blur-3xl"
@@ -114,7 +113,6 @@ export default function TestimonialCarousel() {
       <Container className="relative">
         <SectionHeading
           light
-          eyebrow="Kisah Alumni"
           title="Mereka Sudah Membuktikannya"
           description="Dengar langsung dari mahasiswa dan alumni UNIBA Surakarta yang telah merasakan manfaat kuliah berkualitas dengan biaya terjangkau dan pembayaran fleksibel."
         />

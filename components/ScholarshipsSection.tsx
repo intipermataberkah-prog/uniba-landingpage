@@ -31,7 +31,6 @@ export default function ScholarshipsSection() {
     <section id="beasiswa" className="bg-cream py-20 sm:py-28">
       <Container>
         <SectionHeading
-          eyebrow="Beasiswa"
           title="Program Beasiswa yang Luas untuk Semua Talenta"
           description="Dari prestasi akademik hingga hafalan Al-Qur'an — ada jalur beasiswa untuk berbagai pencapaianmu."
         />
@@ -50,7 +49,7 @@ export default function ScholarshipsSection() {
               <motion.div
                 key={scholarship.id}
                 variants={itemVariants}
-                className="group relative flex flex-col overflow-hidden rounded-2xl border border-uniba-navy/10 bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1.5 hover:border-uniba-gold/40 hover:shadow-elev-3 sm:p-7"
+                className="group relative flex flex-col overflow-hidden rounded-2xl bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-elev-3 sm:p-7"
               >
                 <span
                   aria-hidden
