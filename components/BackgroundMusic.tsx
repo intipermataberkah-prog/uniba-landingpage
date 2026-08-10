@@ -1,117 +1,162 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useSyncExternalStore } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 
 const STORAGE_KEY = "uniba-bgm";
 const VOLUME = 0.22;
 
+/** Events after which the element's ready/paused/muted state may have changed. */
+const MEDIA_EVENTS = [
+  "play",
+  "pause",
+  "volumechange",
+  "canplay",
+  "loadeddata",
+  "emptied",
+] as const;
+
 /**
- * Looping background audio, on by default.
+ * Compact snapshot of the element, as a primitive so Object.is comparison is
+ * stable between reads and useSyncExternalStore does not loop.
+ */
+function readSnapshot(audio: HTMLAudioElement | null): string {
+  if (!audio) return "0|0|1";
+  const ready = audio.readyState >= 2 ? 1 : 0;
+  const playing = audio.paused ? 0 : 1;
+  const muted = audio.muted ? 1 : 0;
+  return `${ready}|${playing}|${muted}`;
+}
+
+/**
+ * Looping background audio that starts as early as the browser allows.
  *
- * "Always on" is the intent, but it cannot be literally guaranteed: every current
- * browser blocks unmuted autoplay until the page has received a user gesture, and
- * a blocked play() rejects rather than throwing. So this tries three things in
- * order, and the first one the browser permits wins:
+ * Unmuted autoplay cannot be forced. Chrome, Safari and Firefox all reject
+ * play() with sound until the document has "user activation", and Chrome will
+ * actively pause a muted element if you unmute it without activation. So this
+ * uses the strongest legal approach, in two stages:
  *
- *   1. play() immediately on mount — works on repeat visits where the origin has
- *      earned Chrome's Media Engagement Index, and whenever the user has
- *      previously interacted with the site.
- *   2. play() on the first pointer/key/touch/scroll event, if step 1 was blocked.
- *   3. play() when the tab regains visibility, covering the case where the page
- *      was opened in a background tab.
+ *   1. Try unmuted play() immediately. This SUCCEEDS for returning visitors —
+ *      Chrome's Media Engagement Index grants the origin autoplay once someone
+ *      has played media here a few times, and Safari does the same per-site.
+ *      Those users get true sound-on-open with no interaction.
  *
- * The visitor's explicit choice always wins over all of it: once they hit the
- * toggle, "off" is remembered in localStorage and no auto-start is attempted again.
- * The control is not optional — WCAG 2.2 SC 1.4.2 requires a stop mechanism for
- * any audio that plays longer than three seconds.
+ *   2. If it is rejected, fall back to MUTED autoplay, which is always allowed.
+ *      The track is then already decoding and looping silently, so the first
+ *      time the visitor clicks/taps/keys anything we only have to flip
+ *      `muted = false` — sound is instant, with no play() latency or restart.
+ *
+ * Only genuine user-activation events are listened for. scroll and mousemove do
+ * NOT grant activation per the HTML spec, so unmuting from them would just get
+ * the element paused by Chrome.
+ *
+ * An explicit mute is remembered in localStorage and suppresses all of it. The
+ * toggle is mandatory, not a nicety: WCAG 2.2 SC 1.4.2 requires a stop mechanism
+ * for any audio that plays longer than three seconds.
  */
 export default function BackgroundMusic() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const startedRef = useRef(false);
-  const [ready, setReady] = useState(false);
-  const [playing, setPlaying] = useState(false);
-
-  const optedOut = () =>
-    typeof window !== "undefined" && localStorage.getItem(STORAGE_KEY) === "off";
 
   /**
-   * Attempts playback. Resolves true if the browser allowed it.
-   *
-   * Deliberately does not setPlaying — the <audio> element's own onPlay/onPause
-   * are the single source of truth for that flag. Keeping it that way also means
-   * this never sets state from inside an effect.
+   * The element is an external system, so read it rather than mirror it in state.
+   * This matters concretely: an `autoPlay` element fires `play` (and often
+   * `canplay`) BEFORE React attaches its JSX handlers, so onPlay/onCanPlay props
+   * silently miss the first events and the control renders the wrong icon.
+   * Subscribing reads the live element instead of trying to catch every event.
    */
-  const attemptPlay = useCallback(async () => {
+  const subscribe = useCallback((onStoreChange: () => void) => {
     const audio = audioRef.current;
-    if (!audio || startedRef.current || optedOut()) return false;
+    if (!audio) return () => {};
+    MEDIA_EVENTS.forEach((e) => audio.addEventListener(e, onStoreChange));
+    return () => {
+      MEDIA_EVENTS.forEach((e) => audio.removeEventListener(e, onStoreChange));
+    };
+  }, []);
+
+  const snapshot = useSyncExternalStore(
+    subscribe,
+    () => readSnapshot(audioRef.current),
+    () => "0|0|1"
+  );
+
+  const [readyFlag, playingFlag, mutedFlag] = snapshot.split("|");
+  const ready = readyFlag === "1";
+  const playing = playingFlag === "1";
+  const muted = mutedFlag === "1";
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    // The markup carries `autoPlay muted`, so the element starts itself before
+    // this runs. If the visitor previously opted out, actually stop it rather
+    // than leaving it decoding silently forever.
+    if (localStorage.getItem(STORAGE_KEY) === "off") {
+      audio.pause();
+      return;
+    }
+
+    let cancelled = false;
+
+    // Real user-activation events only — scroll/mousemove do not count.
+    const ACTIVATION = ["pointerdown", "click", "keydown", "touchend"] as const;
+
+    const unmute = () => {
+      const el = audioRef.current;
+      if (!el || localStorage.getItem(STORAGE_KEY) === "off") return;
+      el.muted = false;
+      el.volume = VOLUME;
+      void el.play().catch(() => {});
+      detach();
+    };
+
+    const detach = () => {
+      ACTIVATION.forEach((e) => window.removeEventListener(e, unmute));
+    };
+
+    const attach = () => {
+      ACTIVATION.forEach((e) =>
+        window.addEventListener(e, unmute, { passive: true })
+      );
+    };
 
     audio.volume = VOLUME;
-    try {
-      await audio.play();
-      startedRef.current = true;
-      return true;
-    } catch {
-      // Autoplay policy blocked it — a later gesture will retry.
-      return false;
-    }
-  }, []);
 
-  // The file can already be loadable before React attaches onCanPlay (fast cache
-  // hit), which would otherwise leave the control permanently unrendered.
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (audio && audio.readyState >= 2) setReady(true);
-  }, []);
-
-  useEffect(() => {
-    if (optedOut()) return;
-
-    void attemptPlay();
-
-    const onGesture = () => {
-      void attemptPlay().then((ok) => {
-        if (ok) removeGestureListeners();
+    // Stage 1 — try for real autoplay with sound.
+    audio.muted = false;
+    audio
+      .play()
+      .then(() => {
+        // Allowed outright. Nothing else to do.
+      })
+      .catch(() => {
+        if (cancelled) return;
+        // Stage 2 — muted autoplay is always permitted; unmute on first gesture.
+        audio.muted = true;
+        void audio.play().catch(() => {});
+        attach();
       });
-    };
-    const onVisible = () => {
-      if (!document.hidden) void attemptPlay();
-    };
-
-    const events = ["pointerdown", "keydown", "touchstart", "scroll"] as const;
-    const removeGestureListeners = () => {
-      events.forEach((e) => window.removeEventListener(e, onGesture));
-    };
-
-    events.forEach((e) =>
-      window.addEventListener(e, onGesture, { passive: true })
-    );
-    document.addEventListener("visibilitychange", onVisible);
 
     return () => {
-      removeGestureListeners();
-      document.removeEventListener("visibilitychange", onVisible);
+      cancelled = true;
+      detach();
     };
-  }, [attemptPlay]);
+  }, []);
+
+  const audible = playing && !muted;
 
   function toggle() {
     const audio = audioRef.current;
     if (!audio) return;
 
-    // onPlay / onPause drive `playing`; this only drives the audio element.
-    if (playing) {
+    if (audible) {
       audio.pause();
-      startedRef.current = false;
       localStorage.setItem(STORAGE_KEY, "off");
     } else {
       localStorage.setItem(STORAGE_KEY, "on");
+      audio.muted = false;
       audio.volume = VOLUME;
-      audio
-        .play()
-        .then(() => {
-          startedRef.current = true;
-        })
-        .catch(() => {});
+      void audio.play().catch(() => {});
     }
   }
 
@@ -122,28 +167,32 @@ export default function BackgroundMusic() {
         src="/backsound.mp3"
         loop
         autoPlay
+        // Starts muted in markup so the browser never blocks the initial load;
+        // the effect above immediately tries to promote it to unmuted.
+        muted
+        playsInline
         preload="auto"
-        onCanPlay={() => setReady(true)}
-        onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
+        // No onPlay/onCanPlay/onVolumeChange here on purpose — subscribe() above
+        // owns those events, and JSX handlers would miss the ones that fire
+        // before React attaches them.
       />
 
       {ready ? (
         <button
           type="button"
           onClick={toggle}
-          aria-pressed={playing}
-          aria-label={playing ? "Matikan musik latar" : "Putar musik latar"}
-          title={playing ? "Matikan musik latar" : "Putar musik latar"}
+          aria-pressed={audible}
+          aria-label={audible ? "Matikan musik latar" : "Putar musik latar"}
+          title={audible ? "Matikan musik latar" : "Putar musik latar"}
           className="fixed bottom-20 left-4 z-50 flex size-12 cursor-pointer items-center justify-center rounded-full bg-uniba-navy text-uniba-gold shadow-lg shadow-black/25 ring-1 ring-white/15 transition-transform hover:scale-105 focus-visible:ring-2 focus-visible:ring-uniba-gold focus-visible:ring-offset-2 focus-visible:outline-none lg:bottom-6 lg:left-6"
         >
-          {playing ? (
+          {audible ? (
             <span
               aria-hidden="true"
               className="absolute inset-0 -z-10 animate-ping rounded-full bg-uniba-navy/40"
             />
           ) : null}
-          {playing ? (
+          {audible ? (
             <Volume2 className="size-5" aria-hidden="true" />
           ) : (
             <VolumeX className="size-5" aria-hidden="true" />
