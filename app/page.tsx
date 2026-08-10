@@ -11,10 +11,12 @@ import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 import StickyCTA from "@/components/StickyCTA";
 import SocialFloatingDock from "@/components/SocialFloatingDock";
+import { StructuredData } from "@/components/StructuredData";
 
 export default function Home() {
   return (
     <>
+      <StructuredData />
       <AnnouncementBar />
       <Navbar />
       <main className="flex-1">

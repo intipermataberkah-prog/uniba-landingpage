@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 
 import { Container } from "@/components/Container";
@@ -38,6 +39,14 @@ function LogoMark({ compact = false }: { compact?: boolean }) {
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+
+  // navLinks are bare "#section" anchors, which only resolve on the homepage. On any
+  // other route they would point at a section that does not exist there, so send the
+  // visitor home first and let the browser scroll to the anchor on arrival.
+  const onHome = pathname === "/";
+  const resolveHref = (href: string) =>
+    onHome || !href.startsWith("#") ? href : `/${href}`;
 
   return (
     <motion.header
@@ -62,7 +71,7 @@ export default function Navbar() {
           {navLinks.map((link) => (
             <a
               key={link.href}
-              href={link.href}
+              href={resolveHref(link.href)}
               className="group relative py-1 text-sm font-medium text-uniba-navy/80 transition-colors hover:text-uniba-blue-bright"
             >
               {link.label}
@@ -78,7 +87,7 @@ export default function Navbar() {
             variant="outline"
             className="h-10 border-uniba-navy/15 px-4 text-uniba-navy hover:border-uniba-navy/25 hover:bg-uniba-navy/5 hover:text-uniba-navy"
           >
-            <a href="#simulasi-biaya">Simulasi Biaya</a>
+            <a href={resolveHref("#simulasi-biaya")}>Simulasi Biaya</a>
           </Button>
           <DaftarDialog
             trigger={
@@ -112,7 +121,7 @@ export default function Navbar() {
               {navLinks.map((link) => (
                 <a
                   key={link.href}
-                  href={link.href}
+                  href={resolveHref(link.href)}
                   onClick={() => setMobileOpen(false)}
                   className="rounded-md px-3 py-2.5 text-base font-medium text-uniba-navy/85 transition-colors hover:bg-uniba-navy/5 hover:text-uniba-blue-bright"
                 >
@@ -128,7 +137,7 @@ export default function Navbar() {
                 className="h-11 w-full border-uniba-navy/15 text-uniba-navy hover:bg-uniba-navy/5 hover:text-uniba-navy"
                 onClick={() => setMobileOpen(false)}
               >
-                <a href="#simulasi-biaya">Simulasi Biaya</a>
+                <a href={resolveHref("#simulasi-biaya")}>Simulasi Biaya</a>
               </Button>
               <DaftarDialog
                 trigger={

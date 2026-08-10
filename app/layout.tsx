@@ -3,7 +3,7 @@ import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
-import { StructuredData } from "@/components/StructuredData";
+import BackgroundMusic from "@/components/BackgroundMusic";
 import { getBaseUrl, siteConfig } from "@/lib/site";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -75,8 +75,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${jakarta.variable} ${inter.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col bg-alabaster text-slate-dark">
-        <StructuredData />
+        {/* StructuredData is rendered per-page, not here: its FAQPage must mirror the
+            questions actually visible on that page, and /rpl only shows a subset. */}
         {children}
+        {/* In the layout rather than the page so playback survives client-side
+            navigation between / and /rpl instead of restarting each time. */}
+        <BackgroundMusic />
         <Analytics />
         <SpeedInsights />
       </body>

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import {
   Sparkles,
   ShieldCheck,
@@ -146,7 +147,11 @@ export default function Hero() {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="mt-4 w-full max-w-3xl"
             >
-              <div className="relative overflow-hidden rounded-2xl border border-uniba-gold/35 bg-uniba-navy/40 px-4 py-3.5 shadow-lg shadow-black/10 backdrop-blur-sm sm:px-5">
+              {/* The arrow always implied this was actionable; it now goes somewhere. */}
+              <Link
+                href="/rpl"
+                className="group/rpl relative block overflow-hidden rounded-2xl border border-uniba-gold/35 bg-uniba-navy/40 px-4 py-3.5 shadow-lg shadow-black/10 backdrop-blur-sm transition-colors hover:border-uniba-gold/60 hover:bg-uniba-navy/55 focus-visible:ring-2 focus-visible:ring-uniba-gold focus-visible:outline-none sm:px-5"
+              >
                 <div
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-0 bg-batik-kawung opacity-45"
@@ -165,12 +170,12 @@ export default function Hero() {
                   </div>
                   <span
                     aria-hidden="true"
-                    className="hidden shrink-0 items-center justify-center rounded-full bg-uniba-gold/15 p-2 ring-1 ring-uniba-gold/25 sm:flex"
+                    className="hidden shrink-0 items-center justify-center rounded-full bg-uniba-gold/15 p-2 ring-1 ring-uniba-gold/25 transition-transform group-hover/rpl:translate-x-0.5 sm:flex"
                   >
                     <ArrowRight className="size-4 text-uniba-gold" />
                   </span>
                 </div>
-              </div>
+              </Link>
             </motion.div>
           </motion.div>
         </div>

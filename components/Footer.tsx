@@ -79,7 +79,9 @@ export default function Footer() {
               <ul className="flex flex-col gap-3 text-sm text-white/70">
                 {navLinks.map((link) => (
                   <li key={link.href}>
-                    <a href={link.href} className="transition-colors hover:text-white">
+                    {/* Absolute so these still resolve from /rpl, where a bare
+                        "#section" would point at a section that isn't there. */}
+                    <a href={`/${link.href}`} className="transition-colors hover:text-white">
                       {link.label}
                     </a>
                   </li>
