@@ -6,6 +6,7 @@ import { MessageCircle } from "lucide-react";
 
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
+import { pushEventOncePerSession } from "@/lib/analytics";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {
@@ -96,7 +97,53 @@ export default function TuitionCalculator() {
     return () => cancelAnimationFrame(frameId);
   }, [detail.downPayment]);
 
+  /**
+   * "Simulation completed" signal for remarketing audiences.
+   *
+   * Defined as: the visitor changed a selection and then stopped for a moment to
+   * read the result. The ref skips the initial mount, so simply scrolling past a
+   * calculator sitting on its defaults does not qualify — only deliberate use
+   * does. The debounce means dragging through four prodi counts as one
+   * simulation rather than four, and the per-session dedup caps it at one.
+   *
+   * Deliberately sends no `value` parameter: these are tuition figures, not the
+   * worth of a lead, and feeding them to Google Ads as conversion values would
+   * corrupt any value-based bidding strategy.
+   */
+  const simulationTouched = useRef(false);
+  const markSimulationTouched = () => {
+    simulationTouched.current = true;
+  };
+
+  useEffect(() => {
+    // Gated on a real input event, NOT on "this is not the first effect run".
+    // React StrictMode mounts, unmounts and remounts effects in development
+    // while refs survive, so a mount-skip flag reads as already-touched on the
+    // remount and reports a simulation nobody performed.
+    if (!simulationTouched.current) return;
+
+    const timer = setTimeout(() => {
+      pushEventOncePerSession("simulasi_biaya_selesai", {
+        program_id: program.id,
+        program_name: program.name,
+        class_type: classType,
+        semester_total: detail.semesterTotal,
+        down_payment: detail.downPayment,
+      });
+    }, 1200);
+
+    return () => clearTimeout(timer);
+  }, [
+    program.id,
+    program.name,
+    classType,
+    nextSemesterMonths,
+    detail.semesterTotal,
+    detail.downPayment,
+  ]);
+
   function handleFacultyChange(nextFacultyId: string) {
+    markSimulationTouched();
     setFacultyId(nextFacultyId);
     const firstProgram = getFacultyProgramsWithPricing(nextFacultyId)[0];
     setProgramId(firstProgram ? firstProgram.id : "");
@@ -163,7 +210,13 @@ export default function TuitionCalculator() {
 
               <div className="flex flex-col gap-2">
                 <Label htmlFor="tc-program">Pilih Program Studi</Label>
-                <Select value={program.id} onValueChange={setProgramId}>
+                <Select
+                  value={program.id}
+                  onValueChange={(value) => {
+                    markSimulationTouched();
+                    setProgramId(value);
+                  }}
+                >
                   <SelectTrigger id="tc-program" className="w-full">
                     <SelectValue placeholder="Pilih program studi" />
                   </SelectTrigger>
@@ -192,7 +245,10 @@ export default function TuitionCalculator() {
                         type="button"
                         role="radio"
                         aria-checked={active}
-                        onClick={() => setClassType(key)}
+                        onClick={() => {
+                          markSimulationTouched();
+                          setClassType(key);
+                        }}
                         className={cn(
                           "rounded-xl px-4 py-3 text-sm font-semibold transition-colors focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
                           active
@@ -217,9 +273,10 @@ export default function TuitionCalculator() {
                   </Label>
                   <Select
                     value={String(nextSemesterMonths)}
-                    onValueChange={(value) =>
-                      setNextSemesterMonths(Number(value) as NextSemesterInstallmentMonths)
-                    }
+                    onValueChange={(value) => {
+                      markSimulationTouched();
+                      setNextSemesterMonths(Number(value) as NextSemesterInstallmentMonths);
+                    }}
                   >
                     <SelectTrigger id="tc-next-semester-months" size="sm" className="w-28">
                       <SelectValue />

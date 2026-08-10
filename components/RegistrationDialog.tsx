@@ -21,6 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { studyPrograms, contactInfo } from "@/data/unibaData";
+import { pushEvent, pushEventOncePerSession } from "@/lib/analytics";
 
 interface RegistrationDialogProps {
   trigger: ReactNode;
@@ -57,6 +58,24 @@ export function RegistrationDialog({ trigger, defaultProgramId }: RegistrationDi
       .join("\n");
 
     const url = `https://wa.me/${contactInfo.whatsapp}?text=${encodeURIComponent(message)}`;
+
+    // Primary lead signal. Not deduplicated: a second submission is a genuinely
+    // separate lead (different prodi, corrected phone number), unlike tapping two
+    // WhatsApp buttons. No form field values are sent — only which prodi was
+    // chosen, so nothing personally identifying reaches Google.
+    pushEvent("form_submit", {
+      form_name: "registration_dialog",
+      program_id: programId || null,
+      program_name: program?.name ?? null,
+    });
+
+    // This submit also opens WhatsApp, but via window.open rather than an anchor,
+    // so AnalyticsProvider's delegated listener cannot see it. Report it here.
+    // The per-session dedup means this never double-counts against a WA button.
+    pushEventOncePerSession("wa_click", {
+      wa_source: "registration_form",
+      page_path: window.location.pathname,
+    });
 
     window.open(url, "_blank", "noopener,noreferrer");
     setIsSubmitting(false);

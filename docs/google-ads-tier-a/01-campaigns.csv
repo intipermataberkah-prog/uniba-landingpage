@@ -1,0 +1,3 @@
+Campaign,Campaign Type,Status,Budget,Budget Type,Bid Strategy Type,Maximum CPC Bid Limit,Start Date,End Date,Ad Rotation,Languages,Final URL Suffix
+GOOG_Search_Brand_PMB_2026,Search,Enabled,15000,Daily,Maximize Clicks,2000,2026-08-11,,Optimize,"Indonesian;English",utm_source=google&utm_medium=cpc&utm_campaign={campaignid}&utm_term={keyword}&utm_content={creative}
+GOOG_Search_NonBrand_PMB_2026,Search,Enabled,85000,Daily,Manual CPC,,2026-08-11,,Optimize,"Indonesian;English",utm_source=google&utm_medium=cpc&utm_campaign={campaignid}&utm_term={keyword}&utm_content={creative}

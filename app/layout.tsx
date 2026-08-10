@@ -4,6 +4,11 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import BackgroundMusic from "@/components/BackgroundMusic";
+import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
+import {
+  GoogleTagManager,
+  GoogleTagManagerNoScript,
+} from "@/components/analytics/GoogleTagManager";
 import { getBaseUrl, siteConfig } from "@/lib/site";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -74,7 +79,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="id"
       className={`${jakarta.variable} ${inter.variable} h-full antialiased scroll-smooth`}
     >
+      <GoogleTagManager />
       <body className="min-h-full flex flex-col bg-alabaster text-slate-dark">
+        <GoogleTagManagerNoScript />
+        <AnalyticsProvider />
         {/* StructuredData is rendered per-page, not here: its FAQPage must mirror the
             questions actually visible on that page, and /rpl only shows a subset. */}
         {children}
