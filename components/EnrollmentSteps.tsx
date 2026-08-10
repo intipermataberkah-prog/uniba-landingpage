@@ -28,6 +28,7 @@ export default function EnrollmentSteps() {
     <section id="cara-daftar" className="bg-alabaster py-20 sm:py-28">
       <Container>
         <SectionHeading
+          eyebrow="Cara Daftar"
           title={`${enrollmentSteps.length} Langkah Mudah Jadi Mahasiswa UNIBA`}
           description="Proses pendaftaran yang cepat, transparan, dan tanpa ribet — dari simulasi biaya sampai resmi jadi mahasiswa."
         />

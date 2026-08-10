@@ -1,12 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShieldCheck, Users, BadgeCheck, GraduationCap, ArrowRight } from "lucide-react";
+import {
+  Sparkles,
+  ShieldCheck,
+  Users,
+  BadgeCheck,
+  GraduationCap,
+  ArrowRight,
+} from "lucide-react";
 
 import { Container } from "@/components/Container";
 import { Button } from "@/components/ui/button";
 import { DaftarDialog } from "@/components/DaftarDialog";
-import BatikLoom from "@/components/BatikLoom";
 import { rplPromo, trustBadges } from "@/data/unibaData";
 
 const trustBadgeIcons = [ShieldCheck, Users, BadgeCheck];
@@ -19,23 +25,24 @@ const fadeUp = {
 export default function Hero() {
   return (
     <section id="beranda" className="relative overflow-hidden bg-uniba-gradient">
-      {/* Static kawung ground — the no-JS / reduced-motion fallback for the loom */}
+      {/* Batik motif + film grain overlays */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-batik-kawung opacity-20"
-      />
-
-      {/* Generative batik loom: the hero's single authored moment */}
-      <BatikLoom className="pointer-events-none absolute inset-0 h-full w-full" />
-
-      {/* Depth, kept subordinate to the weave */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-24 -left-24 size-72 rounded-full bg-uniba-gold/20 blur-3xl sm:size-96"
+        className="pointer-events-none absolute inset-0 bg-batik-kawung opacity-30"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-24 bottom-0 size-72 rounded-full bg-uniba-blue-bright/25 blur-3xl sm:size-96"
+        className="pointer-events-none absolute inset-0 bg-grain opacity-[0.15] mix-blend-overlay"
+      />
+
+      {/* Decorative blurred orbs */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-24 -left-24 size-72 rounded-full bg-uniba-gold/25 blur-3xl sm:size-96"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-24 bottom-0 size-72 rounded-full bg-uniba-blue-bright/30 blur-3xl sm:size-96"
       />
 
       <Container>
@@ -43,22 +50,41 @@ export default function Hero() {
           <motion.div
             initial="hidden"
             animate="visible"
-            transition={{ staggerChildren: 0.1 }}
+            transition={{ staggerChildren: 0.12 }}
             className="flex flex-col items-center"
           >
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="glass-panel-dark mb-8 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium shadow-lg shadow-black/10"
+            >
+              <Sparkles className="size-4 text-uniba-gold" aria-hidden="true" />
+              <span className="text-uniba-gold-soft">
+                Kampus Terjangkau, Berkualitas &amp; Paling Fleksibel
+              </span>
+            </motion.div>
+
             <motion.h1
               variants={fadeUp}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-4xl text-balance font-heading text-[2.25rem] font-extrabold leading-[1.05] tracking-[-0.03em] text-white sm:text-6xl lg:text-7xl"
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="max-w-4xl text-balance font-heading text-[2.15rem] font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl"
             >
-              Kuliah Tanpa Beban Finansial: Gratis Uang Gedung, Promo Kemerdekaan Dapatkan
-              Potongan <span className="text-uniba-gold-soft">4.3 JUTA</span>
+              Kuliah Tanpa Beban Finansial: Gratis Uang Gedung,{" "}
+              <span className="text-gradient-merah-putih">Promo Kemerdekaan</span> Dapatkan
+              Potongan{" "}
+              <span className="relative inline-block whitespace-nowrap">
+                <span className="text-gradient-gold">4.3 JUTA</span>
+                <span
+                  aria-hidden="true"
+                  className="absolute -bottom-1 left-0 h-[3px] w-full rounded-full bg-uniba-gold-gradient"
+                />
+              </span>
             </motion.h1>
 
             <motion.p
               variants={fadeUp}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-7 max-w-[58ch] text-balance text-base leading-relaxed text-white/75 sm:text-lg"
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="mt-7 max-w-2xl text-balance text-base leading-relaxed text-white/80 sm:text-lg"
             >
               Raih gelar Sarjana resmi di Universitas Islam Batik Surakarta dengan jadwal kuliah
               fleksibel dan biaya yang bisa diangsur perbulan.
@@ -66,7 +92,7 @@ export default function Hero() {
 
             <motion.div
               variants={fadeUp}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
               className="mt-10 flex w-full flex-col justify-center gap-3.5 sm:w-auto sm:flex-row"
             >
               <DaftarDialog
@@ -84,67 +110,77 @@ export default function Hero() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="h-12 w-full border-white/25 bg-transparent px-8 text-[0.95rem] text-white transition-colors hover:border-white/45 hover:bg-white/10 hover:text-white sm:w-auto"
+                className="h-12 w-full border-white/25 bg-white/5 px-8 text-[0.95rem] text-white backdrop-blur-sm transition-colors hover:border-white/40 hover:bg-white/10 hover:text-white sm:w-auto"
               >
                 <a href="#simulasi-biaya">Simulasi Cicilan Biaya</a>
               </Button>
             </motion.div>
 
-            {/* Positioning line — sits below the heading, never as a kicker above it */}
-            <motion.p
-              variants={fadeUp}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-12 text-sm font-medium text-uniba-gold-soft/90"
-            >
-              Kampus Terjangkau, Berkualitas &amp; Paling Fleksibel
-            </motion.p>
-
-            {/* Trust row: rule-separated columns, not cards */}
             <motion.div
               variants={fadeUp}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-6 grid w-full max-w-4xl grid-cols-1 gap-y-6 border-t border-white/12 pt-8 sm:grid-cols-3 sm:gap-x-8"
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="mt-14 grid w-full max-w-3xl grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4"
             >
               {trustBadges.map((badge, index) => {
                 const Icon = trustBadgeIcons[index] ?? ShieldCheck;
                 return (
                   <div
                     key={badge.label}
-                    className="flex items-center justify-center gap-3 text-left sm:not-first:border-l sm:not-first:border-white/12"
+                    className="glass-panel-dark flex items-center gap-3 rounded-2xl px-4 py-3 text-left transition-colors hover:bg-uniba-navy/45"
                   >
-                    <Icon className="size-5 shrink-0 text-uniba-gold" aria-hidden="true" />
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-uniba-gold/15 ring-1 ring-uniba-gold/25">
+                      <Icon className="size-4.5 text-uniba-gold" aria-hidden="true" />
+                    </span>
                     <div className="min-w-0">
-                      <p className="text-sm font-semibold text-white">{badge.label}</p>
-                      <p className="text-xs text-white/55">{badge.sublabel}</p>
+                      <p className="text-sm font-bold text-white">{badge.label}</p>
+                      <p className="truncate text-xs text-white/60">{badge.sublabel}</p>
                     </div>
                   </div>
                 );
               })}
             </motion.div>
 
-            {/* Program RPL */}
+            {/* Program RPL promo — highlight bar under the trust badges (batik kawung ground) */}
             <motion.div
               variants={fadeUp}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-8 w-full max-w-4xl"
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="mt-4 w-full max-w-3xl"
             >
-              <div className="flex items-center gap-4 rounded-2xl bg-uniba-navy-950/50 px-5 py-4 text-left ring-1 ring-uniba-gold/25">
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-uniba-gold-gradient text-uniba-navy sm:size-11">
-                  <GraduationCap className="size-5 sm:size-6" aria-hidden="true" />
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="font-heading text-sm font-bold text-uniba-gold-soft sm:text-base">
-                    {rplPromo.title}
-                  </p>
-                  <p className="mt-0.5 text-sm leading-snug text-white/75">
-                    {rplPromo.description}
-                  </p>
+              <div className="relative overflow-hidden rounded-2xl border border-uniba-gold/35 bg-uniba-navy/40 px-4 py-3.5 shadow-lg shadow-black/10 backdrop-blur-sm sm:px-5">
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 bg-batik-kawung opacity-45"
+                />
+                <div className="relative flex items-center gap-3.5 text-left sm:gap-4">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-uniba-gold-gradient text-uniba-navy shadow-sm sm:size-11">
+                    <GraduationCap className="size-5 sm:size-6" aria-hidden="true" />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-uniba-gold-soft">
+                      {rplPromo.title}
+                    </p>
+                    <p className="mt-0.5 text-sm leading-snug text-white/85 sm:text-[15px]">
+                      {rplPromo.description}
+                    </p>
+                  </div>
+                  <span
+                    aria-hidden="true"
+                    className="hidden shrink-0 items-center justify-center rounded-full bg-uniba-gold/15 p-2 ring-1 ring-uniba-gold/25 sm:flex"
+                  >
+                    <ArrowRight className="size-4 text-uniba-gold" />
+                  </span>
                 </div>
               </div>
             </motion.div>
           </motion.div>
         </div>
       </Container>
+
+      {/* Soft bottom seam into the next (light) section */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-alabaster/10"
+      />
     </section>
   );
 }

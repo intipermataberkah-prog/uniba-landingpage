@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 interface SectionHeadingProps {
+  eyebrow?: string;
   title: ReactNode;
   description?: ReactNode;
   align?: "left" | "center";
@@ -10,12 +11,8 @@ interface SectionHeadingProps {
   className?: string;
 }
 
-/**
- * Section headings carry their own weight. There is deliberately no eyebrow or
- * kicker slot: a label above a heading is the clearest tell of assembled rather
- * than designed work, and here the heading below always restated it.
- */
 export function SectionHeading({
+  eyebrow,
   title,
   description,
   align = "center",
@@ -30,9 +27,24 @@ export function SectionHeading({
         className
       )}
     >
+      {eyebrow ? (
+        <span
+          className={cn(
+            "mb-5 inline-flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.18em]",
+            align === "center" ? "justify-center" : "",
+            light ? "text-uniba-gold-soft" : "text-uniba-amber"
+          )}
+        >
+          <span
+            aria-hidden="true"
+            className="h-px w-8 rounded-full bg-uniba-gold-gradient"
+          />
+          {eyebrow}
+        </span>
+      ) : null}
       <h2
         className={cn(
-          "text-balance font-heading text-3xl font-bold tracking-[-0.03em] sm:text-4xl lg:text-[2.75rem] lg:leading-[1.08]",
+          "text-balance font-heading text-3xl font-bold tracking-tight sm:text-4xl lg:text-[2.6rem] lg:leading-[1.1]",
           light ? "text-white" : "text-slate-dark"
         )}
       >
@@ -41,7 +53,7 @@ export function SectionHeading({
       {description ? (
         <p
           className={cn(
-            "mx-auto mt-5 max-w-[62ch] text-balance text-base leading-relaxed sm:text-lg",
+            "mx-auto mt-5 max-w-2xl text-balance text-base leading-relaxed sm:text-lg",
             light ? "text-white/70" : "text-muted-foreground"
           )}
         >

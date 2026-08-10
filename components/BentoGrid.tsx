@@ -28,6 +28,7 @@ export default function BentoGrid() {
     <section id="keunggulan" className="bg-cream py-20 sm:py-28">
       <Container>
         <SectionHeading
+          eyebrow="Mengapa UNIBA Surakarta?"
           title="Kampus yang Dirancang untuk Kemudahanmu"
           description={`${bentoFeatures.length} alasan utama mengapa ribuan mahasiswa memilih UNIBA Surakarta sebagai tempat menempuh pendidikan tinggi.`}
         />
@@ -48,7 +49,7 @@ export default function BentoGrid() {
                 key={feature.id}
                 variants={itemVariants}
                 className={cn(
-                  "group relative flex flex-col overflow-hidden rounded-2xl bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-elev-3 sm:p-8",
+                  "group relative flex flex-col overflow-hidden rounded-2xl border border-uniba-navy/10 bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1.5 hover:border-uniba-gold/40 hover:shadow-elev-3 sm:p-8",
                   isLarge
                     ? "sm:col-span-2 sm:row-span-1 lg:col-span-2 lg:row-span-2 lg:p-10"
                     : "lg:col-span-1 lg:row-span-1"

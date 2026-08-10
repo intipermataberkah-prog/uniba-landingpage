@@ -17,12 +17,13 @@ export default function FAQSection() {
     <section id="faq" className="bg-cream py-20 sm:py-28">
       <Container>
         <SectionHeading
+          eyebrow="FAQ"
           title="Pertanyaan yang Sering Diajukan"
           description="Masih ada yang ingin ditanyakan seputar biaya kuliah, cicilan, atau proses pendaftaran? Simak jawabannya di bawah ini."
         />
 
         <motion.div
-          className="mx-auto mt-12 max-w-3xl rounded-2xl bg-white p-2 shadow-elev-2 sm:p-4"
+          className="mx-auto mt-12 max-w-3xl rounded-2xl border border-uniba-navy/10 bg-white p-2 shadow-elev-2 sm:p-4"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
