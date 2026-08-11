@@ -1,6 +1,8 @@
 # Google Ads Plan — UNIBA Surakarta PMB 2026/2027
 
-**Landing pages:** `https://daftaruniba.site/` (utama) · `https://daftaruniba.site/rpl` (RPL / kelas karyawan)
+**Landing pages:** `https://www.daftaruniba.site/` (utama) · `https://www.daftaruniba.site/rpl` (RPL / kelas karyawan)
+
+> Semua Final URL memakai **www** — apex `daftaruniba.site` 301 ke www, dan hop itu terbayar di setiap klik berbayar.
 **Disusun:** 10 Agustus 2026 · **Konteks:** Promo Kemerdekaan Gelombang 2 berakhir **30 Agustus 2026** (20 hari lagi)
 **Constraint:** budget ketat → **Search-only**, satu geo, tanpa PMax/Display/Demand Gen.
 
@@ -16,7 +18,7 @@ Semua klaim harga/prodi/beasiswa di dokumen ini diambil dari `data/unibaData.ts`
 | Jumlah campaign | **2** (Brand + Non-Brand) | Lebih dari 2 memecah budget dan menahan setiap campaign di learning phase selamanya. |
 | Bid strategy awal | **Brand: Maximize Clicks + CPC cap · Non-Brand: Manual CPC** | Belum ada 30+ konversi/bulan, jadi smart bidding = CPC liar. Non-Brand pakai Manual CPC karena Maximize Clicks mengabaikan max CPC per keyword, padahal tiap ad group punya plafon berbeda. Pindah ke Maximize Conversions setelah ~30 konversi terkumpul. |
 | Konversi utama | **Klik WhatsApp** + submit formulir | Satu-satunya sinyal yang bisa diukur di LP saat ini. |
-| Geo | **Solo Raya, "Presence" only** | Mencegah budget bocor ke pencari luar kota yang hanya riset. |
+| Geo | **8 kabupaten/kota bernama, "Presence" only** | Diambil dari data asal mahasiswa S1 2021–2025, bukan tebakan — 8 wilayah ini = 94% intake. Radius dibuang: 30 km tidak mencapai Wonogiri (±65 km) apalagi Ngawi (±95 km). |
 | Hero offer di iklan | **Gratis uang gedung Rp4 juta + bayar 60% dulu** | Diferensiator finansial paling tajam vs kampus swasta Solo lain. |
 
 **Yang TIDAK dilakukan dulu:** Performance Max, Display, YouTube, Demand Gen, Discovery, dan competitor conquesting. Semua itu masuk akal di atas ~Rp15 jt/bulan, bukan sekarang.
@@ -57,7 +59,7 @@ Naming: `[Platform]_[Type]_[Theme]_[Year]`.
 | Setting | Nilai |
 |---|---|
 | Networks | Search only — **matikan Search Partners & Display Expansion** |
-| Lokasi | Radius 30 km dari Jl. KH. Agus Salim No.10, Laweyan + kota Sukoharjo, Karanganyar, Boyolali, Klaten, Sragen, Wonogiri |
+| Lokasi | 8 wilayah bernama (tanpa radius): **Sukoharjo, Surakarta, Sragen, Boyolali, Klaten, Karanganyar, Ngawi, Wonogiri** |
 | Location option | **Presence: people in your targeted locations** (bukan "presence or interest") |
 | Bahasa | Indonesia + English |
 | Ad rotation | Optimize |
@@ -66,6 +68,29 @@ Naming: `[Platform]_[Type]_[Theme]_[Year]`.
 | Device | Tanpa bid adjustment dulu — Indonesia mobile-dominan, biarkan data bicara |
 
 ---
+
+### Basis data geo — asal mahasiswa S1 2021–2025
+
+Sumber: data internal PMB (Top 15 wilayah asal). Delapan wilayah teratas = **1.367 dari 1.453 mahasiswa (94%)**.
+
+| # | Wilayah | Mahasiswa | Provinsi |
+|---|---|---:|---|
+| 1 | Sukoharjo | 301 | Jawa Tengah |
+| 2 | Surakarta | 228 | Jawa Tengah |
+| 3 | Sragen | 179 | Jawa Tengah |
+| 4 | Boyolali | 165 | Jawa Tengah |
+| 5 | Klaten | 165 | Jawa Tengah |
+| 6 | Karanganyar | 127 | Jawa Tengah |
+| 7 | **Ngawi** | **112** | **Jawa Timur** |
+| 8 | Wonogiri | 90 | Jawa Tengah |
+| — | *Semarang, Grobogan, Magetan, Pati, Magelang, Pacitan, Bantul* | *86 total* | — |
+
+Dua konsekuensi penting:
+
+1. **Ngawi tidak boleh dilewatkan.** 112 mahasiswa — lebih besar dari Wonogiri — dan letaknya di Jawa Timur, jadi target "Jawa Tengah" saja akan memotongnya. Magetan dan Pacitan juga Jawa Timur.
+2. **Jangan pakai radius.** Radius 30 km dari kampus tidak menjangkau Wonogiri (±65 km) maupun Ngawi (±95 km). Targetkan nama wilayah.
+
+Tujuh wilayah sisanya (86 mahasiswa / 5 tahun ≈ 17 per tahun) sengaja tidak ditarget di Tier A — memecah Rp85.000/hari ke 15 wilayah membuat tidak ada satu pun yang dapat frekuensi cukup. Negatif kota (`semarang`, `yogyakarta`, dst.) tetap dipertahankan: itu memblokir orang yang mencari **kampus di kota tersebut**, bukan warga kota itu yang mencari kuliah di Solo.
 
 ## 4. Keyword
 

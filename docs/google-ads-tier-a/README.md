@@ -13,7 +13,10 @@ Mata uang: **IDR**. Semua budget/bid ditulis dalam rupiah penuh (bukan sen).
 | `04-negative-keywords.csv` | 65 negatif level campaign | 65 |
 | `05-responsive-search-ads.csv` | 4 RSA (15 headline + 4 deskripsi masing-masing) | 4 |
 | `06-sitelinks.csv` | 5 sitelink × 2 campaign | 10 |
-| `07-callouts-and-snippets.csv` | 8 callout × 2 + 2 structured snippet | 18 |
+| `07-callouts.csv` | 8 callout × 2 campaign | 16 |
+| `08-structured-snippets.csv` | 2 structured snippet, 9 nilai masing-masing | 2 |
+
+> Structured snippet dipisah ke filenya sendiri karena Editor menuntut satu kolom per nilai (`Value 1` … `Value 9`), bukan daftar dipisah titik-koma. Versi lama (`07-callouts-and-snippets.csv`) mengimpor header-nya saja dengan nilai kosong — file itu sudah dihapus.
 
 ## Alokasi budget
 
@@ -38,16 +41,24 @@ Impor **berurutan** — Editor menolak baris yang mereferensikan campaign/ad gro
 4. `04-negative-keywords.csv`
 5. `05-responsive-search-ads.csv`
 6. `06-sitelinks.csv`
-7. `07-callouts-and-snippets.csv`
+7. `07-callouts.csv`
+8. `08-structured-snippets.csv`
 
 Di setiap langkah, cek panel **"Errors and warnings"** sebelum `Post`. Jangan post kalau ada error merah.
 
 ## ⚠️ Yang HARUS di-set manual (tidak ikut terimpor)
 
-CSV Editor tidak membawa setting berikut secara andal. Set di Editor atau UI **sebelum** campaign dinyalakan:
+CSV Editor tidak membawa setting berikut secara andal. Semua item di bawah **sudah dikonfirmasi salah** pada impor pertama tanggal 10 Agustus 2026 — bukan dugaan. Set di Editor atau UI **sebelum** campaign dinyalakan:
+
+**Blocker akun (sekali saja):**
+
+- [ ] **EU political ads** — impor memunculkan error merah "You can't post your campaign until you confirm if your campaign has EU political ads", dan selama belum diisi, **location targeting tidak bisa diedit sama sekali**. Set field `EU political ads` di panel campaign ke *does not contain* untuk kedua campaign. Kerjakan ini **paling awal**, karena memblokir perbaikan lokasi di bawah.
 
 **Per campaign, keduanya:**
 
+- [x] 🔴 **Location targeting** — impor pertama menghasilkan `United States` di campaign Non-Brand (85% budget) dan hanya kota `Surakarta` di Brand. **Sudah diperbaiki 10 Agustus 2026:** keduanya kini menarget 8 wilayah bernama, tanpa radius — Sukoharjo, Surakarta, Sragen, Boyolali, Klaten, Karanganyar, **Ngawi (Jawa Timur)**, Wonogiri. Daftar ini berasal dari data asal mahasiswa S1 2021–2025 (94% intake), lihat tabel di [`../google-ads-plan.md`](../google-ads-plan.md#basis-data-geo--asal-mahasiswa-s1-20212025). Radius sengaja tidak dipakai: 30 km tidak mencapai Wonogiri maupun Ngawi.
+
+- [ ] **Languages** — centang **Indonesian** dan **English**. Sengaja tidak dimasukkan ke CSV: kolom `Languages` di Editor hanya menerima nama bahasa sesuai bahasa tampilan Editor, jadi impor selalu memunculkan warning. Set manual lebih cepat daripada menebak formatnya.
 - [ ] **Networks** — centang Google Search saja. **Matikan Search Partners dan Display Network.** Editor sering default-nya menyala; ini kebocoran budget terbesar di paket ketat.
 - [ ] **Lokasi** — radius 30 km dari `Jl. KH. Agus Salim No. 10, Sondakan, Laweyan, Surakarta`, tambah kota Sukoharjo, Karanganyar, Boyolali, Klaten, Sragen, Wonogiri.
 - [ ] **Location options** — ubah ke **"Presence: People in or regularly in your targeted locations"**. Default Google adalah "Presence or interest" dan itu akan menarik pencari luar kota.
