@@ -1,0 +1,99 @@
+{
+  "exportFormatVersion": 2,
+  "containerVersion": {
+    "accountId": "6370839087",
+    "containerId": "260922870",
+    "containerVersionId": "0",
+    "container": {
+      "accountId": "6370839087",
+      "containerId": "260922870",
+      "name": "www.daftaruniba.site",
+      "publicId": "GTM-T4ZTWRCV",
+      "usageContext": ["WEB"],
+      "fingerprint": "0"
+    },
+    "tag": [
+      {
+        "accountId": "6370839087",
+        "containerId": "260922870",
+        "tagId": "101",
+        "name": "Conversion Linker",
+        "type": "gclidw",
+        "parameter": [
+          { "type": "BOOLEAN", "key": "enableCrossDomain", "value": "false" },
+          { "type": "BOOLEAN", "key": "enableUrlPassthrough", "value": "false" },
+          { "type": "BOOLEAN", "key": "enableCookieOverrides", "value": "false" }
+        ],
+        "fingerprint": "0",
+        "firingTriggerId": ["2147479553"],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "6370839087",
+        "containerId": "260922870",
+        "tagId": "102",
+        "name": "Google Ads - Conversion - wa_click",
+        "type": "awct",
+        "parameter": [
+          { "type": "BOOLEAN", "key": "enableConversionLinker", "value": "true" },
+          { "type": "TEMPLATE", "key": "conversionId", "value": "18376834381" },
+          { "type": "TEMPLATE", "key": "conversionLabel", "value": "EnE5COaf9t8cEM364LpE" }
+        ],
+        "fingerprint": "0",
+        "firingTriggerId": ["201"],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "6370839087",
+        "containerId": "260922870",
+        "tagId": "103",
+        "name": "Google Ads - Conversion - pmb_portal_click",
+        "type": "awct",
+        "parameter": [
+          { "type": "BOOLEAN", "key": "enableConversionLinker", "value": "true" },
+          { "type": "TEMPLATE", "key": "conversionId", "value": "18376834381" },
+          { "type": "TEMPLATE", "key": "conversionLabel", "value": "zHYdCIDY9t8cEM364LpE" }
+        ],
+        "fingerprint": "0",
+        "firingTriggerId": ["202"],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      }
+    ],
+    "trigger": [
+      {
+        "accountId": "6370839087",
+        "containerId": "260922870",
+        "triggerId": "201",
+        "name": "CE - wa_click",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
+              { "type": "TEMPLATE", "key": "arg1", "value": "wa_click" }
+            ]
+          }
+        ],
+        "fingerprint": "0"
+      },
+      {
+        "accountId": "6370839087",
+        "containerId": "260922870",
+        "triggerId": "202",
+        "name": "CE - pmb_portal_click",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
+              { "type": "TEMPLATE", "key": "arg1", "value": "pmb_portal_click" }
+            ]
+          }
+        ],
+        "fingerprint": "0"
+      }
+    ]
+  }
+}

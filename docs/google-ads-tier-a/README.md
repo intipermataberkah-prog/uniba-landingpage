@@ -16,7 +16,7 @@ Mata uang: **IDR**. Semua budget/bid ditulis dalam rupiah penuh (bukan sen).
 | `07-callouts.csv` | 8 callout × 2 campaign | 16 |
 | `08-structured-snippets.csv` | 2 structured snippet, 9 nilai masing-masing | 2 |
 
-> Structured snippet dipisah ke filenya sendiri karena Editor menuntut satu kolom per nilai (`Value 1` … `Value 9`), bukan daftar dipisah titik-koma. Versi lama (`07-callouts-and-snippets.csv`) mengimpor header-nya saja dengan nilai kosong — file itu sudah dihapus.
+> ⚠️ **Nilai structured snippet tidak bisa diimpor lewat CSV.** Sudah dicoba dua format dan keduanya gagal diam-diam: daftar dipisah titik-koma di satu kolom `Values`, dan satu kolom per nilai (`Value 1` … `Value 9`). Keduanya membuat snippet dengan header benar tapi **nilai kosong**, dan impor melaporkan sukses tanpa error — baru ketahuan dari error "There are too few values for a structured snippet". Isi 9 nilainya **manual** di Editor: pilih kedua baris snippet sekaligus, klik kolom Value 1, ketik lalu Tab antar nilai. File `08-structured-snippets.csv` tetap berguna untuk membuat kerangka snippet-nya.
 
 ## Alokasi budget
 
