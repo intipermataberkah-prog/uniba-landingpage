@@ -21,7 +21,8 @@ import Footer from "@/components/Footer";
  * FAQ so the new treatment can be judged in context rather than in isolation.
  */
 export const metadata: Metadata = {
-  title: "Preview 3D — Prototype",
+  // Hyphen, not an em-dash: this string renders in the browser tab.
+  title: "Preview 3D - Prototype",
   robots: { index: false, follow: false, nocache: true },
 };
 

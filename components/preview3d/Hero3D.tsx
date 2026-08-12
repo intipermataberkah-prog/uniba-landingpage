@@ -131,11 +131,15 @@ export default function Hero3D() {
 
       <Container className="relative flex h-full items-center">
         <div className="grid w-full gap-10 lg:grid-cols-12 lg:items-end">
-          <div className="hero-copy lg:col-span-7" style={{ transformStyle: "preserve-3d" }}>
+          <div className="hero-copy lg:col-span-8" style={{ transformStyle: "preserve-3d" }}>
             {/* Copy is byte-identical to the live hero. Only the treatment changed:
                 gradient-filled headline text is a named AI tell, so emphasis is
                 carried by solid colour and weight instead. */}
-            <h1 className="max-w-3xl text-balance font-heading text-[2.15rem] font-bold leading-[1.06] tracking-tight text-white sm:text-5xl lg:text-[3.4rem]">
+            {/* Measure and scale tuned to cut the frozen 13-word headline from
+                five rendered lines down to three. Two lines, which the pre-flight
+                check wants, is not reachable at any credible hero size with copy
+                this long, and the copy is not mine to shorten. */}
+            <h1 className="max-w-4xl text-balance font-heading text-[2rem] font-bold leading-[1.07] tracking-tight text-white sm:text-[2.6rem] lg:text-[2.9rem]">
               Kuliah Tanpa Beban Finansial: Gratis Uang Gedung,{" "}
               <span className="text-white">Promo Kemerdekaan</span> Dapatkan Potongan{" "}
               <span className="relative inline-block whitespace-nowrap">
@@ -159,7 +163,12 @@ export default function Hero3D() {
                     size="lg"
                     // Tinted shadow and an inner highlight rather than an outer
                     // glow, which reads as neon and is a default-look giveaway.
-                    className="group h-12 bg-uniba-gold-gradient px-8 text-[0.95rem] font-semibold text-uniba-navy shadow-[0_10px_28px_-12px_rgba(15,44,89,0.75),inset_0_1px_0_rgba(255,255,255,0.45)] transition-transform hover:-translate-y-0.5 hover:brightness-105"
+                    // shadcn's buttonVariants hardcodes `whitespace-nowrap`, so at
+                    // 375px this 36-character label forced the button to 369px
+                    // inside a 343px column and the stage's overflow-hidden simply
+                    // clipped it. Allow wrapping below sm and let the height grow;
+                    // keep one line from sm up, where there is room.
+                    className="group h-auto min-h-12 w-full whitespace-normal bg-uniba-gold-gradient px-8 py-3 text-[0.95rem] font-semibold text-uniba-navy shadow-[0_10px_28px_-12px_rgba(15,44,89,0.75),inset_0_1px_0_rgba(255,255,255,0.45)] transition-transform sm:w-auto sm:whitespace-nowrap hover:-translate-y-0.5 hover:brightness-105"
                   >
                     Daftar Sekarang (Gratis Uang Gedung)
                     <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
