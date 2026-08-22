@@ -106,18 +106,22 @@ export const classTypeLabels: Record<ClassType, string> = {
 };
 
 /**
- * Official payment scheme: Pendaftaran + SPI (Sarana Pengembangan Institusi, i.e. "uang
- * gedung") are waived campaign-wide under Promo Kemerdekaan. Semester 1 requires a 60%
- * down payment on the remaining total; the other 40% is installed flexibly with no fixed
- * schedule, up to graduation. Subsequent semesters follow the same SPP nominal plus a flat
- * heregistrasi fee, with a flexible payment date.
+ * Official payment scheme. Pendaftaran + SPI (Sarana Pengembangan Institusi, i.e. "uang
+ * gedung") remain waived campaign-wide under Promo Kemerdekaan, which continues alongside
+ * this change.
+ *
+ * Under the new SK the amount required to start attending classes is a FLAT Rp2.000.000,
+ * identical for every programme and both class types. It replaces the previous 60%
+ * proportional down payment outright, so this is a rupiah figure and not a percentage.
+ * The remainder is installed flexibly with no fixed schedule until the end of semester 1.
+ * Subsequent semesters follow the same SPP nominal plus a flat heregistrasi fee.
  */
 export const paymentScheme = {
-  downPaymentPercent: 60,
-  remainingPercent: 40,
+  /** Flat rupiah figure that secures a seat in class. Deliberately not a percentage. */
+  downPayment: 2_000_000,
   entranceFeeWaived: true,
   remainingPolicy:
-    "Sisa 40% dapat diangsur secara fleksibel tanpa jadwal cicilan tetap, hingga akhir semester 1.",
+    "Sisa pembayaran dapat diangsur secara fleksibel tanpa jadwal cicilan tetap, hingga akhir semester 1.",
   nextSemesterPolicy:
     "Semester berikutnya hanya SPP Basis + SPP SKS + heregistrasi Rp150.000 — tanpa SPI atau Biaya Lain-lain lagi. Bisa dibayar sekaligus atau dicicil per bulan.",
 };
@@ -477,7 +481,8 @@ export const enrollmentSteps: EnrollmentStep[] = [
     step: 4,
     title: "Resmi Jadi Mahasiswa UNIBA",
     duration: "Selesai",
-    description: "Lakukan pembayaran 60% semester 1 dan mulai perkuliahan sesuai jadwal pilihanmu.",
+    description:
+      "Cukup bayar Rp2.000.000 untuk mulai mengikuti perkuliahan, sisanya diangsur fleksibel.",
     iconName: "GraduationCap",
   },
 ];
@@ -487,7 +492,7 @@ export const bentoFeatures: BentoFeature[] = [
     id: "cicilan",
     title: "Biaya Kuliah Paling Fleksibel",
     description:
-      "Gratis uang gedung. Cukup bayar 60% di semester 1, sisanya diangsur fleksibel tanpa bunga hingga akhir semester 1.",
+      "Gratis uang gedung. Cukup bayar Rp2.000.000 untuk mulai kuliah, sisanya diangsur fleksibel tanpa bunga hingga akhir semester 1.",
     iconName: "Wallet",
     size: "large",
   },
@@ -569,7 +574,7 @@ export const faqItems: FaqItem[] = [
   {
     question: "Apakah cicilan biaya kuliah dikenakan bunga?",
     answer:
-      "Tidak. Kamu cukup membayar 60% dari biaya semester 1 di awal, dan sisanya (40%) dapat diangsur fleksibel tanpa bunga hingga akhir semester 1 — tanpa jadwal cicilan tetap.",
+      "Tidak. Kamu cukup membayar Rp2.000.000 di awal untuk mulai mengikuti perkuliahan, dan sisanya dapat diangsur fleksibel tanpa bunga hingga akhir semester 1, tanpa jadwal cicilan tetap.",
   },
   {
     question: "Apakah kelas karyawan bisa kuliah sambil kerja?",
@@ -594,7 +599,7 @@ export const faqItems: FaqItem[] = [
   {
     question: "Apakah tanggal pembayaran sisa biaya bisa disesuaikan?",
     answer:
-      "Bisa. Sisa 40% biaya semester 1 dapat diangsur secara fleksibel sesuai kemampuanmu, dan pembayaran semester selanjutnya juga bisa disesuaikan tanggalnya.",
+      "Bisa. Sisa biaya semester 1 dapat diangsur secara fleksibel sesuai kemampuanmu, dan pembayaran semester selanjutnya juga bisa disesuaikan tanggalnya.",
   },
 ];
 
@@ -666,7 +671,9 @@ export function calculateSemester1Detail(program: StudyProgram, classType: Class
   const sppSks = group.sppSks[classType];
   const waivedTotal = group.pendaftaran + group.spi;
   const semesterTotal = group.sppBasis + sppSks + group.biayaLainLain;
-  const downPayment = Math.round((semesterTotal * paymentScheme.downPaymentPercent) / 100);
+  // Flat, not proportional. Math.min guards the case of a programme whose semester
+  // total is below the flat figure; none currently are, but the invariant should hold.
+  const downPayment = Math.min(paymentScheme.downPayment, semesterTotal);
   const remaining = semesterTotal - downPayment;
 
   return {

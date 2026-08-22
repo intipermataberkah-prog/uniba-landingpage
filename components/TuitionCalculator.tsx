@@ -154,8 +154,8 @@ export default function TuitionCalculator() {
     `Program Studi: ${program.name}`,
     `Kelas: ${classTypeLabels[classType]}`,
     `Total Biaya Semester 1: ${formatIDR(detail.semesterTotal)}`,
-    `Dibayar di Awal (60%): ${formatIDR(detail.downPayment)}`,
-    `Sisa (40%, fleksibel hingga akhir semester 1): ${formatIDR(detail.remaining)}`,
+    `Dibayar di Awal: ${formatIDR(detail.downPayment)}`,
+    `Sisa (fleksibel hingga akhir semester 1): ${formatIDR(detail.remaining)}`,
     `Pendaftaran & SPI: GRATIS (Potongan ${formatIDR(detail.waivedTotal)})`,
     `Cicilan Semester 2 dst: ${formatIDR(nextSemester.monthly)} / bulan (${nextSemesterMonths} bulan)`,
     "",
@@ -170,7 +170,7 @@ export default function TuitionCalculator() {
         <SectionHeading
           eyebrow="Simulasi Biaya"
           title="Hitung Skema Pembayaran Kuliahmu"
-          description={`Rincian biaya resmi ${promoPeriod.name} ${promoPeriod.wave} — Pendaftaran & SPI gratis, cukup bayar 60% di semester pertama, sisanya fleksibel hingga akhir semester 1.`}
+          description={`Rincian biaya resmi ${promoPeriod.name} ${promoPeriod.wave} — Pendaftaran & SPI gratis, cukup bayar Rp2.000.000 untuk mulai kuliah, sisanya fleksibel hingga akhir semester 1.`}
         />
 
         <motion.div
@@ -317,7 +317,7 @@ export default function TuitionCalculator() {
 
                 <div aria-live="polite" aria-atomic="true">
                   <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/60">
-                    Dibayar di Awal (60%)
+                    Dibayar di Awal
                   </p>
                   <p className="text-gradient-gold mt-1 font-heading text-4xl leading-tight font-extrabold tabular-nums drop-shadow-[0_2px_16px_rgba(245,158,11,0.35)] sm:text-5xl">
                     {formatIDR(displayedDownPayment)}
@@ -363,12 +363,12 @@ export default function TuitionCalculator() {
                     <span className="font-bold">{formatIDR(detail.semesterTotal)}</span>
                   </div>
                   <div className="flex items-center justify-between gap-3">
-                    <span className="text-white/60">Apabila Bayar 60%</span>
+                    <span className="text-white/60">Bayar di Awal</span>
                     <span className="font-semibold">{formatIDR(detail.downPayment)}</span>
                   </div>
                   <div className="flex items-center justify-between gap-3">
                     <span className="text-white/60">
-                      Sisa (40%, fleksibel hingga akhir semester 1)
+                      Sisa (fleksibel hingga akhir semester 1)
                     </span>
                     <span className="font-semibold">{formatIDR(detail.remaining)}</span>
                   </div>

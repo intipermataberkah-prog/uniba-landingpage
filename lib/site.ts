@@ -26,13 +26,14 @@ export const siteConfig = {
    * leads with the offer and the city and ends on an action.
    */
   description:
-    "PMB UNIBA Surakarta 2026/2027: Gratis Uang Gedung, bayar 60% di semester 1, " +
-    "sisanya dicicil tanpa bunga. Kelas Pagi & Malam di Solo. Daftar sekarang.",
+    "PMB UNIBA Surakarta 2026/2027: Gratis Uang Gedung, cukup bayar Rp2 juta untuk " +
+    "mulai kuliah, sisanya dicicil tanpa bunga. Kelas Pagi & Malam di Solo.",
   /** Longer form for structured data, where length is not penalised. */
   descriptionLong:
     "Pendaftaran Mahasiswa Baru (PMB) Universitas Islam Batik Surakarta 2026/2027. " +
-    "Kuliah S1 & S2 terakreditasi BAN-PT: Gratis Uang Gedung, cukup bayar 60% di semester 1, " +
-    "sisanya diangsur fleksibel tanpa bunga. Kelas Pagi & Kelas Malam fleksibel di pusat Kota Solo.",
+    "Kuliah S1 & S2 terakreditasi BAN-PT: Gratis Uang Gedung, cukup bayar Rp2.000.000 untuk " +
+    "mulai mengikuti perkuliahan, sisanya diangsur fleksibel tanpa bunga. Kelas Pagi & Kelas " +
+    "Malam fleksibel di pusat Kota Solo.",
   locale: "id_ID",
   keywords: [
     "PMB UNIBA Surakarta",

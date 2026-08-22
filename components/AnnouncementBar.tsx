@@ -70,7 +70,7 @@ export default function AnnouncementBar() {
               <span>
                 Pendaftaran PMB Gelombang Utama Dibuka!{" "}
                 <span className="text-gradient-gold font-semibold">
-                  Gratis Uang Gedung, Cukup Bayar 60% di Semester 1
+                  Gratis Uang Gedung, Cukup Bayar Rp2 Juta untuk Mulai Kuliah
                 </span>
               </span>
             </p>

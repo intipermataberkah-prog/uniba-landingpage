@@ -82,7 +82,7 @@ CSV Editor tidak membawa setting berikut secara andal. Semua item di bawah **sud
 - **Negatif `batik` hanya ada di campaign Non-Brand.** Campaign Brand justru butuh kata itu (`[universitas islam batik surakarta]`), jadi di sana dipakai negatif spesifik: `batik tulis`, `kursus batik`, `membatik`, `kain`, `motif`, `grosir`, `konveksi`, `seragam`, `butik`.
 - **Negatif kota** (`jakarta`, `yogyakarta`, `semarang`, `bandung`, `surabaya`) ada di Non-Brand untuk menahan kampus online nasional yang bidding lintas-geo.
 - Semua headline dan deskripsi sudah diverifikasi ≤30 dan ≤90 karakter.
-- Angka biaya di iklan bersumber dari `data/unibaData.ts`: SPI Rp4.000.000 yang digratiskan, DP 60% semester 1. **Jangan ubah klaim harga tanpa mengecek file itu.**
+- Angka biaya di iklan bersumber dari `data/unibaData.ts`: SPI Rp4.000.000 yang digratiskan, dan pembayaran awal Rp2.000.000 sesuai SK terbaru (flat, bukan persentase). **Jangan ubah klaim harga tanpa mengecek file itu.**
 
 ## Setelah post
 

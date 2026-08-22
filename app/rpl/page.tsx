@@ -302,7 +302,7 @@ export default function RplPage() {
                   SPP SKS / Semester
                 </span>
                 <span className="text-right text-xs font-bold uppercase tracking-[0.14em] text-white/70">
-                  Bayar di Awal ({paymentScheme.downPaymentPercent}%)
+                  Bayar di Awal
                 </span>
               </div>
 
@@ -331,7 +331,7 @@ export default function RplPage() {
                       </div>
                       <div className="flex items-baseline justify-between gap-2 sm:block sm:text-right">
                         <span className="text-xs text-muted-foreground sm:hidden">
-                          Bayar di Awal ({paymentScheme.downPaymentPercent}%)
+                          Bayar di Awal
                         </span>
                         <span className="font-heading text-lg font-extrabold text-uniba-amber tabular-nums">
                           {formatIDR(detail.downPayment)}

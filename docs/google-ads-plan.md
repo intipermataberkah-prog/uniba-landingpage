@@ -19,7 +19,7 @@ Semua klaim harga/prodi/beasiswa di dokumen ini diambil dari `data/unibaData.ts`
 | Bid strategy awal | **Brand: Maximize Clicks + CPC cap · Non-Brand: Manual CPC** | Belum ada 30+ konversi/bulan, jadi smart bidding = CPC liar. Non-Brand pakai Manual CPC karena Maximize Clicks mengabaikan max CPC per keyword, padahal tiap ad group punya plafon berbeda. Pindah ke Maximize Conversions setelah ~30 konversi terkumpul. |
 | Konversi utama | **Klik WhatsApp** + submit formulir | Satu-satunya sinyal yang bisa diukur di LP saat ini. |
 | Geo | **8 kabupaten/kota bernama, "Presence" only** | Diambil dari data asal mahasiswa S1 2021–2025, bukan tebakan — 8 wilayah ini = 94% intake. Radius dibuang: 30 km tidak mencapai Wonogiri (±65 km) apalagi Ngawi (±95 km). |
-| Hero offer di iklan | **Gratis uang gedung Rp4 juta + bayar 60% dulu** | Diferensiator finansial paling tajam vs kampus swasta Solo lain. |
+| Hero offer di iklan | **Gratis uang gedung Rp4 juta + cukup bayar Rp2 juta untuk mulai kuliah** | Diferensiator finansial paling tajam vs kampus swasta Solo lain. |
 
 **Yang TIDAK dilakukan dulu:** Performance Max, Display, YouTube, Demand Gen, Discovery, dan competitor conquesting. Semua itu masuk akal di atas ~Rp15 jt/bulan, bukan sekarang.
 
@@ -195,7 +195,7 @@ Semua sudah dicek panjang karakter (headline ≤30, deskripsi ≤90). Buat **sat
 |---|---|---|
 | 1 | Kuliah S1 di UNIBA Surakarta | 28 |
 | 2 | Gratis Uang Gedung Rp4 Juta | 27 |
-| 3 | Bayar 60% Dulu, Sisa Nyusul | 27 |
+| 3 | Cukup Bayar Rp2 Juta, Sisa Nyusul | 27 |
 | 4 | Kelas Malam untuk Karyawan | 26 |
 | 5 | Terakreditasi BAN-PT | 20 |
 | 6 | Daftar Gratis, Tanpa Biaya | 26 |
@@ -219,7 +219,7 @@ Semua sudah dicek panjang karakter (headline ≤30, deskripsi ≤90). Buat **sat
 
 | # | Description | Char |
 |---|---|---|
-| 1 | Gratis uang gedung Rp4 juta. Cukup bayar 60% di semester 1, sisanya diangsur. | 76 |
+| 1 | Gratis uang gedung Rp4 juta. Cukup Rp2 juta untuk mulai kuliah, sisanya diangsur. | 76 |
 | 2 | Kelas malam & hybrid untuk karyawan. Jadwal fleksibel, bukan hanya Sabtu-Minggu. | 79 |
 | 3 | Simulasi biaya online 1 menit. Verifikasi 1 hari kerja. Chat admisi via WhatsApp. | 81 |
 | 4 | Promo Gelombang 2 berakhir 30 Agustus 2026. Daftar sekarang, kuota terbatas. | 76 |
