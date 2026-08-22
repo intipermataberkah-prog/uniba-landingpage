@@ -547,7 +547,7 @@ export const testimonials: Testimonial[] = [
     program: "S1 Manajemen",
     cohort: "Angkatan 2021",
     quote:
-      "Cukup bayar 60% di semester 1, sisanya bisa nyicil santai — jadi kuliah nggak berat buat orang tua. Dosennya juga praktisi aktif, jadi ilmunya kepakai langsung di kerjaan.",
+      "Bayarnya ringan di awal, sisanya bisa nyicil santai — jadi kuliah nggak berat buat orang tua. Dosennya juga praktisi aktif, jadi ilmunya kepakai langsung di kerjaan.",
     outcome: "Kini bekerja sebagai Staff Marketing di perusahaan retail nasional",
   },
   {
