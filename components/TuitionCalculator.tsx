@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 
+import { DURATION, EASE_OUT_EXPO } from "@/lib/motion";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { pushEventOncePerSession } from "@/lib/analytics";
@@ -174,10 +175,10 @@ export default function TuitionCalculator() {
         />
 
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 32, filter: "blur(6px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: DURATION.reveal, ease: EASE_OUT_EXPO }}
           className="mx-auto mt-12 max-w-6xl overflow-hidden rounded-3xl bg-white shadow-elev-3 ring-1 ring-uniba-navy/5 lg:mt-16"
         >
           <div className="grid lg:grid-cols-2">

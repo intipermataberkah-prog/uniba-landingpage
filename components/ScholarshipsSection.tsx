@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 
 import { SectionHeading } from "@/components/SectionHeading";
+import { DURATION, EASE_OUT_EXPO, STAGGER } from "@/lib/motion";
 import { Container } from "@/components/Container";
 import { RegistrationDialog } from "@/components/RegistrationDialog";
 import { Button } from "@/components/ui/button";
@@ -13,16 +14,16 @@ import { scholarships } from "@/data/unibaData";
 const containerVariants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.1, delayChildren: 0.05 },
+    transition: { staggerChildren: STAGGER, delayChildren: 0.05 },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] as const },
+    transition: { duration: DURATION.reveal, ease: EASE_OUT_EXPO },
   },
 };
 
@@ -80,10 +81,10 @@ export default function ScholarshipsSection() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, delay: 0.15 }}
+          transition={{ duration: DURATION.reveal, delay: 0.15 }}
           className="glass-panel mt-10 flex flex-col items-center justify-between gap-5 rounded-2xl p-6 text-center sm:flex-row sm:p-8 sm:text-left"
         >
           <p className="text-sm text-slate-dark sm:text-base">

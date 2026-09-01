@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown, CircleCheck } from "lucide-react";
+import { DURATION, EASE_OUT_EXPO } from "@/lib/motion";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Badge } from "@/components/ui/badge";
@@ -35,10 +36,10 @@ function ProgramCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.5, delay: index * 0.06, ease: "easeOut" }}
+      transition={{ duration: DURATION.reveal, delay: index * 0.06, ease: EASE_OUT_EXPO }}
       className="group relative flex flex-col overflow-hidden rounded-2xl border border-uniba-navy/10 bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1.5 hover:border-uniba-navy/15 hover:shadow-elev-3"
     >
       <div
@@ -133,10 +134,10 @@ export default function FacultyExplorer() {
           {faculties.map((faculty) => (
             <TabsContent key={faculty.id} value={faculty.id} className="mt-10 w-full sm:mt-12">
               <motion.p
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
+                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: DURATION.reveal }}
                 className="mx-auto max-w-2xl text-center text-base text-muted-foreground sm:text-lg"
               >
                 {faculty.description}

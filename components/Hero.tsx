@@ -11,6 +11,7 @@ import {
   CalendarClock,
 } from "lucide-react";
 
+import { DURATION, EASE_OUT_EXPO, STAGGER } from "@/lib/motion";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/ui/button";
 import { DaftarDialog } from "@/components/DaftarDialog";
@@ -33,8 +34,8 @@ const trustBadgeIcons = [ShieldCheck, Users, BadgeCheck];
 const WAIVED_TOTAL = feeGroups[0].pendaftaran + feeGroups[0].spi;
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
+  visible: { opacity: 1, y: 0, filter: "blur(0px)" },
 };
 
 /**
@@ -60,12 +61,12 @@ export default function Hero() {
           <motion.div
             initial="hidden"
             animate="visible"
-            transition={{ staggerChildren: 0.1 }}
+            transition={{ staggerChildren: STAGGER }}
             className="flex w-full flex-col items-center"
           >
             <motion.div
               variants={fadeUp}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              transition={{ duration: DURATION.reveal, ease: EASE_OUT_EXPO }}
               className="mb-8 inline-flex items-center gap-2 rounded-full border border-uniba-navy/12 bg-white/70 px-4 py-2 text-sm text-uniba-navy shadow-sm backdrop-blur-sm"
             >
               <CalendarClock className="size-4 text-uniba-sky-deep" aria-hidden="true" />
@@ -74,7 +75,7 @@ export default function Hero() {
 
             <motion.h1
               variants={fadeUp}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              transition={{ duration: DURATION.reveal, ease: EASE_OUT_EXPO }}
               className="max-w-4xl text-balance font-heading text-[2.15rem] font-semibold leading-display tracking-display text-uniba-navy sm:text-5xl lg:text-[3.4rem]"
             >
               {campaignTagline.lines[0]}{" "}
@@ -88,7 +89,7 @@ export default function Hero() {
 
             <motion.p
               variants={fadeUp}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              transition={{ duration: DURATION.reveal, ease: EASE_OUT_EXPO }}
               className="mt-7 max-w-2xl text-balance text-base leading-relaxed text-uniba-navy/70 sm:text-lg"
             >
               Mulai kuliah S1 resmi di Universitas Islam Batik Surakarta cukup dengan{" "}
@@ -102,7 +103,7 @@ export default function Hero() {
                 it is the reason Rp2.000.000 is possible. */}
             <motion.div
               variants={fadeUp}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              transition={{ duration: DURATION.reveal, ease: EASE_OUT_EXPO }}
               className="mt-7 inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 rounded-full border border-uniba-navy/10 bg-white/80 px-5 py-2.5 text-sm shadow-sm backdrop-blur-sm"
             >
               <span className="font-semibold text-uniba-sky-deep">Gratis Uang Gedung</span>
@@ -121,7 +122,7 @@ export default function Hero() {
 
             <motion.div
               variants={fadeUp}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              transition={{ duration: DURATION.reveal, ease: EASE_OUT_EXPO }}
               className="mt-10 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row"
             >
               <DaftarDialog
@@ -147,7 +148,7 @@ export default function Hero() {
 
             <motion.div
               variants={fadeUp}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              transition={{ duration: DURATION.reveal, ease: EASE_OUT_EXPO }}
               className="mt-16 grid w-full max-w-3xl grid-cols-1 gap-3 sm:grid-cols-3"
             >
               {trustBadges.map((badge, index) => {
@@ -171,7 +172,7 @@ export default function Hero() {
 
             <motion.div
               variants={fadeUp}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              transition={{ duration: DURATION.reveal, ease: EASE_OUT_EXPO }}
               className="mt-3 w-full max-w-3xl"
             >
               <Link

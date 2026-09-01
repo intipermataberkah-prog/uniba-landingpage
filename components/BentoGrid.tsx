@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/SectionHeading";
+import { DURATION, EASE_OUT_EXPO, STAGGER } from "@/lib/motion";
 import { Container } from "@/components/Container";
 import { iconMap } from "@/lib/icon-map";
 import { bentoFeatures } from "@/data/unibaData";
@@ -10,16 +11,16 @@ import { cn } from "@/lib/utils";
 const containerVariants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.12, delayChildren: 0.05 },
+    transition: { staggerChildren: STAGGER, delayChildren: 0.05 },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 28, filter: "blur(6px)" },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
+    transition: { duration: DURATION.reveal, ease: EASE_OUT_EXPO },
   },
 };
 

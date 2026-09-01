@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 
+import { DURATION, EASE_OUT_EXPO } from "@/lib/motion";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import {
@@ -24,19 +25,19 @@ export default function FAQSection() {
 
         <motion.div
           className="mx-auto mt-12 max-w-3xl rounded-2xl border border-uniba-navy/10 bg-white p-2 shadow-elev-2 sm:p-4"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={{ duration: DURATION.reveal, ease: EASE_OUT_EXPO }}
         >
           <Accordion type="single" collapsible className="w-full">
             {faqItems.map((item, index) => (
               <motion.div
                 key={item.question}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
+                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.4, delay: index * 0.06, ease: "easeOut" }}
+                transition={{ duration: 0.4, delay: index * 0.06, ease: EASE_OUT_EXPO }}
               >
                 <AccordionItem
                   value={String(index)}

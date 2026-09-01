@@ -16,6 +16,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
+import { DURATION, EASE_OUT_EXPO } from "@/lib/motion";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { cn } from "@/lib/utils";
@@ -120,10 +121,10 @@ export default function TestimonialCarousel() {
         />
 
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 32, filter: "blur(6px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: DURATION.reveal, ease: EASE_OUT_EXPO }}
           className="mt-12"
         >
           <div className="mx-auto max-w-3xl">
@@ -196,10 +197,10 @@ export default function TestimonialCarousel() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: DURATION.reveal, delay: 0.1, ease: EASE_OUT_EXPO }}
           className="mt-16 sm:mt-20"
         >
           <p className="text-center text-xs font-semibold tracking-[0.16em] text-white/55 uppercase sm:text-sm">
