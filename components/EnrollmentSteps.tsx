@@ -11,7 +11,7 @@ import { enrollmentSteps } from "@/data/unibaData";
 const containerVariants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: STAGGER, delayChildren: 0.1 },
+    transition: { staggerChildren: STAGGER, delayChildren: 0.04 },
   },
 };
 

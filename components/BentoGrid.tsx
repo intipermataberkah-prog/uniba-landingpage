@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 const containerVariants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: STAGGER, delayChildren: 0.05 },
+    transition: { staggerChildren: STAGGER, delayChildren: 0.04 },
   },
 };
 

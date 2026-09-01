@@ -29,8 +29,19 @@ export const DURATION = {
   slow: 1.0,
 } as const;
 
-/** Stagger between siblings. Slower than it feels like it should be, on purpose. */
-export const STAGGER = 0.14;
+/**
+ * Stagger between siblings: 18ms.
+ *
+ * This looks far too small, and that is the point. Measuring the reference showed
+ * an arithmetic sequence of transition delays stepping 0.018s at a time
+ * (0.018, 0.036, 0.054, 0.072, 0.09, 0.108), not the slow queue you would guess.
+ *
+ * The premium feel comes from LONG DURATION paired with a TIGHT stagger: siblings
+ * set off almost together and then settle slowly, so the group reads as one
+ * movement. A generous stagger, which is what this was before at 0.14s, makes
+ * elements arrive one at a time like a list loading in, and that reads as cheap.
+ */
+export const STAGGER = 0.018;
 
 /**
  * The house reveal.

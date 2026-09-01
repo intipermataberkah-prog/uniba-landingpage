@@ -1,12 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 
-import { Container } from "@/components/Container";
 import { Button } from "@/components/ui/button";
 import { DaftarDialog } from "@/components/DaftarDialog";
 import {
@@ -16,10 +15,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
+import { DURATION, EASE_OUT_EXPO } from "@/lib/motion";
 import { contactInfo, navLinks } from "@/data/unibaData";
 
 function LogoMark({ compact = false }: { compact?: boolean }) {
-  const size = compact ? 32 : 38;
+  const size = compact ? 32 : 36;
   return (
     <span className="flex items-center gap-2.5">
       <Image
@@ -30,16 +31,44 @@ function LogoMark({ compact = false }: { compact?: boolean }) {
         className="shrink-0 rounded-md ring-1 ring-uniba-navy/10"
         priority
       />
-      <span className="font-heading text-lg font-bold whitespace-nowrap text-uniba-navy">
+      <span className="font-heading text-lg font-semibold whitespace-nowrap text-uniba-navy">
         UNIBA <span className="text-uniba-sky-deep">Surakarta</span>
       </span>
     </span>
   );
 }
 
+/**
+ * Floating header.
+ *
+ * This used to be a full-bleed sticky bar with a bottom border, a shadow and a
+ * frosted white fill. Measuring the reference showed its header is `fixed`, inset
+ * 8px from the edges, and at rest completely transparent: no background, no
+ * border, no shadow. That is where the clean feeling at the top of that page comes
+ * from. There is no chrome cutting a line across the design, so the hero runs
+ * straight to the top edge.
+ *
+ * So the bar is not deleted, it is made invisible until it is needed. At rest the
+ * sky hero is unbroken; once the visitor scrolls past it, a small pill surface
+ * fades in so the nav and the Daftar CTA stay legible over content. Deleting the
+ * header outright would also throw away the primary conversion path, which is not
+ * a trade this page can afford.
+ *
+ * Sticky rather than fixed on purpose: it stays in normal flow, so it sits below
+ * AnnouncementBar instead of covering it, and the bar stays dismissible.
+ */
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+
+  // useScroll rather than a window scroll listener: it is throttled to the frame
+  // loop instead of firing React state on every scroll event.
+  const { scrollY } = useScroll();
+  useMotionValueEvent(scrollY, "change", (v) => {
+    const next = v > 24;
+    setScrolled((prev) => (prev === next ? prev : next));
+  });
 
   // navLinks are bare "#section" anchors, which only resolve on the homepage. On any
   // other route they would point at a section that does not exist there, so send the
@@ -50,12 +79,20 @@ export default function Navbar() {
 
   return (
     <motion.header
-      initial={{ y: -32, opacity: 0 }}
+      initial={{ y: -24, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="sticky top-0 z-40 border-b border-uniba-navy/10 bg-white/80 shadow-elev-1 backdrop-blur-lg supports-[backdrop-filter]:bg-white/70"
+      transition={{ duration: DURATION.reveal, ease: EASE_OUT_EXPO }}
+      className="sticky top-2 z-50 px-2 sm:top-3 sm:px-3"
     >
-      <Container className="flex h-16 items-center justify-between gap-4">
+      <div
+        className={cn(
+          "mx-auto flex h-16 max-w-[68rem] items-center justify-between gap-4 rounded-2xl border px-3 sm:px-4",
+          "transition-[background-color,border-color,box-shadow] duration-500 ease-out",
+          scrolled
+            ? "border-uniba-navy/8 bg-white/80 shadow-sm backdrop-blur-xl"
+            : "border-transparent bg-transparent"
+        )}
+      >
         <a
           href={contactInfo.website}
           target="_blank"
@@ -72,26 +109,19 @@ export default function Navbar() {
             <a
               key={link.href}
               href={resolveHref(link.href)}
-              className="group relative py-1 text-sm font-medium text-uniba-navy/80 transition-colors hover:text-uniba-blue-bright"
+              className="group relative py-1 text-sm text-uniba-navy/75 transition-colors hover:text-uniba-navy"
             >
               {link.label}
-              <span className="absolute -bottom-0.5 left-0 h-0.5 w-0 rounded-full bg-uniba-blue-bright transition-all duration-300 ease-out group-hover:w-full" />
+              <span className="absolute -bottom-0.5 left-0 h-px w-0 rounded-full bg-uniba-sky-deep transition-all duration-300 ease-out group-hover:w-full" />
             </a>
           ))}
         </nav>
 
         {/* Desktop actions */}
         <div className="hidden shrink-0 items-center gap-2.5 lg:flex">
-          <Button
-            asChild
-            variant="outline"
-            className="h-10 border-uniba-navy/15 px-4 text-uniba-navy hover:border-uniba-navy/25 hover:bg-uniba-navy/5 hover:text-uniba-navy"
-          >
-            <a href={resolveHref("#simulasi-biaya")}>Simulasi Biaya</a>
-          </Button>
           <DaftarDialog
             trigger={
-              <Button className="h-10 bg-uniba-sky-gradient px-5 font-semibold text-uniba-navy shadow-sm transition-transform hover:-translate-y-0.5 hover:brightness-105">
+              <Button className="h-10 rounded-full bg-uniba-navy px-5 text-sm font-medium text-white transition-colors hover:bg-uniba-navy-deep">
                 Daftar PMB
               </Button>
             }
@@ -123,7 +153,7 @@ export default function Navbar() {
                   key={link.href}
                   href={resolveHref(link.href)}
                   onClick={() => setMobileOpen(false)}
-                  className="rounded-md px-3 py-2.5 text-base font-medium text-uniba-navy/85 transition-colors hover:bg-uniba-navy/5 hover:text-uniba-blue-bright"
+                  className="rounded-lg px-3 py-2.5 text-base text-uniba-navy/85 transition-colors hover:bg-uniba-navy/5 hover:text-uniba-navy"
                 >
                   {link.label}
                 </a>
@@ -134,14 +164,14 @@ export default function Navbar() {
               <Button
                 asChild
                 variant="outline"
-                className="h-11 w-full border-uniba-navy/15 text-uniba-navy hover:bg-uniba-navy/5 hover:text-uniba-navy"
+                className="h-11 w-full rounded-full border-uniba-navy/15 text-uniba-navy hover:bg-uniba-navy/5 hover:text-uniba-navy"
                 onClick={() => setMobileOpen(false)}
               >
                 <a href={resolveHref("#simulasi-biaya")}>Simulasi Biaya</a>
               </Button>
               <DaftarDialog
                 trigger={
-                  <Button className="h-11 w-full bg-uniba-sky-gradient font-semibold text-uniba-navy hover:brightness-105">
+                  <Button className="h-11 w-full rounded-full bg-uniba-navy font-medium text-white hover:bg-uniba-navy-deep">
                     Daftar PMB
                   </Button>
                 }
@@ -149,7 +179,7 @@ export default function Navbar() {
             </div>
           </SheetContent>
         </Sheet>
-      </Container>
+      </div>
     </motion.header>
   );
 }
