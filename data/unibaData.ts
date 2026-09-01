@@ -13,7 +13,7 @@ export interface StudyProgram {
   careerProspects: string[];
   /**
    * References FeeGroup.id — several programs share an identical official fee table.
-   * Omitted for programs (e.g. S2) not covered by the Promo Kemerdekaan fee document;
+   * Omitted for programs (e.g. S2) not covered by the source fee document;
    * the Simulasi Biaya calculator excludes any program without one rather than guess.
    */
   feeGroupId?: string;
@@ -21,7 +21,7 @@ export interface StudyProgram {
 
 /**
  * One row of the official "Rincian Biaya Pendidikan Gelombang 2" table. Pendaftaran and
- * SPI are both waived under the Promo Kemerdekaan (their sum is the advertised "Potongan
+ * SPI are both waived campaign-wide (their sum is the advertised "Potongan
  * 4,3 Juta"). Biaya Lain-lain is paid once, in semester 1 only. SPP Basis + SPP SKS recur
  * every semester alongside a flat Rp150.000 heregistrasi fee (see HEREGISTRASI_PER_SEMESTER).
  */
@@ -107,8 +107,8 @@ export const classTypeLabels: Record<ClassType, string> = {
 
 /**
  * Official payment scheme. Pendaftaran + SPI (Sarana Pengembangan Institusi, i.e. "uang
- * gedung") remain waived campaign-wide under Promo Kemerdekaan, which continues alongside
- * this change.
+ * gedung") remain waived campaign-wide for the whole registration period, unchanged by
+ * the September campaign.
  *
  * Under the new SK the amount required to start attending classes is a FLAT Rp2.000.000,
  * identical for every programme and both class types. It replaces the previous 60%
@@ -126,13 +126,39 @@ export const paymentScheme = {
     "Semester berikutnya hanya SPP Basis + SPP SKS + heregistrasi Rp150.000 — tanpa SPI atau Biaya Lain-lain lagi. Bisa dibayar sekaligus atau dicicil per bulan.",
 };
 
+/**
+ * The registration wave currently open.
+ *
+ * `name` is an ADMINISTRATIVE label. It gets interpolated into sentences like
+ * "Rincian biaya resmi ...", so it has to stay a noun phrase. The campaign slogan lives
+ * in campaignTagline below, deliberately separate.
+ *
+ * No wave number here. The next number was never supplied, and "Gelombang Terakhir" works
+ * as its own label; inventing "Gelombang 3" would publish an official designation that has
+ * no source behind it.
+ */
 export const promoPeriod = {
-  name: "Promo Spesial Kemerdekaan",
-  wave: "Gelombang 2",
+  name: "Gelombang Terakhir",
   academicYear: "2026/2027",
-  startDate: "2026-08-01",
-  endDate: "2026-08-30",
+  startDate: "2026-09-01",
+  endDate: "2026-09-30",
 };
+
+/**
+ * September campaign line.
+ *
+ * It sells the change in the person rather than the size of the discount, and UNIBA has
+ * products that actually deliver that: RPL converts work experience into credits, Kelas
+ * Malam removes the need to stop working, and finishing in 2 years without a skripsi
+ * completes the upgrade instead of leaving it hanging.
+ *
+ * `lines` exists so the hero can set the two halves on separate lines without splitting
+ * the string in the component.
+ */
+export const campaignTagline = {
+  full: "Upgrade Dirimu, Upgrade Masa Depanmu",
+  lines: ["Upgrade Dirimu,", "Upgrade Masa Depanmu"],
+} as const;
 
 export const feeExclusions =
   "Rincian biaya di atas belum termasuk praktikum, KKN, Tugas Akhir, wisuda, dan program-program pendukung program studi. Kelebihan pembayaran dapat dicairkan di akhir studi.";
@@ -648,7 +674,7 @@ export function getFacultyPrograms(facultyId: string): StudyProgram[] {
   return studyPrograms.filter((program) => program.facultyId === facultyId);
 }
 
-/** Only programs with official Promo Kemerdekaan fee data — safe for Simulasi Biaya. */
+/** Only programs with official fee data — safe for Simulasi Biaya. */
 export function getFacultyProgramsWithPricing(facultyId: string): StudyProgram[] {
   return getFacultyPrograms(facultyId).filter((program) => program.feeGroupId !== undefined);
 }

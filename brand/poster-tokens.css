@@ -1,0 +1,143 @@
+/* UNIBA Surakarta — PMB poster/print tier tokens
+ * Derived visually from the 3 HUMAS PMB posters (Beasiswa Prestasi, Beasiswa
+ * Alumni SMA/SMK Batik, RPL). Values are eyeballed from a compressed screenshot —
+ * verify against the source .ai/.psd before sending to print.
+ *
+ * This is a SEPARATE tier from the web palette in app/globals.css.
+ * The poster tier runs brighter/more saturated on purpose. Do not overwrite the
+ * web values — they already passed a contrast audit.
+ */
+
+:root {
+  /* --- Core --- */
+  --pmb-navy: #123a7e;        /* headline, footer bar, pill, ribbon, logo */
+  --pmb-navy-deep: #0b2452;   /* headline shadow, footer base, photo scrim */
+  --pmb-navy-ink: #16213e;    /* long-form body text on white */
+
+  --pmb-gold: #ffc220;        /* the single accent — key offer words only */
+  --pmb-gold-bright: #ffd84d; /* sparkles, highlight, top of gold gradient */
+  --pmb-gold-batik: #c9922f;  /* batik corner ornament */
+  --pmb-tan-batik: #d9b57a;   /* lighter batik fill */
+
+  --pmb-blue-action: #1e6fd9; /* check badges, secondary chips */
+
+  --pmb-white: #ffffff;
+  --pmb-mist: #deeaf6;        /* faded campus-building wash */
+  --pmb-paper: #f4f7fb;       /* neutral non-white surface */
+
+  --pmb-wa-green: #25d366;    /* WhatsApp icon only, never decorative */
+
+  /* --- Type --- */
+  --pmb-font-display: "Poppins", "Plus Jakarta Sans", system-ui, sans-serif;
+  --pmb-font-body: "Poppins", "Inter", system-ui, sans-serif;
+
+  --pmb-weight-display: 900;
+  --pmb-weight-sub: 700;
+  --pmb-weight-body: 500;
+  --pmb-weight-micro: 400;
+
+  /* Scale is authored against a 1080 x 1350 canvas. */
+  --pmb-size-display-1: 140px;
+  --pmb-size-display-2: 90px;
+  --pmb-size-eyebrow: 34px;
+  --pmb-size-sub: 30px;
+  --pmb-size-pill: 28px;
+  --pmb-size-list: 32px;
+  --pmb-size-contact: 26px;
+  --pmb-size-micro: 19px;
+  --pmb-size-caption: 24px;
+
+  --pmb-track-display: -0.02em;
+  --pmb-track-eyebrow: 0.04em;
+  --pmb-track-pill: 0.02em;
+
+  /* --- Layout --- */
+  --pmb-canvas-w: 1080px;
+  --pmb-canvas-h: 1350px;
+  --pmb-safe-margin: 72px;
+  --pmb-gutter: 24px;
+  --pmb-footer-h: 90px;
+  --pmb-radius-pill: 8px;
+  --pmb-qr-size: 190px;
+  --pmb-logo-w: 150px;
+  --pmb-clear-space: 40px;
+
+  /* --- Text effects (the only three allowed) --- */
+  --pmb-keyline-on-photo: 7px;  /* white keyline, navy headline over photo */
+  --pmb-keyline-on-white: 9px;  /* navy keyline, gold headline over white */
+  --pmb-text-shadow: 0 6px 0 rgba(11, 36, 82, 0.25);
+}
+
+/* Headline utilities ------------------------------------------------------ */
+
+.pmb-display {
+  font-family: var(--pmb-font-display);
+  font-weight: var(--pmb-weight-display);
+  font-size: var(--pmb-size-display-1);
+  letter-spacing: var(--pmb-track-display);
+  line-height: 0.92;
+  text-transform: uppercase;
+  color: var(--pmb-navy);
+  text-shadow: var(--pmb-text-shadow);
+}
+
+/* Gold headline on light ground. The navy keyline is mandatory — bare gold on
+   white sits at ~1.6:1 and disappears on phones and in print. */
+.pmb-display--gold {
+  color: var(--pmb-gold);
+  -webkit-text-stroke: var(--pmb-keyline-on-white) var(--pmb-navy);
+  paint-order: stroke fill;
+}
+
+/* Navy headline sitting over photography. */
+.pmb-display--on-photo {
+  -webkit-text-stroke: var(--pmb-keyline-on-photo) var(--pmb-white);
+  paint-order: stroke fill;
+}
+
+.pmb-eyebrow {
+  font-family: var(--pmb-font-body);
+  font-weight: var(--pmb-weight-sub);
+  font-size: var(--pmb-size-eyebrow);
+  letter-spacing: var(--pmb-track-eyebrow);
+  text-transform: uppercase;
+  color: var(--pmb-gold);
+}
+
+.pmb-pill {
+  display: inline-block;
+  background: var(--pmb-navy);
+  color: var(--pmb-white);
+  border-radius: var(--pmb-radius-pill);
+  padding: 16px 32px;
+  font-family: var(--pmb-font-body);
+  font-weight: var(--pmb-weight-sub);
+  font-size: var(--pmb-size-pill);
+  letter-spacing: var(--pmb-track-pill);
+}
+
+.pmb-footer-bar {
+  height: var(--pmb-footer-h);
+  background: var(--pmb-navy);
+  color: var(--pmb-white);
+  font-family: var(--pmb-font-body);
+  font-size: var(--pmb-size-micro);
+  letter-spacing: var(--pmb-track-pill);
+}
+
+/* Photo treatment: campus background knocked back to the mist wash. */
+.pmb-photo-wash {
+  background: var(--pmb-mist);
+}
+.pmb-photo-wash > img {
+  opacity: 0.25;
+}
+
+/* Any text over raw photography needs this scrim behind it. */
+.pmb-photo-scrim {
+  background: linear-gradient(
+    to top,
+    rgba(11, 36, 82, 0.4),
+    rgba(11, 36, 82, 0)
+  );
+}

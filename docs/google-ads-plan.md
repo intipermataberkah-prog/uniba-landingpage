@@ -3,10 +3,10 @@
 **Landing pages:** `https://www.daftaruniba.site/` (utama) · `https://www.daftaruniba.site/rpl` (RPL / kelas karyawan)
 
 > Semua Final URL memakai **www** — apex `daftaruniba.site` 301 ke www, dan hop itu terbayar di setiap klik berbayar.
-**Disusun:** 10 Agustus 2026 · **Konteks:** Promo Kemerdekaan Gelombang 2 berakhir **30 Agustus 2026** (20 hari lagi)
+**Disusun:** 10 Agustus 2026, diperbarui 1 September 2026 · **Konteks:** Gelombang Terakhir berakhir **30 September 2026**. Tagline kampanye: "Upgrade Dirimu, Upgrade Masa Depanmu"
 **Constraint:** budget ketat → **Search-only**, satu geo, tanpa PMax/Display/Demand Gen.
 
-Semua klaim harga/prodi/beasiswa di dokumen ini diambil dari `data/unibaData.ts` (bersumber dari dokumen resmi "Rincian Biaya Promo Kemerdekaan 2026"). Angka CPC/CVR di bagian proyeksi adalah **asumsi perencanaan**, bukan data terukur — ganti dengan angka Keyword Planner + data 14 hari pertama.
+Semua klaim harga/prodi/beasiswa di dokumen ini diambil dari `data/unibaData.ts` (bersumber dari dokumen resmi "Rincian Biaya Pendidikan Gelombang 2"). Angka CPC/CVR di bagian proyeksi adalah **asumsi perencanaan**, bukan data terukur — ganti dengan angka Keyword Planner + data 14 hari pertama.
 
 ---
 
@@ -195,7 +195,7 @@ Semua sudah dicek panjang karakter (headline ≤30, deskripsi ≤90). Buat **sat
 |---|---|---|
 | 1 | Kuliah S1 di UNIBA Surakarta | 28 |
 | 2 | Gratis Uang Gedung Rp4 Juta | 27 |
-| 3 | Cukup Bayar Rp2 Juta, Sisa Nyusul | 27 |
+| 3 | Cukup Rp2 Juta, Sisa Nyusul | 27 |
 | 4 | Kelas Malam untuk Karyawan | 26 |
 | 5 | Terakreditasi BAN-PT | 20 |
 | 6 | Daftar Gratis, Tanpa Biaya | 26 |

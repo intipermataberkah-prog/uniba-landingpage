@@ -58,7 +58,8 @@ const LABELS = {
   programsDesc:
     "Seluruh program studi S1 di bawah ini tersedia dengan skema biaya Kelas Malam.",
   fees: "Rincian Biaya Kelas Malam",
-  feesDesc: "Angka resmi Gelombang 2 — bayar di awal hanya sebagian, sisanya diangsur.",
+  feesDesc:
+    "Bayar di awal cukup Rp2.000.000 untuk semua prodi, sisanya diangsur fleksibel tanpa bunga.",
   story: "Cerita Alumni",
   steps: "Cara Daftar",
   faq: "Pertanyaan yang Sering Diajukan",
@@ -185,7 +186,7 @@ export default function RplPage() {
                       size="lg"
                       className="group h-12 bg-uniba-gold-gradient px-8 text-[0.95rem] font-semibold text-uniba-navy shadow-gold-glow transition-transform hover:-translate-y-0.5 hover:brightness-105"
                     >
-                      Daftar Sekarang (Gratis Uang Gedung)
+                      Daftar Sekarang
                       <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
                     </Button>
                   }
@@ -456,7 +457,7 @@ export default function RplPage() {
                       size="lg"
                       className="group h-12 bg-uniba-gold-gradient px-8 text-[0.95rem] font-semibold text-uniba-navy shadow-gold-glow transition-transform hover:-translate-y-0.5 hover:brightness-105"
                     >
-                      Daftar Sekarang (Gratis Uang Gedung)
+                      Daftar Sekarang
                       <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
                     </Button>
                   }

@@ -257,15 +257,6 @@
     color: transparent;
   }
 
-  /* Merah-Putih (Indonesian flag) accent for independence-day style promos */
-  .text-gradient-merah-putih {
-    background-image: linear-gradient(to bottom, #ef4444 0%, #ef4444 45%, #ffffff 55%, #ffffff 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.15);
-  }
-
   /* Animated gold sheen sweep — for premium seals/tickets */
   .gold-sheen::after {
     content: "";

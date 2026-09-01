@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UNIBA PMB — Poster Palette Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+  /* Tokens are mirrored here so this sheet stands alone as a document.
+     Source of truth for production use is ./poster-tokens.css — keep in sync. */
+  :root {
+    --pmb-navy: #123a7e;
+    --pmb-navy-deep: #0b2452;
+    --pmb-navy-ink: #16213e;
+    --pmb-gold: #ffc220;
+    --pmb-gold-bright: #ffd84d;
+    --pmb-gold-batik: #c9922f;
+    --pmb-tan-batik: #d9b57a;
+    --pmb-blue-action: #1e6fd9;
+    --pmb-mist: #deeaf6;
+    --pmb-paper: #f4f7fb;
+    --pmb-font-display: "Poppins", "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
+    --pmb-font-body: "Poppins", "Inter", "Segoe UI", system-ui, sans-serif;
+  }
+  .pmb-pill {
+    display: inline-block;
+    background: var(--pmb-navy);
+    color: #fff;
+    border-radius: 8px;
+    padding: 16px 32px;
+    font-family: var(--pmb-font-body);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 48px 40px 96px;
+    background: var(--pmb-paper);
+    color: var(--pmb-navy-ink);
+    font-family: var(--pmb-font-body);
+    font-weight: 400;
+    line-height: 1.55;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; }
+  h1 {
+    font-family: var(--pmb-font-display);
+    font-weight: 900;
+    font-size: 40px;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--pmb-navy);
+    margin: 0 0 6px;
+  }
+  .lede { color: #55627a; margin: 0 0 8px; max-width: 62ch; }
+  .warn {
+    background: #fff6da;
+    border-left: 4px solid var(--pmb-gold);
+    padding: 12px 16px;
+    font-size: 14px;
+    margin: 20px 0 44px;
+    max-width: 72ch;
+  }
+  h2 {
+    font-family: var(--pmb-font-display);
+    font-weight: 900;
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pmb-navy);
+    margin: 56px 0 18px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--pmb-navy);
+  }
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+    gap: 16px;
+  }
+  .sw { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(11,36,82,.12); }
+  .sw .chip { height: 96px; }
+  .sw .meta { padding: 12px 14px 14px; }
+  .sw .name { font-weight: 700; font-size: 13px; color: var(--pmb-navy); }
+  .sw .hex { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 13px; color: #55627a; letter-spacing: .02em; }
+  .sw .role { font-size: 12px; color: #7b8699; margin-top: 4px; line-height: 1.4; }
+  .sw .chip.bordered { box-shadow: inset 0 0 0 1px rgba(11,36,82,.14); }
+
+  .ratio { display: flex; height: 44px; border-radius: 8px; overflow: hidden; font-size: 12px; font-weight: 700; }
+  .ratio div { display: grid; place-items: center; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(11,36,82,.12); }
+  th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid #e6ecf5; }
+  th { background: var(--pmb-navy); color: #fff; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+  tr:last-child td { border-bottom: 0; }
+  .ok { color: #157347; font-weight: 700; }
+  .no { color: #b42318; font-weight: 700; }
+
+  .typeblock { background: #fff; border-radius: 10px; padding: 26px 28px; box-shadow: 0 1px 3px rgba(11,36,82,.12); }
+  .typerow { padding: 14px 0; border-bottom: 1px dashed #e6ecf5; }
+  .typerow:last-child { border-bottom: 0; }
+  .typerow .label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #7b8699; margin-bottom: 6px; }
+  /* Poster scale is authored at 1080px canvas; shown here at 40% so it fits the page. */
+  .s-d1 { font-family: var(--pmb-font-display); font-weight: 900; font-size: 56px; letter-spacing: -.02em; line-height: .95; text-transform: uppercase; color: var(--pmb-navy); }
+  .s-d2 { font-family: var(--pmb-font-display); font-weight: 900; font-size: 36px; letter-spacing: -.015em; text-transform: uppercase; color: var(--pmb-navy); }
+  .s-eb { font-weight: 700; font-size: 14px; letter-spacing: .04em; text-transform: uppercase; color: var(--pmb-gold-batik); }
+  .s-sub { font-weight: 700; font-size: 12px; color: var(--pmb-navy); }
+  .s-list { font-weight: 500; font-size: 13px; color: var(--pmb-navy); }
+  .s-micro { font-weight: 400; font-size: 8px; letter-spacing: .02em; color: #55627a; }
+
+  .demos { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .demo { background: #fff; border-radius: 10px; padding: 30px 26px; box-shadow: 0 1px 3px rgba(11,36,82,.12); text-align: center; }
+  .demo .cap { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #7b8699; margin-top: 18px; }
+  .goldbad { font-family: var(--pmb-font-display); font-weight: 900; font-size: 38px; text-transform: uppercase; color: var(--pmb-gold); letter-spacing: -.02em; }
+  .goldgood { font-family: var(--pmb-font-display); font-weight: 900; font-size: 38px; text-transform: uppercase; color: var(--pmb-gold); letter-spacing: -.02em; -webkit-text-stroke: 5px var(--pmb-navy); paint-order: stroke fill; }
+
+  .grid-fig { background:#fff; border-radius:10px; padding:24px; box-shadow:0 1px 3px rgba(11,36,82,.12); }
+  .poster { width: 288px; height: 360px; margin: 0 auto; border:1px solid #dbe3ef; border-radius:6px; overflow:hidden; display:flex; flex-direction:column; font-size:9px; letter-spacing:.06em; text-transform:uppercase; }
+  .poster div { display:grid; place-items:center; color:#55627a; }
+  .z1 { flex:0 0 14%; background:#f0f4fa; }
+  .z2 { flex:0 0 27%; background:var(--pmb-mist); }
+  .z3 { flex:0 0 25%; background:#fff; }
+  .z4 { flex:0 0 18%; background:#f7f9fd; }
+  .z5 { flex:0 0 9%;  background:#fff; }
+  .z6 { flex:0 0 7%;  background:var(--pmb-navy); color:#fff !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>UNIBA PMB — Poster Design System</h1>
+  <p class="lede">Palet, tipografi, dan grid yang diekstrak dari tiga poster HUMAS: Beasiswa Prestasi, Beasiswa Alumni SMA/SMK Batik, dan RPL.</p>
+  <div class="warn"><strong>Catatan akurasi:</strong> nilai hex diambil secara visual dari screenshot terkompresi, bukan dari file sumber. Cocokkan dengan .ai/.psd/.cdr HUMAS sebelum dipakai untuk cetak atau dikunci sebagai brand token.</div>
+
+  <h2>01 · Palet Inti</h2>
+  <div class="swatches">
+    <div class="sw"><div class="chip" style="background:#123A7E"></div><div class="meta"><div class="name">navy</div><div class="hex">#123A7E</div><div class="role">Headline, footer bar, pill, ribbon, logo</div></div></div>
+    <div class="sw"><div class="chip" style="background:#0B2452"></div><div class="meta"><div class="name">navy-deep</div><div class="hex">#0B2452</div><div class="role">Shadow headline, scrim foto</div></div></div>
+    <div class="sw"><div class="chip" style="background:#16213E"></div><div class="meta"><div class="name">navy-ink</div><div class="hex">#16213E</div><div class="role">Body text panjang</div></div></div>
+    <div class="sw"><div class="chip" style="background:#FFC220"></div><div class="meta"><div class="name">gold</div><div class="hex">#FFC220</div><div class="role">Aksen tunggal, kata kunci penawaran</div></div></div>
+    <div class="sw"><div class="chip" style="background:#FFD84D"></div><div class="meta"><div class="name">gold-bright</div><div class="hex">#FFD84D</div><div class="role">Sparkle, highlight</div></div></div>
+    <div class="sw"><div class="chip" style="background:#C9922F"></div><div class="meta"><div class="name">gold-batik</div><div class="hex">#C9922F</div><div class="role">Ornamen batik sudut</div></div></div>
+    <div class="sw"><div class="chip" style="background:#D9B57A"></div><div class="meta"><div class="name">tan-batik</div><div class="hex">#D9B57A</div><div class="role">Isian motif batik</div></div></div>
+    <div class="sw"><div class="chip" style="background:#1E6FD9"></div><div class="meta"><div class="name">blue-action</div><div class="hex">#1E6FD9</div><div class="role">Badge centang, chip sekunder</div></div></div>
+    <div class="sw"><div class="chip bordered" style="background:#FFFFFF"></div><div class="meta"><div class="name">white</div><div class="hex">#FFFFFF</div><div class="role">Kanvas + outline huruf</div></div></div>
+    <div class="sw"><div class="chip" style="background:#DEEAF6"></div><div class="meta"><div class="name">mist</div><div class="hex">#DEEAF6</div><div class="role">Wash foto gedung</div></div></div>
+    <div class="sw"><div class="chip" style="background:#F4F7FB"></div><div class="meta"><div class="name">paper</div><div class="hex">#F4F7FB</div><div class="role">Surface netral</div></div></div>
+    <div class="sw"><div class="chip" style="background:#25D366"></div><div class="meta"><div class="name">wa-green</div><div class="hex">#25D366</div><div class="role">Ikon WhatsApp saja</div></div></div>
+  </div>
+
+  <h2>02 · Rasio Penggunaan</h2>
+  <div class="ratio">
+    <div style="flex:60; background:#EDF3FA; color:#55627a">PUTIH / MIST 60%</div>
+    <div style="flex:25; background:#123A7E; color:#fff">NAVY 25%</div>
+    <div style="flex:12; background:#FFC220; color:#0B2452">EMAS 12%</div>
+    <div style="flex:3;  background:#1E6FD9; color:#fff"></div>
+  </div>
+
+  <h2>03 · Kombinasi & Kontras</h2>
+  <table>
+    <tr><th>Latar</th><th>Teks</th><th>Rasio</th><th>Status</th></tr>
+    <tr><td>Putih</td><td>navy #123A7E</td><td>≈9.6:1</td><td class="ok">✅ headline &amp; body</td></tr>
+    <tr><td>Putih</td><td>gold #FFC220 polos</td><td>≈1.6:1</td><td class="no">❌ wajib keyline navy</td></tr>
+    <tr><td>navy</td><td>Putih</td><td>≈9.6:1</td><td class="ok">✅ pill, footer, ribbon</td></tr>
+    <tr><td>navy</td><td>gold #FFC220</td><td>≈6.1:1</td><td class="ok">✅ headline emas</td></tr>
+    <tr><td>mist</td><td>navy</td><td>≈8.2:1</td><td class="ok">✅</td></tr>
+    <tr><td>Foto mentah</td><td>teks apa pun</td><td>—</td><td class="no">❌ butuh scrim 40% / keyline</td></tr>
+  </table>
+
+  <h2>04 · Aturan Emas</h2>
+  <div class="demos">
+    <div class="demo">
+      <div class="goldbad">KULIAH SARJANA</div>
+      <div class="cap" style="color:#b42318">❌ emas polos di atas putih — hilang di layar HP</div>
+    </div>
+    <div class="demo">
+      <div class="goldgood">KULIAH SARJANA</div>
+      <div class="cap" style="color:#157347">✅ emas + keyline navy 9px</div>
+    </div>
+  </div>
+
+  <h2>05 · Skala Tipe <span style="font-weight:400; letter-spacing:0; text-transform:none; color:#7b8699; font-size:12px">(ditampilkan 40% dari kanvas 1080px)</span></h2>
+  <div class="typeblock">
+    <div class="typerow"><div class="label">Display-1 · 140px · −2%</div><div class="s-d1">Beasiswa Prestasi</div></div>
+    <div class="typerow"><div class="label">Display-2 · 90px · −1.5%</div><div class="s-d2">Rekognisi Pembelajaran Lampau</div></div>
+    <div class="typerow"><div class="label">Eyebrow · 34px · +4%</div><div class="s-eb">Modal Pengalaman Kerja</div></div>
+    <div class="typerow"><div class="label">Sub-headline · 30px</div><div class="s-sub">Khusus Calon Mahasiswa Baru Jalur Prestasi &amp; Kondisi Khusus</div></div>
+    <div class="typerow"><div class="label">Pill label · 28px · +2%</div><div><span class="pmb-pill" style="font-size:12px; padding:7px 14px">Program Studi</span></div></div>
+    <div class="typerow"><div class="label">List item · 32px</div><div class="s-list">Program Studi S1 Manajemen</div></div>
+    <div class="typerow"><div class="label">Micro / footer · 19px · +2%</div><div class="s-micro">Jl. Agus Salim No.10, Sondakan, Laweyan, Surakarta</div></div>
+  </div>
+
+  <h2>06 · Grid Poster (1080 × 1350)</h2>
+  <div class="grid-fig">
+    <div class="poster">
+      <div class="z1">Crest — logo + batik corner</div>
+      <div class="z2">Foto cut-out (fade ke putih)</div>
+      <div class="z3">Eyebrow + headline + sub</div>
+      <div class="z4">Pill + daftar syarat / prodi</div>
+      <div class="z5">Admin ☎ + QR</div>
+      <div class="z6">Footer bar 90px</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

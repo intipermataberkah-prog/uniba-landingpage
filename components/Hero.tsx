@@ -14,9 +14,22 @@ import {
 import { Container } from "@/components/Container";
 import { Button } from "@/components/ui/button";
 import { DaftarDialog } from "@/components/DaftarDialog";
-import { rplPromo, trustBadges } from "@/data/unibaData";
+import { formatIDR } from "@/lib/utils";
+import {
+  campaignTagline,
+  feeGroups,
+  paymentScheme,
+  promoPeriod,
+  rplPromo,
+  trustBadges,
+} from "@/data/unibaData";
 
 const trustBadgeIcons = [ShieldCheck, Users, BadgeCheck];
+
+// Pendaftaran + SPI are identical across every fee group and both are waived, so the
+// advertised discount is derived rather than typed as a literal. If the official table
+// ever changes, this number follows it instead of silently going stale.
+const WAIVED_TOTAL = feeGroups[0].pendaftaran + feeGroups[0].spi;
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -61,7 +74,7 @@ export default function Hero() {
             >
               <Sparkles className="size-4 text-uniba-gold" aria-hidden="true" />
               <span className="text-uniba-gold-soft">
-                Kampus Terjangkau, Berkualitas &amp; Paling Fleksibel
+                {promoPeriod.name} &middot; Ditutup 30 September 2026
               </span>
             </motion.div>
 
@@ -70,11 +83,14 @@ export default function Hero() {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="max-w-4xl text-balance font-heading text-[2.15rem] font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl"
             >
-              Kuliah Tanpa Beban Finansial: Gratis Uang Gedung,{" "}
-              <span className="text-gradient-merah-putih">Promo Kemerdekaan</span> Dapatkan
-              Potongan{" "}
-              <span className="relative inline-block whitespace-nowrap">
-                <span className="text-gradient-gold">4.3 JUTA</span>
+              {campaignTagline.lines[0]}{" "}
+              {/* nowrap only from sm up. This span inherited whitespace-nowrap from the
+                  old "4.3 JUTA" it replaced, which was short enough to be harmless. A
+                  20-character phrase at 2.15rem is not: it forced a 395px min-content
+                  width inside a 343px column at 375px, dragging the whole centred stack
+                  10px past the viewport on both sides where overflow-hidden clipped it. */}
+              <span className="relative inline-block sm:whitespace-nowrap">
+                <span className="text-gradient-gold">{campaignTagline.lines[1]}</span>
                 <span
                   aria-hidden="true"
                   className="absolute -bottom-1 left-0 h-[3px] w-full rounded-full bg-uniba-gold-gradient"
@@ -87,9 +103,33 @@ export default function Hero() {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="mt-7 max-w-2xl text-balance text-base leading-relaxed text-white/80 sm:text-lg"
             >
-              Raih gelar Sarjana resmi di Universitas Islam Batik Surakarta dengan jadwal kuliah
-              fleksibel dan biaya yang bisa diangsur perbulan.
+              Mulai kuliah S1 resmi di Universitas Islam Batik Surakarta cukup dengan{" "}
+              <strong className="font-bold text-white">
+                {formatIDR(paymentScheme.downPayment)}
+              </strong>
+              . Sisanya diangsur fleksibel, tanpa bunga, tanpa jadwal cicilan tetap.
             </motion.p>
+
+            {/* Price anchor. The Rp4,3 juta waiver is deliberately demoted from headline
+                to supporting proof: it is the reason Rp2.000.000 is possible, not the
+                promise itself. Nobody enrols because a discount is large; they enrol
+                because they can afford the first payment. */}
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="mt-6 inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 rounded-2xl border border-uniba-gold/30 bg-uniba-navy/35 px-5 py-3 text-sm backdrop-blur-sm"
+            >
+              <span className="font-bold text-uniba-gold-soft">Gratis Uang Gedung</span>
+              <span
+                aria-hidden="true"
+                className="hidden h-4 w-px bg-white/20 sm:inline-block"
+              />
+              <span className="text-white/80">
+                Potongan{" "}
+                <strong className="font-bold text-white">{formatIDR(WAIVED_TOTAL)}</strong>{" "}
+                (Pendaftaran + SPI)
+              </span>
+            </motion.div>
 
             <motion.div
               variants={fadeUp}
@@ -102,7 +142,7 @@ export default function Hero() {
                     size="lg"
                     className="group h-12 bg-uniba-gold-gradient px-8 text-[0.95rem] font-semibold text-uniba-navy shadow-gold-glow transition-transform hover:-translate-y-0.5 hover:brightness-105"
                   >
-                    Daftar Sekarang (Gratis Uang Gedung)
+                    Daftar Sekarang
                     <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
                   </Button>
                 }

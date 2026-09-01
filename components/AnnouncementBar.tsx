@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { PartyPopper, X } from "lucide-react";
+import { CalendarClock, X } from "lucide-react";
 
 import { promoPeriod } from "@/data/unibaData";
 
@@ -16,6 +16,11 @@ interface TimeLeft {
 // End-of-day WIB (UTC+7) on the official promo end date — a fixed instant, so it's
 // identical on the server and client render (no hydration mismatch).
 const PROMO_DEADLINE = new Date(`${promoPeriod.endDate}T23:59:59+07:00`).getTime();
+
+/** True once the deadline has passed. Drives the expiry guard below. */
+function hasExpired(deadline: number): boolean {
+  return Date.now() > deadline;
+}
 
 function getTimeLeft(deadline: number): TimeLeft {
   const diff = Math.max(deadline - Date.now(), 0);
@@ -33,9 +38,27 @@ function pad(value: number) {
 export default function AnnouncementBar() {
   const [dismissed, setDismissed] = useState(false);
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
+  /**
+   * Expiry guard.
+   *
+   * This exists because of an actual incident, not as a precaution. getTimeLeft clamps at
+   * zero, so once the deadline passed the bar kept rendering 00:00:00:00 indefinitely and
+   * advertised a dead promo to paid traffic for days before anyone noticed. Now the bar
+   * removes itself instead. The next time a wave end date is not updated in time, the
+   * failure is a missing banner rather than a visibly expired one.
+   *
+   * Starts false so the server and the first client render agree; the effect flips it.
+   */
+  const [expired, setExpired] = useState(false);
 
   useEffect(() => {
-    const tick = () => setTimeLeft(getTimeLeft(PROMO_DEADLINE));
+    const tick = () => {
+      if (hasExpired(PROMO_DEADLINE)) {
+        setExpired(true);
+        return;
+      }
+      setTimeLeft(getTimeLeft(PROMO_DEADLINE));
+    };
 
     tick();
     const intervalId = setInterval(tick, 1000);
@@ -52,7 +75,7 @@ export default function AnnouncementBar() {
 
   return (
     <AnimatePresence>
-      {!dismissed ? (
+      {!dismissed && !expired ? (
         <motion.div
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -66,11 +89,11 @@ export default function AnnouncementBar() {
           />
           <div className="relative flex flex-col items-center gap-2 px-4 py-2 pr-9 sm:flex-row sm:justify-center sm:gap-4 sm:pr-10">
             <p className="flex items-center gap-2 text-center text-sm font-medium text-alabaster sm:text-left">
-              <PartyPopper className="hidden size-4 shrink-0 text-uniba-gold sm:inline" aria-hidden="true" />
+              <CalendarClock className="hidden size-4 shrink-0 text-uniba-gold sm:inline" aria-hidden="true" />
               <span>
-                Pendaftaran PMB Gelombang Utama Dibuka!{" "}
+                {promoPeriod.name} dibuka sampai 30 September.{" "}
                 <span className="text-gradient-gold font-semibold">
-                  Gratis Uang Gedung, Cukup Bayar Rp2 Juta untuk Mulai Kuliah
+                  Mulai kuliah cukup Rp2 juta, sisanya dicicil tanpa bunga
                 </span>
               </span>
             </p>
