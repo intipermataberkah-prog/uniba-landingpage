@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/SectionHeading";
-import { DURATION, EASE_OUT_EXPO, STAGGER } from "@/lib/motion";
+import { DURATION, EASE_OUT_EXPO, STAGGER, revealViewport } from "@/lib/motion";
 import { Container } from "@/components/Container";
 import { Badge } from "@/components/ui/badge";
 import { iconMap } from "@/lib/icon-map";
@@ -39,7 +39,7 @@ export default function EnrollmentSteps() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={revealViewport}
           className="relative mt-16 grid grid-cols-1 gap-10 lg:grid-cols-4 lg:gap-6"
         >
           {enrollmentSteps.map((step, index) => {

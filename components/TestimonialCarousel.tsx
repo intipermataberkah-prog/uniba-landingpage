@@ -16,8 +16,9 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import { DURATION, EASE_OUT_EXPO } from "@/lib/motion";
+import { DURATION, EASE_OUT_EXPO, revealViewport } from "@/lib/motion";
 import { Container } from "@/components/Container";
+import { CloudDrift } from "@/components/CloudDrift";
 import { SectionHeading } from "@/components/SectionHeading";
 import { cn } from "@/lib/utils";
 import { testimonials, type Testimonial } from "@/data/unibaData";
@@ -106,7 +107,7 @@ export default function TestimonialCarousel() {
 
   return (
     <section id="testimoni" className="relative overflow-hidden bg-uniba-navy py-24 sm:py-32 lg:py-36">
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-batik-kawung opacity-20" />
+      <CloudDrift intensity={0.9} />
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-grain opacity-[0.12] mix-blend-overlay" />
       <div
         aria-hidden
@@ -123,7 +124,7 @@ export default function TestimonialCarousel() {
         <motion.div
           initial={{ opacity: 0, y: 32, filter: "blur(3px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={revealViewport}
           transition={{ duration: DURATION.reveal, ease: EASE_OUT_EXPO }}
           className="mt-12"
         >

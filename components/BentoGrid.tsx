@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/SectionHeading";
-import { DURATION, EASE_OUT_EXPO, STAGGER } from "@/lib/motion";
+import { DURATION, EASE_OUT_EXPO, STAGGER, revealViewport } from "@/lib/motion";
 import { Container } from "@/components/Container";
 import { iconMap } from "@/lib/icon-map";
 import { bentoFeatures } from "@/data/unibaData";
@@ -39,7 +39,7 @@ export default function BentoGrid() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={revealViewport}
           className="mt-12 grid grid-flow-row-dense grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:auto-rows-fr lg:gap-6"
         >
           {bentoFeatures.map((feature) => {

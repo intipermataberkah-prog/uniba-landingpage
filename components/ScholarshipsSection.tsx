@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 
 import { SectionHeading } from "@/components/SectionHeading";
-import { DURATION, EASE_OUT_EXPO, STAGGER } from "@/lib/motion";
+import { DURATION, EASE_OUT_EXPO, STAGGER, revealViewport } from "@/lib/motion";
 import { Container } from "@/components/Container";
 import { RegistrationDialog } from "@/components/RegistrationDialog";
 import { Button } from "@/components/ui/button";
@@ -42,7 +42,7 @@ export default function ScholarshipsSection() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={revealViewport}
           className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {scholarships.map((scholarship) => {
@@ -70,9 +70,14 @@ export default function ScholarshipsSection() {
                   {scholarship.description}
                 </p>
 
+                {/* `whitespace-normal` and `overflow-visible` override the Badge base,
+                    which ships `whitespace-nowrap overflow-hidden`. Coverage strings run
+                    to 45 characters -- "Gratis biaya kuliah penuh + uang saku bulanan" --
+                    and in a card this width the base clipped them mid-word with no
+                    ellipsis, so the offer simply ran off the edge. */}
                 <Badge
                   variant="outline"
-                  className="h-auto w-fit border-transparent bg-uniba-sky-gradient px-3 py-1.5 text-xs font-semibold text-slate-dark shadow-sm sm:text-sm"
+                  className="h-auto w-fit justify-start overflow-visible border-transparent bg-uniba-sky-gradient px-3 py-1.5 text-left text-xs leading-snug font-semibold whitespace-normal text-slate-dark shadow-sm sm:text-sm"
                 >
                   {scholarship.coverage}
                 </Badge>
@@ -84,8 +89,8 @@ export default function ScholarshipsSection() {
         <motion.div
           initial={{ opacity: 0, y: 16, filter: "blur(3px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: DURATION.reveal, delay: 0.15 }}
+          viewport={revealViewport}
+          transition={{ duration: DURATION.reveal, delay: 0.15, ease: EASE_OUT_EXPO }}
           className="glass-panel mt-10 flex flex-col items-center justify-between gap-5 rounded-2xl p-6 text-center sm:flex-row sm:p-8 sm:text-left"
         >
           <p className="text-sm text-slate-dark sm:text-base">

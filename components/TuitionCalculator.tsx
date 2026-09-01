@@ -4,8 +4,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 
-import { DURATION, EASE_OUT_EXPO } from "@/lib/motion";
+import { DURATION, EASE_OUT_EXPO, revealViewport } from "@/lib/motion";
 import { Container } from "@/components/Container";
+import { CloudDrift } from "@/components/CloudDrift";
 import { SectionHeading } from "@/components/SectionHeading";
 import { pushEventOncePerSession } from "@/lib/analytics";
 import { Button } from "@/components/ui/button";
@@ -177,7 +178,7 @@ export default function TuitionCalculator() {
         <motion.div
           initial={{ opacity: 0, y: 32, filter: "blur(3px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={revealViewport}
           transition={{ duration: DURATION.reveal, ease: EASE_OUT_EXPO }}
           className="mx-auto mt-12 max-w-6xl overflow-hidden rounded-3xl bg-white shadow-elev-3 ring-1 ring-uniba-navy/5 lg:mt-16"
         >
@@ -306,7 +307,10 @@ export default function TuitionCalculator() {
 
             {/* Live output */}
             <div className="relative flex flex-col justify-between overflow-hidden bg-uniba-gradient p-6 text-white sm:p-10 lg:p-12">
-              <div aria-hidden className="bg-batik-kawung pointer-events-none absolute inset-0" />
+              {/* Turned down hard. This panel is a dense column of figures on
+                  navy, and it is the one surface on the page where a moving
+                  background could cost a reader the number they came for. */}
+              <CloudDrift intensity={0.6} />
 
               <div className="relative z-10 flex flex-col gap-6">
                 <div>
@@ -320,7 +324,7 @@ export default function TuitionCalculator() {
                   <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/60">
                     Dibayar di Awal
                   </p>
-                  <p className="text-gradient-sky mt-1 font-heading text-4xl leading-tight font-extrabold tabular-nums drop-shadow-[0_2px_16px_rgba(245,158,11,0.35)] sm:text-5xl">
+                  <p className="text-gradient-sky mt-1 font-heading text-4xl leading-tight font-extrabold tabular-nums drop-shadow-[0_2px_16px_rgba(56,189,248,0.35)] sm:text-5xl">
                     {formatIDR(displayedDownPayment)}
                   </p>
                 </div>

@@ -198,27 +198,50 @@
 }
 
 @layer utilities {
-  /* Batik-inspired geometric overlays — subtle, tileable, brand-tinted */
-  .bg-batik-kawung {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88'%3E%3Cg fill='none' stroke='%23F8FAFC' stroke-opacity='0.09' stroke-width='1.25'%3E%3Ccircle cx='22' cy='22' r='16'/%3E%3Ccircle cx='66' cy='22' r='16'/%3E%3Ccircle cx='22' cy='66' r='16'/%3E%3Ccircle cx='66' cy='66' r='16'/%3E%3Ccircle cx='44' cy='44' r='16'/%3E%3C/g%3E%3C/svg%3E");
-    background-size: 88px 88px;
+  /*
+   * Drifting cloud layer. See components/CloudDrift.tsx for why this replaced the batik
+   * kawung and parang overlays that used to live here.
+   *
+   * The geometry is the whole trick. The element is 200% wide and the strip is drawn at
+   * 50% of that, so exactly two copies sit side by side; travelling -50% advances by one
+   * full copy and lands on an identical frame. The strip itself is generated with
+   * x-periodic noise so its two ends actually match -- a strip that merely looks tileable
+   * prints a vertical seam sliding across the section once per loop.
+   *
+   * transform only, so this composites and never touches layout.
+   */
+  .cloud-layer {
+    position: absolute;
+    left: 0;
+    width: 200%;
+    background-image: url("/sky/cloud-strip.webp");
+    background-repeat: repeat-x;
+    background-size: 50% 100%;
+    animation: cloud-drift var(--cloud-speed, 150s) linear infinite;
   }
 
-  .bg-batik-parang {
-    background-image: repeating-linear-gradient(
-        135deg,
-        rgba(248, 250, 252, 0.06) 0px,
-        rgba(248, 250, 252, 0.06) 2px,
-        transparent 2px,
-        transparent 26px
-      ),
-      repeating-linear-gradient(
-        135deg,
-        rgba(125, 211, 252, 0.05) 13px,
-        rgba(125, 211, 252, 0.05) 15px,
-        transparent 15px,
-        transparent 39px
-      );
+  .cloud-layer--reverse {
+    animation-direction: reverse;
+  }
+
+  @keyframes cloud-drift {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  /*
+   * A loop this long has no natural resting point, so reduced motion parks it rather
+   * than speeding it up: the clouds stay, they simply stop moving.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    .cloud-layer {
+      animation: none;
+      transform: translate3d(0, 0, 0);
+    }
   }
 
   /* Fine film grain for depth on dark surfaces */
@@ -260,12 +283,6 @@
     box-shadow: var(--shadow-elev-2);
   }
 
-  .glass-panel-dark {
-    background-color: rgba(15, 44, 89, 0.35);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-  }
 
   .text-gradient-sky {
     background-image: linear-gradient(135deg, #f5d67a 0%, #38bdf8 55%, #0369a1 100%);

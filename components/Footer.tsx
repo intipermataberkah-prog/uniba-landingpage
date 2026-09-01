@@ -2,6 +2,7 @@ import Image from "next/image";
 import { MapPin, Phone, Mail, Globe, FileText, Heart } from "lucide-react";
 
 import { Container } from "@/components/Container";
+import { Reveal } from "@/components/Reveal";
 import {
   InstagramGlyph,
   YoutubeGlyph,
@@ -24,11 +25,11 @@ export default function Footer() {
       <Container className="py-16">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
           {/* University identity */}
-          <div className="flex flex-col gap-4">
+          <Reveal index={0} className="flex flex-col gap-4">
             <div>
               <div className="flex items-center gap-2.5">
                 <Image
-                  src="/logo-uniba.jpg"
+                  src="/logo-uniba-white.png"
                   alt="Logo UNIBA Surakarta"
                   width={36}
                   height={36}
@@ -68,10 +69,10 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
-          </div>
+          </Reveal>
 
           {/* Quick links */}
-          <div className="flex flex-col gap-4">
+          <Reveal index={1} className="flex flex-col gap-4">
             <h3 className="font-heading text-sm font-semibold tracking-wide text-white uppercase">
               Tautan Cepat
             </h3>
@@ -88,10 +89,10 @@ export default function Footer() {
                 ))}
               </ul>
             </nav>
-          </div>
+          </Reveal>
 
           {/* Social + website */}
-          <div className="flex flex-col gap-4">
+          <Reveal index={2} className="flex flex-col gap-4">
             <h3 className="font-heading text-sm font-semibold tracking-wide text-white uppercase">
               Ikuti Kami
             </h3>
@@ -132,11 +133,11 @@ export default function Footer() {
                 PMB)
               </a>
             </div>
-          </div>
+          </Reveal>
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-2 border-t border-white/10 pt-6 text-sm text-white/50 sm:flex-row">
+        <Reveal index={3} y={12} className="mt-12 flex flex-col items-center justify-between gap-2 border-t border-white/10 pt-6 text-sm text-white/50 sm:flex-row">
           <p>
             © {new Date().getFullYear()} Universitas Islam Batik Surakarta. Seluruh hak cipta
             dilindungi.
@@ -146,7 +147,7 @@ export default function Footer() {
             <Heart className="size-3.5 shrink-0 fill-uniba-sky text-uniba-sky" aria-hidden="true" />
             untuk PMB UNIBA Surakarta
           </p>
-        </div>
+        </Reveal>
       </Container>
     </footer>
   );

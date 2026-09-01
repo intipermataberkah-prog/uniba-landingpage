@@ -24,11 +24,11 @@ function LogoMark({ compact = false }: { compact?: boolean }) {
   return (
     <span className="flex items-center gap-2.5">
       <Image
-        src="/logo-uniba.jpg"
+        src="/logo-uniba.png"
         alt="Logo UNIBA Surakarta"
         width={size}
         height={size}
-        className="shrink-0 rounded-md ring-1 ring-uniba-navy/10"
+        className="shrink-0"
         priority
       />
       <span className="font-heading text-lg font-semibold whitespace-nowrap text-uniba-navy">

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown, CircleCheck } from "lucide-react";
-import { DURATION, EASE_OUT_EXPO } from "@/lib/motion";
+import { DURATION, EASE_OUT_EXPO, STAGGER, revealViewport } from "@/lib/motion";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Badge } from "@/components/ui/badge";
@@ -38,8 +38,8 @@ function ProgramCard({
     <motion.div
       initial={{ opacity: 0, y: 24, filter: "blur(3px)" }}
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: DURATION.reveal, delay: index * 0.06, ease: EASE_OUT_EXPO }}
+      viewport={revealViewport}
+      transition={{ duration: DURATION.reveal, delay: index * STAGGER, ease: EASE_OUT_EXPO }}
       className="group relative flex flex-col overflow-hidden rounded-2xl border border-uniba-navy/10 bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1.5 hover:border-uniba-navy/15 hover:shadow-elev-3"
     >
       <div
@@ -54,7 +54,10 @@ function ProgramCard({
           {program.accreditation}
         </Badge>
         {!program.feeGroupId ? (
-          <Badge variant="outline" className="w-fit border-uniba-navy/20 text-uniba-navy/70">
+          <Badge
+            variant="outline"
+            className="h-auto w-fit overflow-visible border-uniba-navy/20 whitespace-normal text-uniba-navy/70"
+          >
             Info biaya: hubungi admisi
           </Badge>
         ) : null}
@@ -136,8 +139,8 @@ export default function FacultyExplorer() {
               <motion.p
                 initial={{ opacity: 0, y: 12, filter: "blur(3px)" }}
                 whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: DURATION.reveal }}
+                viewport={revealViewport}
+                transition={{ duration: DURATION.reveal, ease: EASE_OUT_EXPO }}
                 className="mx-auto max-w-2xl text-center text-base text-muted-foreground sm:text-lg"
               >
                 {faculty.description}

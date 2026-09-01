@@ -163,7 +163,12 @@ export default function Hero() {
                     </span>
                     <div className="min-w-0">
                       <p className="text-sm font-semibold text-uniba-navy">{badge.label}</p>
-                      <p className="truncate text-xs text-uniba-navy/55">{badge.sublabel}</p>
+                      {/* Not truncated. "Tersebar di berbagai industri" needs about
+                          165px at this size and the column gives it roughly that, so
+                          `truncate` was cutting the proof short at common widths. */}
+                      <p className="text-xs leading-snug text-uniba-navy/55">
+                        {badge.sublabel}
+                      </p>
                     </div>
                   </div>
                 );
