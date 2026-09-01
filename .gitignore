@@ -42,3 +42,6 @@ next-env.d.ts
 
 .vercel
 .env*
+
+# Scratch dir for scripts/make-og-image.py (converted font faces)
+.font-cache/
