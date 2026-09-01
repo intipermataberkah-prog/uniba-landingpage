@@ -14,7 +14,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StickyCTA from "@/components/StickyCTA";
 import SocialFloatingDock from "@/components/SocialFloatingDock";
-import RioFlight from "@/components/RioFlight";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
@@ -629,7 +628,6 @@ export default function RplPage() {
       <Footer />
       <StickyCTA />
       <SocialFloatingDock />
-      <RioFlight />
     </>
   );
 }

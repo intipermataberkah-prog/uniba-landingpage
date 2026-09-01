@@ -10,7 +10,6 @@ import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 import StickyCTA from "@/components/StickyCTA";
 import SocialFloatingDock from "@/components/SocialFloatingDock";
-import RioFlight from "@/components/RioFlight";
 import { StructuredData } from "@/components/StructuredData";
 
 export default function Home() {
@@ -31,7 +30,6 @@ export default function Home() {
       <Footer />
       <StickyCTA />
       <SocialFloatingDock />
-      <RioFlight />
     </>
   );
 }
