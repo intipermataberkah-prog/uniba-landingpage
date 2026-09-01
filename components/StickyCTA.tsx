@@ -58,7 +58,7 @@ export default function StickyCTA() {
               trigger={
                 <Button
                   size="sm"
-                  className="shrink-0 bg-uniba-gold-gradient font-semibold text-uniba-navy hover:brightness-105"
+                  className="shrink-0 bg-uniba-sky-gradient font-semibold text-uniba-navy hover:brightness-105"
                 >
                   Daftar Sekarang
                 </Button>

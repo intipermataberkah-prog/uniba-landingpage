@@ -35,7 +35,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
     <article className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white p-8 shadow-elev-3 sm:p-10">
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-uniba-gold-gradient"
+        className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-uniba-sky-gradient"
       />
       <Quote
         aria-hidden="true"
@@ -46,7 +46,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
       <Quote
         aria-hidden="true"
         strokeWidth={1.5}
-        className="relative z-10 mb-4 size-8 shrink-0 text-uniba-gold"
+        className="relative z-10 mb-4 size-8 shrink-0 text-uniba-sky"
       />
 
       <blockquote className="relative z-10 flex-1 text-balance text-lg leading-relaxed font-medium text-slate-dark sm:text-xl">
@@ -60,8 +60,8 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
         </p>
       </footer>
 
-      <div className="relative z-10 mt-5 flex items-stretch gap-3 rounded-xl bg-uniba-gold/10 px-4 py-3">
-        <span aria-hidden="true" className="w-1 shrink-0 rounded-full bg-uniba-gold-gradient" />
+      <div className="relative z-10 mt-5 flex items-stretch gap-3 rounded-xl bg-uniba-sky/10 px-4 py-3">
+        <span aria-hidden="true" className="w-1 shrink-0 rounded-full bg-uniba-sky-gradient" />
         <p className="self-center text-sm font-semibold text-uniba-navy">{testimonial.outcome}</p>
       </div>
     </article>
@@ -155,7 +155,7 @@ export default function TestimonialCarousel() {
                 type="button"
                 onClick={scrollPrev}
                 aria-label="Testimoni sebelumnya"
-                className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-uniba-navy/15 bg-white text-uniba-navy shadow-sm transition-colors duration-300 hover:bg-uniba-navy hover:text-white focus-visible:ring-2 focus-visible:ring-uniba-gold focus-visible:ring-offset-2 focus-visible:outline-none"
+                className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-uniba-navy/15 bg-white text-uniba-navy shadow-sm transition-colors duration-300 hover:bg-uniba-navy hover:text-white focus-visible:ring-2 focus-visible:ring-uniba-sky focus-visible:ring-offset-2 focus-visible:outline-none"
               >
                 <ChevronLeft className="size-5" aria-hidden="true" />
               </button>
@@ -174,9 +174,9 @@ export default function TestimonialCarousel() {
                     aria-selected={index === selectedIndex}
                     aria-label={`Ke testimoni ${index + 1}`}
                     className={cn(
-                      "h-2.5 rounded-full transition-all duration-300 focus-visible:ring-2 focus-visible:ring-uniba-gold focus-visible:ring-offset-2 focus-visible:outline-none",
+                      "h-2.5 rounded-full transition-all duration-300 focus-visible:ring-2 focus-visible:ring-uniba-sky focus-visible:ring-offset-2 focus-visible:outline-none",
                       index === selectedIndex
-                        ? "w-8 bg-uniba-gold"
+                        ? "w-8 bg-uniba-sky"
                         : "w-2.5 bg-uniba-navy/20 hover:bg-uniba-navy/40"
                     )}
                   />
@@ -187,7 +187,7 @@ export default function TestimonialCarousel() {
                 type="button"
                 onClick={scrollNext}
                 aria-label="Testimoni berikutnya"
-                className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-uniba-navy/15 bg-white text-uniba-navy shadow-sm transition-colors duration-300 hover:bg-uniba-navy hover:text-white focus-visible:ring-2 focus-visible:ring-uniba-gold focus-visible:ring-offset-2 focus-visible:outline-none"
+                className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-uniba-navy/15 bg-white text-uniba-navy shadow-sm transition-colors duration-300 hover:bg-uniba-navy hover:text-white focus-visible:ring-2 focus-visible:ring-uniba-sky focus-visible:ring-offset-2 focus-visible:outline-none"
               >
                 <ChevronRight className="size-5" aria-hidden="true" />
               </button>

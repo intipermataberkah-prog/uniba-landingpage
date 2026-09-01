@@ -184,7 +184,7 @@ export default function BackgroundMusic() {
           aria-pressed={audible}
           aria-label={audible ? "Matikan musik latar" : "Putar musik latar"}
           title={audible ? "Matikan musik latar" : "Putar musik latar"}
-          className="fixed bottom-20 left-4 z-50 flex size-12 cursor-pointer items-center justify-center rounded-full bg-uniba-navy text-uniba-gold shadow-lg shadow-black/25 ring-1 ring-white/15 transition-transform hover:scale-105 focus-visible:ring-2 focus-visible:ring-uniba-gold focus-visible:ring-offset-2 focus-visible:outline-none lg:bottom-6 lg:left-6"
+          className="fixed bottom-20 left-4 z-50 flex size-12 cursor-pointer items-center justify-center rounded-full bg-uniba-navy text-uniba-sky shadow-lg shadow-black/25 ring-1 ring-white/15 transition-transform hover:scale-105 focus-visible:ring-2 focus-visible:ring-uniba-sky focus-visible:ring-offset-2 focus-visible:outline-none lg:bottom-6 lg:left-6"
         >
           {audible ? (
             <span

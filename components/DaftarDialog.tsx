@@ -40,7 +40,7 @@ export function DaftarDialog({ trigger }: { trigger: ReactNode }) {
             href={contactInfo.pmbWebsite}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-4 rounded-2xl border border-uniba-navy/10 bg-white p-4 shadow-elev-1 transition-all duration-300 hover:-translate-y-0.5 hover:border-uniba-gold/40 hover:shadow-elev-2 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+            className="group flex items-center gap-4 rounded-2xl border border-uniba-navy/10 bg-white p-4 shadow-elev-1 transition-all duration-300 hover:-translate-y-0.5 hover:border-uniba-sky/40 hover:shadow-elev-2 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
           >
             <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-uniba-navy text-white">
               <Globe className="size-5" aria-hidden="true" />

@@ -32,12 +32,12 @@ export function SectionHeading({
           className={cn(
             "mb-5 inline-flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.18em]",
             align === "center" ? "justify-center" : "",
-            light ? "text-uniba-gold-soft" : "text-uniba-amber"
+            light ? "text-uniba-sky-soft" : "text-uniba-sky-deep"
           )}
         >
           <span
             aria-hidden="true"
-            className="h-px w-8 rounded-full bg-uniba-gold-gradient"
+            className="h-px w-8 rounded-full bg-uniba-sky-gradient"
           />
           {eyebrow}
         </span>

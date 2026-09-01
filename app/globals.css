@@ -17,11 +17,16 @@
   --color-uniba-navy-950: #081a37;
   --color-uniba-blue: #1e40af;
   --color-uniba-blue-bright: #2563eb;
-  --color-uniba-gold: #f59e0b;
-  --color-uniba-gold-deep: #d4af37;
-  --color-uniba-gold-soft: #fcd34d;
-  /* WCAG-safe gold for text/icons on light surfaces (~4.7:1 on white) */
-  --color-uniba-amber: #a16207;
+  /* Sky scale. Gold is retired: the campaign locks to blue, and "masa depan cerah"
+     reads as sky, so the accent is now light rather than metallic.
+       sky      #38bdf8  accent fills and icons on navy
+       sky-soft #bae6fd  accent TEXT on navy (very high contrast)
+       sky-deep #0369a1  accent text/icons on WHITE (5.9:1, passes AA)
+     Do not put --color-uniba-sky text on white: it fails AA. Use sky-deep. */
+  --color-uniba-sky: #38bdf8;
+  --color-uniba-sky-soft: #bae6fd;
+  --color-uniba-sky-deep: #0369a1;
+  --color-uniba-cloud: #eaf4fd;
   --color-slate-dark: #0f172a;
   --color-alabaster: #f8fafc;
   --color-cream: #faf6ec;
@@ -119,7 +124,7 @@
   --shadow-elev-1: 0 1px 2px rgba(15, 44, 89, 0.06), 0 2px 6px rgba(15, 44, 89, 0.05);
   --shadow-elev-2: 0 2px 4px rgba(15, 44, 89, 0.05), 0 8px 20px -6px rgba(15, 44, 89, 0.12);
   --shadow-elev-3: 0 4px 10px rgba(15, 44, 89, 0.06), 0 20px 40px -12px rgba(15, 44, 89, 0.22);
-  --shadow-gold-glow: 0 10px 30px -8px rgba(245, 158, 11, 0.45);
+  --shadow-sky-glow: 0 10px 30px -8px rgba(56, 189, 248, 0.45);
 }
 
 .dark {
@@ -187,7 +192,7 @@
   }
   /* Selection uses brand gold */
   ::selection {
-    background-color: rgba(245, 158, 11, 0.28);
+    background-color: rgba(56, 189, 248, 0.28);
     color: #0f2c59;
   }
 }
@@ -209,8 +214,8 @@
       ),
       repeating-linear-gradient(
         135deg,
-        rgba(212, 175, 55, 0.05) 13px,
-        rgba(212, 175, 55, 0.05) 15px,
+        rgba(125, 211, 252, 0.05) 13px,
+        rgba(125, 211, 252, 0.05) 15px,
         transparent 15px,
         transparent 39px
       );
@@ -225,12 +230,12 @@
     background-color: #0f2c59;
     background-image:
       radial-gradient(120% 120% at 15% 0%, rgba(37, 99, 235, 0.55) 0%, transparent 55%),
-      radial-gradient(120% 120% at 100% 100%, rgba(212, 175, 55, 0.18) 0%, transparent 45%),
+      radial-gradient(120% 120% at 100% 100%, rgba(56, 189, 248, 0.22) 0%, transparent 45%),
       linear-gradient(135deg, #0a1f42 0%, #123163 45%, #1c3f86 100%);
   }
 
-  .bg-uniba-gold-gradient {
-    background-image: linear-gradient(135deg, #d4af37 0%, #f59e0b 55%, #eab308 100%);
+  .bg-uniba-sky-gradient {
+    background-image: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 55%, #0ea5e9 100%);
   }
 
   /* Elevation utilities */
@@ -243,8 +248,8 @@
   .shadow-elev-3 {
     box-shadow: var(--shadow-elev-3);
   }
-  .shadow-gold-glow {
-    box-shadow: var(--shadow-gold-glow);
+  .shadow-sky-glow {
+    box-shadow: var(--shadow-sky-glow);
   }
 
   .glass-panel {
@@ -262,7 +267,7 @@
     border: 1px solid rgba(255, 255, 255, 0.12);
   }
 
-  .text-gradient-gold {
+  .text-gradient-sky {
     background-image: linear-gradient(135deg, #f5d67a 0%, #f59e0b 55%, #d4af37 100%);
     background-clip: text;
     -webkit-background-clip: text;
@@ -270,7 +275,7 @@
   }
 
   /* Animated gold sheen sweep — for premium seals/tickets */
-  .gold-sheen::after {
+  .sky-sheen::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -298,6 +303,30 @@
   }
   .link-underline:hover {
     background-size: 100% 1.5px;
+  }
+}
+
+/* Cloud drift. Very slow on purpose: the sky should feel still, not animated.
+   Transform-only so it stays on the compositor, and it stops entirely for anyone
+   who has asked the OS to reduce motion. */
+@keyframes sky-drift {
+  from { transform: translate3d(-2%, 0, 0); }
+  to   { transform: translate3d(2%, 0, 0); }
+}
+
+.sky-drift {
+  animation: sky-drift 90s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.sky-drift-slow {
+  animation: sky-drift 140s ease-in-out infinite alternate-reverse;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sky-drift,
+  .sky-drift-slow {
+    animation: none;
   }
 }
 

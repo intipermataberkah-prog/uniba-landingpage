@@ -89,10 +89,10 @@ export default function AnnouncementBar() {
           />
           <div className="relative flex flex-col items-center gap-2 px-4 py-2 pr-9 sm:flex-row sm:justify-center sm:gap-4 sm:pr-10">
             <p className="flex items-center gap-2 text-center text-sm font-medium text-alabaster sm:text-left">
-              <CalendarClock className="hidden size-4 shrink-0 text-uniba-gold sm:inline" aria-hidden="true" />
+              <CalendarClock className="hidden size-4 shrink-0 text-uniba-sky sm:inline" aria-hidden="true" />
               <span>
                 {promoPeriod.name} dibuka sampai 30 September.{" "}
-                <span className="text-gradient-gold font-semibold">
+                <span className="text-gradient-sky font-semibold">
                   Mulai kuliah cukup Rp2 juta, sisanya dicicil tanpa bunga
                 </span>
               </span>

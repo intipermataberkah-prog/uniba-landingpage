@@ -49,7 +49,7 @@ export default function BentoGrid() {
                 key={feature.id}
                 variants={itemVariants}
                 className={cn(
-                  "group relative flex flex-col overflow-hidden rounded-2xl border border-uniba-navy/10 bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1.5 hover:border-uniba-gold/40 hover:shadow-elev-3 sm:p-8",
+                  "group relative flex flex-col overflow-hidden rounded-2xl border border-uniba-navy/10 bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1.5 hover:border-uniba-sky/40 hover:shadow-elev-3 sm:p-8",
                   isLarge
                     ? "sm:col-span-2 sm:row-span-1 lg:col-span-2 lg:row-span-2 lg:p-10"
                     : "lg:col-span-1 lg:row-span-1"
@@ -58,13 +58,13 @@ export default function BentoGrid() {
                 {/* Gold top accent reveal */}
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-uniba-gold-gradient transition-transform duration-300 ease-out group-hover:scale-x-100"
+                  className="pointer-events-none absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-uniba-sky-gradient transition-transform duration-300 ease-out group-hover:scale-x-100"
                 />
                 {isLarge ? (
                   <>
                     <div
                       aria-hidden
-                      className="pointer-events-none absolute -top-16 -right-16 size-56 rounded-full bg-uniba-gold-gradient opacity-10 blur-3xl"
+                      className="pointer-events-none absolute -top-16 -right-16 size-56 rounded-full bg-uniba-sky-gradient opacity-10 blur-3xl"
                     />
                     <Icon
                       aria-hidden
@@ -76,7 +76,7 @@ export default function BentoGrid() {
 
                 <div
                   className={cn(
-                    "relative z-10 mb-5 inline-flex w-fit items-center justify-center rounded-xl bg-uniba-navy/5 text-uniba-navy ring-1 ring-inset ring-uniba-navy/10 transition-all duration-300 group-hover:bg-uniba-gold/15 group-hover:text-uniba-amber group-hover:ring-uniba-gold/30",
+                    "relative z-10 mb-5 inline-flex w-fit items-center justify-center rounded-xl bg-uniba-navy/5 text-uniba-navy ring-1 ring-inset ring-uniba-navy/10 transition-all duration-300 group-hover:bg-uniba-sky/15 group-hover:text-uniba-sky-deep group-hover:ring-uniba-sky/30",
                     isLarge ? "size-14" : "size-12"
                   )}
                 >
@@ -104,7 +104,7 @@ export default function BentoGrid() {
                 {isLarge ? (
                   <div
                     aria-hidden
-                    className="relative z-10 mt-6 h-1 w-16 rounded-full bg-uniba-gold-gradient"
+                    className="relative z-10 mt-6 h-1 w-16 rounded-full bg-uniba-sky-gradient"
                   />
                 ) : null}
               </motion.div>

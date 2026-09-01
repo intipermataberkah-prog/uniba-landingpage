@@ -319,7 +319,7 @@ export default function TuitionCalculator() {
                   <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/60">
                     Dibayar di Awal
                   </p>
-                  <p className="text-gradient-gold mt-1 font-heading text-4xl leading-tight font-extrabold tabular-nums drop-shadow-[0_2px_16px_rgba(245,158,11,0.35)] sm:text-5xl">
+                  <p className="text-gradient-sky mt-1 font-heading text-4xl leading-tight font-extrabold tabular-nums drop-shadow-[0_2px_16px_rgba(245,158,11,0.35)] sm:text-5xl">
                     {formatIDR(displayedDownPayment)}
                   </p>
                 </div>
@@ -331,7 +331,7 @@ export default function TuitionCalculator() {
                       <span className="text-white/40 line-through">
                         {formatIDR(detail.pendaftaran)}
                       </span>
-                      <span className="rounded-full bg-uniba-gold px-2 py-0.5 text-xs font-bold text-uniba-navy">
+                      <span className="rounded-full bg-uniba-sky px-2 py-0.5 text-xs font-bold text-uniba-navy">
                         GRATIS
                       </span>
                     </span>
@@ -340,7 +340,7 @@ export default function TuitionCalculator() {
                     <span className="text-white/60">SPI (Uang Gedung)</span>
                     <span className="flex items-center gap-2 font-semibold">
                       <span className="text-white/40 line-through">{formatIDR(detail.spi)}</span>
-                      <span className="rounded-full bg-uniba-gold px-2 py-0.5 text-xs font-bold text-uniba-navy">
+                      <span className="rounded-full bg-uniba-sky px-2 py-0.5 text-xs font-bold text-uniba-navy">
                         GRATIS
                       </span>
                     </span>

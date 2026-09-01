@@ -3,17 +3,18 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
-  Sparkles,
   ShieldCheck,
   Users,
   BadgeCheck,
   GraduationCap,
   ArrowRight,
+  CalendarClock,
 } from "lucide-react";
 
 import { Container } from "@/components/Container";
 import { Button } from "@/components/ui/button";
 import { DaftarDialog } from "@/components/DaftarDialog";
+import { SkyBackdrop } from "@/components/SkyBackdrop";
 import { formatIDR } from "@/lib/utils";
 import {
   campaignTagline,
@@ -36,97 +37,84 @@ const fadeUp = {
   visible: { opacity: 1, y: 0 },
 };
 
+/**
+ * Light sky hero.
+ *
+ * This was a dark navy panel with white type. It is now a bright sky with navy ink,
+ * which is a structural change rather than a recolour: the reference this campaign is
+ * modelled on opens light and lets the page breathe, and "masa depan cerah" only works
+ * as a picture if the sky is actually bright.
+ *
+ * The primary CTA is solid navy on the light ground, mirroring the dark pill the
+ * reference sets on its pale field. That is also the highest-contrast pairing
+ * available here, which matters more than styling: this is the button the ad budget
+ * is buying.
+ */
 export default function Hero() {
   return (
-    <section id="beranda" className="relative overflow-hidden bg-uniba-gradient">
-      {/* Batik motif + film grain overlays */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-batik-kawung opacity-30"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-grain opacity-[0.15] mix-blend-overlay"
-      />
-
-      {/* Decorative blurred orbs */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-24 -left-24 size-72 rounded-full bg-uniba-gold/25 blur-3xl sm:size-96"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-24 bottom-0 size-72 rounded-full bg-uniba-blue-bright/30 blur-3xl sm:size-96"
-      />
+    <section id="beranda" className="relative isolate overflow-hidden bg-white">
+      <SkyBackdrop />
 
       <Container>
-        <div className="relative flex flex-col items-center py-20 text-center sm:py-36">
+        <div className="relative flex flex-col items-center py-24 text-center sm:py-32 lg:py-40">
           <motion.div
             initial="hidden"
             animate="visible"
-            transition={{ staggerChildren: 0.12 }}
-            className="flex flex-col items-center"
+            transition={{ staggerChildren: 0.1 }}
+            className="flex w-full flex-col items-center"
           >
             <motion.div
               variants={fadeUp}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="glass-panel-dark mb-8 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium shadow-lg shadow-black/10"
+              className="mb-8 inline-flex items-center gap-2 rounded-full border border-uniba-navy/12 bg-white/70 px-4 py-2 text-sm text-uniba-navy shadow-sm backdrop-blur-sm"
             >
-              <Sparkles className="size-4 text-uniba-gold" aria-hidden="true" />
-              <span className="text-uniba-gold-soft">
-                {promoPeriod.name} &middot; Ditutup 30 September 2026
-              </span>
+              <CalendarClock className="size-4 text-uniba-sky-deep" aria-hidden="true" />
+              <span>{promoPeriod.name} &middot; Ditutup 30 September 2026</span>
             </motion.div>
 
             <motion.h1
               variants={fadeUp}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="max-w-4xl text-balance font-heading text-[2.15rem] font-semibold leading-display tracking-display text-white sm:text-5xl lg:text-[3.25rem]"
+              className="max-w-4xl text-balance font-heading text-[2.15rem] font-semibold leading-display tracking-display text-uniba-navy sm:text-5xl lg:text-[3.4rem]"
             >
               {campaignTagline.lines[0]}{" "}
-              {/* nowrap only from sm up. This span inherited whitespace-nowrap from the
-                  old "4.3 JUTA" it replaced, which was short enough to be harmless. A
-                  20-character phrase at 2.15rem is not: it forced a 395px min-content
-                  width inside a 343px column at 375px, dragging the whole centred stack
-                  10px past the viewport on both sides where overflow-hidden clipped it. */}
-              <span className="relative inline-block sm:whitespace-nowrap">
-                <span className="text-gradient-gold">{campaignTagline.lines[1]}</span>
-                <span
-                  aria-hidden="true"
-                  className="absolute -bottom-1 left-0 h-[3px] w-full rounded-full bg-uniba-gold-gradient"
-                />
+              {/* The serif accent is the one place Instrument Serif appears above the
+                  fold, exactly as the reference uses its display serif: sparingly, on
+                  the phrase that carries the promise. */}
+              <span className="font-accent font-normal italic text-uniba-sky-deep">
+                {campaignTagline.lines[1]}
               </span>
             </motion.h1>
 
             <motion.p
               variants={fadeUp}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="mt-7 max-w-2xl text-balance text-base leading-relaxed text-white/80 sm:text-lg"
+              className="mt-7 max-w-2xl text-balance text-base leading-relaxed text-uniba-navy/70 sm:text-lg"
             >
               Mulai kuliah S1 resmi di Universitas Islam Batik Surakarta cukup dengan{" "}
-              <strong className="font-bold text-white">
+              <strong className="font-semibold text-uniba-navy">
                 {formatIDR(paymentScheme.downPayment)}
               </strong>
               . Sisanya diangsur fleksibel, tanpa bunga, tanpa jadwal cicilan tetap.
             </motion.p>
 
-            {/* Price anchor. The Rp4,3 juta waiver is deliberately demoted from headline
-                to supporting proof: it is the reason Rp2.000.000 is possible, not the
-                promise itself. Nobody enrols because a discount is large; they enrol
-                because they can afford the first payment. */}
+            {/* Price anchor. The Rp4,3 juta waiver is supporting proof, not the promise:
+                it is the reason Rp2.000.000 is possible. */}
             <motion.div
               variants={fadeUp}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="mt-6 inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 rounded-2xl border border-uniba-gold/30 bg-uniba-navy/35 px-5 py-3 text-sm backdrop-blur-sm"
+              className="mt-7 inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 rounded-full border border-uniba-navy/10 bg-white/80 px-5 py-2.5 text-sm shadow-sm backdrop-blur-sm"
             >
-              <span className="font-bold text-uniba-gold-soft">Gratis Uang Gedung</span>
+              <span className="font-semibold text-uniba-sky-deep">Gratis Uang Gedung</span>
               <span
                 aria-hidden="true"
-                className="hidden h-4 w-px bg-white/20 sm:inline-block"
+                className="hidden h-4 w-px bg-uniba-navy/15 sm:inline-block"
               />
-              <span className="text-white/80">
+              <span className="text-uniba-navy/75">
                 Potongan{" "}
-                <strong className="font-bold text-white">{formatIDR(WAIVED_TOTAL)}</strong>{" "}
+                <strong className="font-semibold text-uniba-navy">
+                  {formatIDR(WAIVED_TOTAL)}
+                </strong>{" "}
                 (Pendaftaran + SPI)
               </span>
             </motion.div>
@@ -134,13 +122,13 @@ export default function Hero() {
             <motion.div
               variants={fadeUp}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="mt-10 flex w-full flex-col justify-center gap-3.5 sm:w-auto sm:flex-row"
+              className="mt-10 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row"
             >
               <DaftarDialog
                 trigger={
                   <Button
                     size="lg"
-                    className="group h-12 rounded-full bg-uniba-gold-gradient px-8 text-[0.95rem] font-semibold text-uniba-navy shadow-gold-glow transition-transform hover:-translate-y-0.5 hover:brightness-105"
+                    className="group h-13 rounded-full bg-uniba-navy px-8 text-[0.95rem] font-medium text-white transition-transform hover:-translate-y-0.5 hover:bg-uniba-navy-deep"
                   >
                     Daftar Sekarang
                     <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
@@ -151,7 +139,7 @@ export default function Hero() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="h-12 w-full rounded-full border-white/25 bg-white/5 px-8 text-[0.95rem] text-white backdrop-blur-sm transition-colors hover:border-white/40 hover:bg-white/10 hover:text-white sm:w-auto"
+                className="h-13 w-full rounded-full border-uniba-navy/15 bg-white/70 px-8 text-[0.95rem] text-uniba-navy backdrop-blur-sm transition-colors hover:border-uniba-navy/30 hover:bg-white hover:text-uniba-navy sm:w-auto"
               >
                 <a href="#simulasi-biaya">Simulasi Cicilan Biaya</a>
               </Button>
@@ -160,72 +148,56 @@ export default function Hero() {
             <motion.div
               variants={fadeUp}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="mt-14 grid w-full max-w-3xl grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4"
+              className="mt-16 grid w-full max-w-3xl grid-cols-1 gap-3 sm:grid-cols-3"
             >
               {trustBadges.map((badge, index) => {
                 const Icon = trustBadgeIcons[index] ?? ShieldCheck;
                 return (
                   <div
                     key={badge.label}
-                    className="glass-panel-dark flex items-center gap-3 rounded-2xl px-4 py-3 text-left transition-colors hover:bg-uniba-navy/45"
+                    className="flex items-center gap-3 rounded-2xl border border-uniba-navy/8 bg-white/75 px-4 py-3 text-left backdrop-blur-sm"
                   >
-                    <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-uniba-gold/15 ring-1 ring-uniba-gold/25">
-                      <Icon className="size-4.5 text-uniba-gold" aria-hidden="true" />
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-uniba-sky/15">
+                      <Icon className="size-4.5 text-uniba-sky-deep" aria-hidden="true" />
                     </span>
                     <div className="min-w-0">
-                      <p className="text-sm font-bold text-white">{badge.label}</p>
-                      <p className="truncate text-xs text-white/60">{badge.sublabel}</p>
+                      <p className="text-sm font-semibold text-uniba-navy">{badge.label}</p>
+                      <p className="truncate text-xs text-uniba-navy/55">{badge.sublabel}</p>
                     </div>
                   </div>
                 );
               })}
             </motion.div>
 
-            {/* Program RPL promo — highlight bar under the trust badges (batik kawung ground) */}
             <motion.div
               variants={fadeUp}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="mt-4 w-full max-w-3xl"
+              className="mt-3 w-full max-w-3xl"
             >
-              {/* The arrow always implied this was actionable; it now goes somewhere. */}
               <Link
                 href="/rpl"
-                className="group/rpl relative block overflow-hidden rounded-2xl border border-uniba-gold/35 bg-uniba-navy/40 px-4 py-3.5 shadow-lg shadow-black/10 backdrop-blur-sm transition-colors hover:border-uniba-gold/60 hover:bg-uniba-navy/55 focus-visible:ring-2 focus-visible:ring-uniba-gold focus-visible:outline-none sm:px-5"
+                className="group/rpl flex items-center gap-3.5 rounded-2xl border border-uniba-sky/40 bg-uniba-cloud/80 px-4 py-3.5 text-left backdrop-blur-sm transition-colors hover:border-uniba-sky-deep/40 hover:bg-uniba-cloud focus-visible:ring-2 focus-visible:ring-uniba-sky-deep focus-visible:outline-none sm:px-5"
               >
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 bg-batik-kawung opacity-45"
-                />
-                <div className="relative flex items-center gap-3.5 text-left sm:gap-4">
-                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-uniba-gold-gradient text-uniba-navy shadow-sm sm:size-11">
-                    <GraduationCap className="size-5 sm:size-6" aria-hidden="true" />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-uniba-gold-soft">
-                      {rplPromo.title}
-                    </p>
-                    <p className="mt-0.5 text-sm leading-snug text-white/85 sm:text-[15px]">
-                      {rplPromo.description}
-                    </p>
-                  </div>
-                  <span
-                    aria-hidden="true"
-                    className="hidden shrink-0 items-center justify-center rounded-full bg-uniba-gold/15 p-2 ring-1 ring-uniba-gold/25 transition-transform group-hover/rpl:translate-x-0.5 sm:flex"
-                  >
-                    <ArrowRight className="size-4 text-uniba-gold" />
-                  </span>
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-uniba-navy text-white sm:size-11">
+                  <GraduationCap className="size-5 sm:size-6" aria-hidden="true" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-[11px] font-semibold tracking-[0.14em] text-uniba-sky-deep uppercase">
+                    {rplPromo.title}
+                  </p>
+                  <p className="mt-0.5 text-sm leading-snug text-uniba-navy/80 sm:text-[15px]">
+                    {rplPromo.description}
+                  </p>
                 </div>
+                <ArrowRight
+                  className="hidden size-4 shrink-0 text-uniba-sky-deep transition-transform group-hover/rpl:translate-x-0.5 sm:block"
+                  aria-hidden="true"
+                />
               </Link>
             </motion.div>
           </motion.div>
         </div>
       </Container>
-
-      {/* Soft bottom seam into the next (light) section */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-alabaster/10"
-      />
     </section>
   );
 }

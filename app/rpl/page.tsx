@@ -146,7 +146,7 @@ export default function RplPage() {
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -top-24 -left-24 size-72 rounded-full bg-uniba-gold/25 blur-3xl sm:size-96"
+            className="pointer-events-none absolute -top-24 -left-24 size-72 rounded-full bg-uniba-sky/25 blur-3xl sm:size-96"
           />
           <div
             aria-hidden="true"
@@ -157,7 +157,7 @@ export default function RplPage() {
             <div className="relative flex flex-col items-center py-20 text-center sm:py-32">
               <Link
                 href="/"
-                className="glass-panel-dark mb-8 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-white/85 transition-colors hover:text-uniba-gold-soft focus-visible:ring-2 focus-visible:ring-uniba-gold focus-visible:outline-none"
+                className="glass-panel-dark mb-8 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-white/85 transition-colors hover:text-uniba-sky-soft focus-visible:ring-2 focus-visible:ring-uniba-sky focus-visible:outline-none"
               >
                 <ArrowLeft className="size-4" aria-hidden="true" />
                 {LABELS.back}
@@ -166,10 +166,10 @@ export default function RplPage() {
               <h1 className="max-w-4xl text-balance font-heading text-[2.15rem] font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
                 {rplPromo.title}:{" "}
                 <span className="relative inline-block">
-                  <span className="text-gradient-gold">{classTypeLabels.karyawan}</span>
+                  <span className="text-gradient-sky">{classTypeLabels.karyawan}</span>
                   <span
                     aria-hidden="true"
-                    className="absolute -bottom-1 left-0 h-[3px] w-full rounded-full bg-uniba-gold-gradient"
+                    className="absolute -bottom-1 left-0 h-[3px] w-full rounded-full bg-uniba-sky-gradient"
                   />
                 </span>{" "}
                 untuk Kamu yang Sudah Bekerja
@@ -184,7 +184,7 @@ export default function RplPage() {
                   trigger={
                     <Button
                       size="lg"
-                      className="group h-12 bg-uniba-gold-gradient px-8 text-[0.95rem] font-semibold text-uniba-navy shadow-gold-glow transition-transform hover:-translate-y-0.5 hover:brightness-105"
+                      className="group h-12 bg-uniba-sky-gradient px-8 text-[0.95rem] font-semibold text-uniba-navy shadow-sky-glow transition-transform hover:-translate-y-0.5 hover:brightness-105"
                     >
                       Daftar Sekarang
                       <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
@@ -209,8 +209,8 @@ export default function RplPage() {
                       key={badge.label}
                       className="glass-panel-dark flex items-center gap-3 rounded-2xl px-4 py-3 text-left transition-colors hover:bg-uniba-navy/45"
                     >
-                      <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-uniba-gold/15 ring-1 ring-uniba-gold/25">
-                        <Icon className="size-4.5 text-uniba-gold" aria-hidden="true" />
+                      <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-uniba-sky/15 ring-1 ring-uniba-sky/25">
+                        <Icon className="size-4.5 text-uniba-sky" aria-hidden="true" />
                       </span>
                       <div className="min-w-0">
                         <p className="text-sm font-bold text-white">{badge.label}</p>
@@ -253,8 +253,8 @@ export default function RplPage() {
                         className={cn(
                           "flex size-12 items-center justify-center rounded-xl",
                           feature3d
-                            ? "bg-uniba-gold-gradient text-uniba-navy"
-                            : "bg-uniba-gold/12 text-uniba-amber ring-1 ring-uniba-gold/25"
+                            ? "bg-uniba-sky-gradient text-uniba-navy"
+                            : "bg-uniba-sky/12 text-uniba-sky-deep ring-1 ring-uniba-sky/25"
                         )}
                       >
                         <Icon className="size-6" aria-hidden="true" />
@@ -334,7 +334,7 @@ export default function RplPage() {
                         <span className="text-xs text-muted-foreground sm:hidden">
                           Bayar di Awal
                         </span>
-                        <span className="font-heading text-lg font-extrabold text-uniba-amber tabular-nums">
+                        <span className="font-heading text-lg font-extrabold text-uniba-sky-deep tabular-nums">
                           {formatIDR(detail.downPayment)}
                         </span>
                       </div>
@@ -370,8 +370,8 @@ export default function RplPage() {
                   <p className="mt-0.5 text-sm text-muted-foreground">
                     {rplTestimonial.program} &middot; {rplTestimonial.cohort}
                   </p>
-                  <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-uniba-gold/12 px-3.5 py-1.5 text-sm text-uniba-navy ring-1 ring-uniba-gold/25">
-                    <Check className="size-4 text-uniba-amber" aria-hidden="true" />
+                  <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-uniba-sky/12 px-3.5 py-1.5 text-sm text-uniba-navy ring-1 ring-uniba-sky/25">
+                    <Check className="size-4 text-uniba-sky-deep" aria-hidden="true" />
                     {rplTestimonial.outcome}
                   </p>
                 </figcaption>
@@ -396,14 +396,14 @@ export default function RplPage() {
                       <span className="font-heading text-4xl font-extrabold text-uniba-navy/12 tabular-nums">
                         {String(step.step).padStart(2, "0")}
                       </span>
-                      <span className="flex size-10 items-center justify-center rounded-xl bg-uniba-gold/12 ring-1 ring-uniba-gold/25">
-                        <Icon className="size-5 text-uniba-amber" aria-hidden="true" />
+                      <span className="flex size-10 items-center justify-center rounded-xl bg-uniba-sky/12 ring-1 ring-uniba-sky/25">
+                        <Icon className="size-5 text-uniba-sky-deep" aria-hidden="true" />
                       </span>
                     </div>
                     <h3 className="mt-5 font-heading text-lg font-bold text-slate-dark">
                       {step.title}
                     </h3>
-                    <p className="mt-1 text-xs font-bold uppercase tracking-[0.14em] text-uniba-amber">
+                    <p className="mt-1 text-xs font-bold uppercase tracking-[0.14em] text-uniba-sky-deep">
                       {step.duration}
                     </p>
                     <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -455,7 +455,7 @@ export default function RplPage() {
                   trigger={
                     <Button
                       size="lg"
-                      className="group h-12 bg-uniba-gold-gradient px-8 text-[0.95rem] font-semibold text-uniba-navy shadow-gold-glow transition-transform hover:-translate-y-0.5 hover:brightness-105"
+                      className="group h-12 bg-uniba-sky-gradient px-8 text-[0.95rem] font-semibold text-uniba-navy shadow-sky-glow transition-transform hover:-translate-y-0.5 hover:brightness-105"
                     >
                       Daftar Sekarang
                       <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />

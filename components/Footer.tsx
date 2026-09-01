@@ -20,7 +20,7 @@ const socialIconMap: Record<string, typeof InstagramGlyph> = {
 export default function Footer() {
   return (
     <footer id="kontak" className="relative bg-slate-dark text-white">
-      <div aria-hidden="true" className="h-1 w-full bg-uniba-gold-gradient" />
+      <div aria-hidden="true" className="h-1 w-full bg-uniba-sky-gradient" />
       <Container className="py-16">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
           {/* University identity */}
@@ -35,7 +35,7 @@ export default function Footer() {
                   className="shrink-0"
                 />
                 <span className="font-heading text-xl font-bold">
-                  UNIBA <span className="text-uniba-gold">Surakarta</span>
+                  UNIBA <span className="text-uniba-sky">Surakarta</span>
                 </span>
               </div>
               <p className="mt-3 max-w-sm text-sm text-white/60">
@@ -46,11 +46,11 @@ export default function Footer() {
 
             <ul className="flex flex-col gap-3 text-sm text-white/70">
               <li className="flex items-start gap-3">
-                <MapPin className="mt-0.5 size-4 shrink-0 text-uniba-gold" aria-hidden="true" />
+                <MapPin className="mt-0.5 size-4 shrink-0 text-uniba-sky" aria-hidden="true" />
                 <span>{contactInfo.address}</span>
               </li>
               <li className="flex items-center gap-3">
-                <Phone className="size-4 shrink-0 text-uniba-gold" aria-hidden="true" />
+                <Phone className="size-4 shrink-0 text-uniba-sky" aria-hidden="true" />
                 <a
                   href={contactInfo.phoneHref}
                   className="transition-colors hover:text-white"
@@ -59,7 +59,7 @@ export default function Footer() {
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <Mail className="size-4 shrink-0 text-uniba-gold" aria-hidden="true" />
+                <Mail className="size-4 shrink-0 text-uniba-sky" aria-hidden="true" />
                 <a
                   href={`mailto:${contactInfo.email}`}
                   className="transition-colors hover:text-white"
@@ -103,7 +103,7 @@ export default function Footer() {
                     key={social.label}
                     href={social.href}
                     aria-label={social.label}
-                    className="flex size-10 items-center justify-center rounded-full bg-white/10 text-white/80 transition-colors hover:bg-uniba-gold hover:text-uniba-navy"
+                    className="flex size-10 items-center justify-center rounded-full bg-white/10 text-white/80 transition-colors hover:bg-uniba-sky hover:text-uniba-navy"
                   >
                     {Icon ? <Icon className="size-4.5" /> : null}
                   </a>
@@ -118,7 +118,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-white/70 transition-colors hover:text-white"
               >
-                <Globe className="size-4 shrink-0 text-uniba-gold" aria-hidden="true" />
+                <Globe className="size-4 shrink-0 text-uniba-sky" aria-hidden="true" />
                 {contactInfo.website.replace(/^https?:\/\//, "").replace(/\/$/, "")}
               </a>
               <a
@@ -127,7 +127,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-white/70 transition-colors hover:text-white"
               >
-                <FileText className="size-4 shrink-0 text-uniba-gold" aria-hidden="true" />
+                <FileText className="size-4 shrink-0 text-uniba-sky" aria-hidden="true" />
                 {contactInfo.pmbWebsite.replace(/^https?:\/\//, "").replace(/\/$/, "")} (Portal
                 PMB)
               </a>
@@ -143,7 +143,7 @@ export default function Footer() {
           </p>
           <p className="flex items-center gap-1.5">
             Dibuat dengan
-            <Heart className="size-3.5 shrink-0 fill-uniba-gold text-uniba-gold" aria-hidden="true" />
+            <Heart className="size-3.5 shrink-0 fill-uniba-sky text-uniba-sky" aria-hidden="true" />
             untuk PMB UNIBA Surakarta
           </p>
         </div>

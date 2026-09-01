@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Inter } from "next/font/google";
+import { Geist, Instrument_Serif } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -11,16 +11,33 @@ import {
 } from "@/components/analytics/GoogleTagManager";
 import { getBaseUrl, siteConfig } from "@/lib/site";
 
-const jakarta = Plus_Jakarta_Sans({
+/**
+ * Closest licence-clean stand-ins for the reference's commercial pair
+ * (PP Neue Montreal + PP Editorial New). See docs/teardown-getflect.md.
+ *
+ * Geist is a modern Swiss-influenced neo-grotesk with the same tight apertures
+ * Neue Montreal has, and it carries both headings and body exactly as the
+ * reference does with a single grotesk. Instrument Serif is the high-contrast
+ * display serif standing in for Editorial New, loaded at 400 only because that
+ * is the single weight the reference uses it at, sparingly, as an accent.
+ */
+const geist = Geist({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const inter = Inter({
+const geistBody = Geist({
   variable: "--font-body",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-accent",
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
 });
 
 const baseUrl = getBaseUrl();
@@ -77,7 +94,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="id"
-      className={`${jakarta.variable} ${inter.variable} h-full antialiased scroll-smooth`}
+      className={`${geist.variable} ${geistBody.variable} ${instrumentSerif.variable} h-full antialiased scroll-smooth`}
     >
       <GoogleTagManager />
       <body className="min-h-full flex flex-col bg-alabaster text-slate-dark">

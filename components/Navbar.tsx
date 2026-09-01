@@ -31,7 +31,7 @@ function LogoMark({ compact = false }: { compact?: boolean }) {
         priority
       />
       <span className="font-heading text-lg font-bold whitespace-nowrap text-uniba-navy">
-        UNIBA <span className="text-uniba-amber">Surakarta</span>
+        UNIBA <span className="text-uniba-sky-deep">Surakarta</span>
       </span>
     </span>
   );
@@ -91,7 +91,7 @@ export default function Navbar() {
           </Button>
           <DaftarDialog
             trigger={
-              <Button className="h-10 bg-uniba-gold-gradient px-5 font-semibold text-uniba-navy shadow-sm transition-transform hover:-translate-y-0.5 hover:brightness-105">
+              <Button className="h-10 bg-uniba-sky-gradient px-5 font-semibold text-uniba-navy shadow-sm transition-transform hover:-translate-y-0.5 hover:brightness-105">
                 Daftar PMB
               </Button>
             }
@@ -141,7 +141,7 @@ export default function Navbar() {
               </Button>
               <DaftarDialog
                 trigger={
-                  <Button className="h-11 w-full bg-uniba-gold-gradient font-semibold text-uniba-navy hover:brightness-105">
+                  <Button className="h-11 w-full bg-uniba-sky-gradient font-semibold text-uniba-navy hover:brightness-105">
                     Daftar PMB
                   </Button>
                 }

@@ -64,7 +64,7 @@ export default function EnrollmentSteps() {
 
                 <div className="relative z-10 flex size-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-uniba-navy to-uniba-blue-bright text-white shadow-elev-2 ring-4 ring-alabaster transition-transform duration-300 group-hover:scale-105">
                   <Icon className="size-6" aria-hidden />
-                  <span className="absolute -top-1.5 -right-1.5 flex size-6 items-center justify-center rounded-full bg-uniba-gold-gradient text-xs font-bold text-uniba-navy ring-2 ring-alabaster">
+                  <span className="absolute -top-1.5 -right-1.5 flex size-6 items-center justify-center rounded-full bg-uniba-sky-gradient text-xs font-bold text-uniba-navy ring-2 ring-alabaster">
                     {step.step}
                   </span>
                 </div>

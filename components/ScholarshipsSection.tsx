@@ -50,13 +50,13 @@ export default function ScholarshipsSection() {
               <motion.div
                 key={scholarship.id}
                 variants={itemVariants}
-                className="group relative flex flex-col overflow-hidden rounded-2xl border border-uniba-navy/10 bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1.5 hover:border-uniba-gold/40 hover:shadow-elev-3 sm:p-7"
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-uniba-navy/10 bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1.5 hover:border-uniba-sky/40 hover:shadow-elev-3 sm:p-7"
               >
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-uniba-gold-gradient transition-transform duration-300 ease-out group-hover:scale-x-100"
+                  className="pointer-events-none absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-uniba-sky-gradient transition-transform duration-300 ease-out group-hover:scale-x-100"
                 />
-                <div className="mb-5 inline-flex size-12 w-fit items-center justify-center rounded-xl bg-uniba-navy/5 text-uniba-navy ring-1 ring-inset ring-uniba-navy/10 transition-all duration-300 group-hover:bg-uniba-gold/15 group-hover:text-uniba-amber group-hover:ring-uniba-gold/30">
+                <div className="mb-5 inline-flex size-12 w-fit items-center justify-center rounded-xl bg-uniba-navy/5 text-uniba-navy ring-1 ring-inset ring-uniba-navy/10 transition-all duration-300 group-hover:bg-uniba-sky/15 group-hover:text-uniba-sky-deep group-hover:ring-uniba-sky/30">
                   <Icon className="size-6" />
                 </div>
 
@@ -70,7 +70,7 @@ export default function ScholarshipsSection() {
 
                 <Badge
                   variant="outline"
-                  className="h-auto w-fit border-transparent bg-uniba-gold-gradient px-3 py-1.5 text-xs font-semibold text-slate-dark shadow-sm sm:text-sm"
+                  className="h-auto w-fit border-transparent bg-uniba-sky-gradient px-3 py-1.5 text-xs font-semibold text-slate-dark shadow-sm sm:text-sm"
                 >
                   {scholarship.coverage}
                 </Badge>
