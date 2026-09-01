@@ -180,7 +180,10 @@ def main() -> int:
 
     alt = ("%s UNIBA Surakarta — mulai kuliah cukup %s, gratis uang gedung, "
            "potongan %s. Ditutup %s." % (f["wave"], rupiah(f["down"]), rupiah(waived), closes))
-    OUT_ALT.write_text(alt + "\n", encoding="utf-8")
+    # No trailing newline: Next copies this file verbatim into the og:image:alt
+    # attribute, and on Windows a trailing newline checks out as CRLF and lands as
+    # stray whitespace inside the tag.
+    OUT_ALT.write_text(alt, encoding="utf-8", newline="")
 
     print("wrote %s  %dx%d  %.1f KB" % (OUT_IMG.relative_to(ROOT), W, H,
                                         OUT_IMG.stat().st_size / 1024))
