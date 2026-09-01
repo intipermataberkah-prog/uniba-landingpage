@@ -39,85 +39,36 @@ from pathlib import Path
 
 import numpy as np
 from PIL import Image
-from scipy import ndimage
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _matte import MatteError, load_rgb, matte  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "public" / "mascot" / "rio.webp"
 
-# The floor is derived per render, not fixed. A hardcoded 0.045 rejected a perfectly
-# usable sweep that peaked at 0.047 -- a 0.002 margin is not a quality judgement, it is a
-# coin toss. Measuring the frame and clearing it by a quarter adapts to whatever the
-# generator produced, and the abort below still catches a background genuinely too dirty
-# to separate.
-FLOOR_MARGIN = 1.25
-FLOOR_MIN = 0.030
-# Above this the floor would start eating the subject: RIO's palest region, the lit crown
-# of the head, only reaches about 0.25.
-FLOOR_MAX = 0.120
 # RIO draws at 120-190 px on screen; 620 px tall covers 3x DPR with room to spare.
 TARGET_HEIGHT = 620
 
 
 def main() -> int:
     if len(sys.argv) < 2:
-        print(__doc__.strip().splitlines()[3], file=sys.stderr)
+        print("usage: python scripts/make-mascot-cutout.py <render.jpg>", file=sys.stderr)
         return 2
     src = Path(sys.argv[1])
     if not src.exists():
         print("abort: " + str(src) + " not found", file=sys.stderr)
         return 1
 
-    a = np.asarray(Image.open(src).convert("RGB")).astype(np.float32)
-    h, w = a.shape[:2]
-    raw = 1.0 - a.min(axis=2) / 255.0
-
-    # Sample all four edges, not just top and bottom: a vignette shows up at the corners
-    # first, and a studio sweep is often dirtiest where it curves away.
-    edge = np.concatenate([
-        raw[: h // 40].ravel(), raw[-h // 40 :].ravel(),
-        raw[:, : w // 40].ravel(), raw[:, -w // 40 :].ravel(),
-    ])
-    bg = float(np.percentile(edge, 99.9))
-    floor = max(FLOOR_MIN, bg * FLOOR_MARGIN)
-    if floor > FLOOR_MAX:
-        print(
-            "abort: background is not clean enough (edges reach %.3f, so the floor would "
-            "have to be %.3f and would start cutting into the subject). Re-render on a "
-            "flat white sweep." % (bg, floor),
-            file=sys.stderr,
-        )
+    rgb = load_rgb(src)
+    try:
+        alpha, rep = matte(rgb)
+    except MatteError as e:
+        print("abort: %s. Re-render on a flat white sweep." % e, file=sys.stderr)
         return 1
-
-    # Where the subject is. Closing first so a thin highlight across a wing does not
-    # split it, then filling holes so an interior specular does not punch through.
-    mask = raw > floor
-    mask = ndimage.binary_closing(mask, structure=np.ones((3, 3)), iterations=2)
-    mask = ndimage.binary_fill_holes(mask)
-
-    lbl, n = ndimage.label(mask)
-    if n == 0:
-        print("abort: no subject found", file=sys.stderr)
-        return 1
-    sizes = ndimage.sum(np.ones_like(lbl), lbl, range(1, n + 1))
-    biggest = int(np.argmax(sizes))
-    dropped = int(sizes.sum() - sizes[biggest])
-    mask = lbl == biggest + 1
-
-    # Pull in one pixel to drop the white-contaminated rim, then blur to restore a soft
-    # edge. Rescaling after the blur keeps the silhouette on its original outline instead
-    # of leaving it a pixel thin all round.
-    mask = ndimage.binary_erosion(mask, structure=np.ones((3, 3)), iterations=1)
-    alpha = ndimage.gaussian_filter(mask.astype(np.float32), sigma=0.9)
-    alpha = np.clip((alpha - 0.30) / 0.45, 0.0, 1.0)
 
     ys, xs = np.where(alpha > 0.04)
-    coverage = float((alpha > 0.5).mean())
-    if not 0.03 < coverage < 0.80:
-        print("abort: implausible subject coverage %.1f%%" % (coverage * 100), file=sys.stderr)
-        return 1
-
     crop = (slice(ys.min(), ys.max() + 1), slice(xs.min(), xs.max() + 1))
-    rgba = np.dstack([a, alpha * 255])[crop].astype(np.uint8)
+    rgba = np.dstack([rgb, alpha * 255])[crop].astype(np.uint8)
 
     img = Image.fromarray(rgba, "RGBA")
     if img.height > TARGET_HEIGHT:
@@ -130,11 +81,9 @@ def main() -> int:
 
     print("wrote %s  %dx%d  %.1f KB" % (OUT.relative_to(ROOT), img.width, img.height,
                                         OUT.stat().st_size / 1024))
-    print("background measured at %.3f, alpha floor set to %.3f" % (bg, floor))
+    print("background measured at %.3f, alpha floor %.3f" % (rep["background"], rep["floor"]))
     print("kept the largest of %d components; dropped %d px of speckle and hardware"
-          % (n, dropped))
-    print("subject fills %.1f%% of its own bounding box" % (coverage * 100 * h * w /
-                                                            max(rgba.shape[0] * rgba.shape[1], 1)))
+          % (rep["components"], rep["dropped"]))
     return 0
 
 
