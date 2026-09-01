@@ -20,10 +20,15 @@ export interface StudyProgram {
 }
 
 /**
- * One row of the official "Rincian Biaya Pendidikan Gelombang 2" table. Pendaftaran and
- * SPI are both waived campaign-wide (their sum is the advertised "Potongan
- * 4,3 Juta"). Biaya Lain-lain is paid once, in semester 1 only. SPP Basis + SPP SKS recur
- * every semester alongside a flat Rp150.000 heregistrasi fee (see HEREGISTRASI_PER_SEMESTER).
+ * One row of the official "Rincian Biaya Pendidikan Gelombang 2" table. Biaya Lain-lain is
+ * paid once, in semester 1 only. SPP Basis + SPP SKS recur every semester alongside a flat
+ * Rp150.000 heregistrasi fee (see HEREGISTRASI_PER_SEMESTER).
+ *
+ * Pendaftaran and SPI are waived for the REGULER and KARYAWAN intakes -- their sum is the
+ * advertised "Potongan 4,3 Juta". They are NOT waived for RPL, which carries a different
+ * concession entirely (see `rplConversion`). Read the waiver off
+ * `calculateSemester1Detail` / `calculateRplSemester1Detail` rather than assuming it:
+ * getting this backwards overstates the RPL discount by Rp4.300.000.
  */
 export interface FeeGroup {
   id: string;
@@ -107,8 +112,12 @@ export const classTypeLabels: Record<ClassType, string> = {
 
 /**
  * Official payment scheme. Pendaftaran + SPI (Sarana Pengembangan Institusi, i.e. "uang
- * gedung") remain waived campaign-wide for the whole registration period, unchanged by
- * the September campaign.
+ * gedung") remain waived for the Kelas Pagi and Kelas Malam intakes for the whole
+ * registration period, unchanged by the September campaign. RPL is the exception: it pays
+ * both in full and gets a halved per-credit conversion fee instead.
+ *
+ * The Rp2.000.000 needed to start attending classes is the same on every route, RPL
+ * included.
  *
  * Under the new SK the amount required to start attending classes is a FLAT Rp2.000.000,
  * identical for every programme and both class types. It replaces the previous 60%
@@ -670,6 +679,46 @@ export const rplPromo = {
   description: "Konversi pengalaman kerja kamu menjadi SKS — lulus hanya dalam 2 tahun.",
 };
 
+/**
+ * The RPL conversion fee, charged once per credit recognised from prior work experience.
+ *
+ * This is the ONLY concession RPL carries, and it works the other way round from the main
+ * campaign: RPL does not get the Rp4.300.000 Pendaftaran + SPI waiver, it gets the
+ * per-credit conversion rate halved. Everything else -- SPP Basis, SPP SKS at the Kelas
+ * Malam rate, Biaya Lain-lain -- matches the Kelas Malam schedule exactly.
+ *
+ * How many credits an applicant is granted is decided case by case from their transcript
+ * and portfolio, so there is no single conversion total to publish. `ILLUSTRATION_SKS`
+ * exists only to show the arithmetic at a few plausible counts; it is never presented as
+ * a quote.
+ */
+export const rplConversion = {
+  normalPerSks: 100_000,
+  promoPerSks: 50_000,
+  /** Credit counts used purely to demonstrate the rate. Not an offer. */
+  illustrationSks: [60, 80, 100] as const,
+  label: "Biaya Konversi RPL",
+  unit: "per SKS diakui",
+  note:
+    "Jumlah SKS yang diakui ditentukan per pendaftar, berdasarkan transkrip dan portofolio pengalaman kerja. Angka di atas adalah ilustrasi tarif, bukan penawaran.",
+  /**
+   * Stated on the page rather than left out. A visitor arriving from the homepage has
+   * just been told "Gratis Uang Gedung, potongan Rp4.300.000" on every screen; letting
+   * them carry that assumption to an RPL counter is the kind of surprise that costs a
+   * deposit and a reputation. Saying it plainly, next to the concession RPL does get,
+   * is both the honest and the more persuasive order.
+   */
+  waiverNote:
+    "Jalur RPL membayar Pendaftaran dan SPI secara penuh — potongan Rp4.300.000 berlaku untuk Kelas Pagi dan Kelas Malam. Sebagai gantinya, biaya konversi per SKS dipotong setengah.",
+};
+
+/** Cost of converting `sks` credits, at both the normal and the promo rate. */
+export function calculateRplConversion(sks: number) {
+  const normal = sks * rplConversion.normalPerSks;
+  const promo = sks * rplConversion.promoPerSks;
+  return { sks, normal, promo, saving: normal - promo };
+}
+
 export function getFacultyPrograms(facultyId: string): StudyProgram[] {
   return studyPrograms.filter((program) => program.facultyId === facultyId);
 }
@@ -712,6 +761,38 @@ export function calculateSemester1Detail(program: StudyProgram, classType: Class
     semesterTotal,
     downPayment,
     remaining,
+  };
+}
+
+/**
+ * Semester 1 for an RPL intake.
+ *
+ * Same official figures as Kelas Malam, with one structural difference that is easy to get
+ * wrong: Pendaftaran and SPI are PAYABLE here, so they are inside `semesterTotal` rather
+ * than sitting in a `waivedTotal` beside it. `calculateSemester1Detail` cannot be reused
+ * for RPL for exactly that reason -- it would quietly hand the visitor a Rp4.300.000
+ * discount that does not exist on this route.
+ *
+ * The conversion fee is deliberately NOT folded in. It is billed per recognised credit,
+ * the credit count is decided per applicant, and mixing an individual assessment into a
+ * published semester total would turn a fixed figure into a guess.
+ */
+export function calculateRplSemester1Detail(program: StudyProgram) {
+  const group = getFeeGroup(program);
+  const sppSks = group.sppSks.karyawan;
+  const semesterTotal =
+    group.pendaftaran + group.spi + group.sppBasis + sppSks + group.biayaLainLain;
+  const downPayment = Math.min(paymentScheme.downPayment, semesterTotal);
+
+  return {
+    pendaftaran: group.pendaftaran,
+    spi: group.spi,
+    sppBasis: group.sppBasis,
+    sppSks,
+    biayaLainLain: group.biayaLainLain,
+    semesterTotal,
+    downPayment,
+    remaining: semesterTotal - downPayment,
   };
 }
 
