@@ -284,13 +284,6 @@
   }
 
 
-  .text-gradient-sky {
-    background-image: linear-gradient(135deg, #f5d67a 0%, #38bdf8 55%, #0369a1 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-  }
-
   /* Animated sheen sweep — for premium seals/tickets */
   .sky-sheen::after {
     content: "";

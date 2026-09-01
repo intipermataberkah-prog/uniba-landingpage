@@ -324,7 +324,7 @@ export default function TuitionCalculator() {
                   <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/60">
                     Dibayar di Awal
                   </p>
-                  <p className="text-gradient-sky mt-1 font-heading text-4xl leading-tight font-extrabold tabular-nums drop-shadow-[0_2px_16px_rgba(56,189,248,0.35)] sm:text-5xl">
+                  <p className="mt-1 font-heading text-4xl leading-tight font-extrabold tabular-nums text-white drop-shadow-[0_2px_16px_rgba(56,189,248,0.35)] sm:text-5xl">
                     {formatIDR(displayedDownPayment)}
                   </p>
                 </div>

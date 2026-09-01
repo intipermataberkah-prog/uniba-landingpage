@@ -182,7 +182,7 @@ export default function Hero() {
             >
               <Link
                 href="/rpl"
-                className="group/rpl flex items-center gap-3.5 rounded-2xl border border-uniba-sky/40 bg-uniba-cloud/80 px-4 py-3.5 text-left backdrop-blur-sm transition-colors hover:border-uniba-sky-deep/40 hover:bg-uniba-cloud focus-visible:ring-2 focus-visible:ring-uniba-sky-deep focus-visible:outline-none sm:px-5"
+                className="group/rpl flex items-center gap-3.5 rounded-2xl border border-uniba-sky/45 bg-uniba-cloud/85 px-4 py-3.5 text-left shadow-elev-1 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-uniba-sky-deep/50 hover:bg-uniba-cloud hover:shadow-elev-3 focus-visible:ring-2 focus-visible:ring-uniba-sky-deep focus-visible:outline-none sm:px-5"
               >
                 <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-uniba-navy text-white sm:size-11">
                   <GraduationCap className="size-5 sm:size-6" aria-hidden="true" />
@@ -191,14 +191,22 @@ export default function Hero() {
                   <p className="text-[11px] font-semibold tracking-[0.14em] text-uniba-sky-deep uppercase">
                     {rplPromo.title}
                   </p>
-                  <p className="mt-0.5 text-sm leading-snug text-uniba-navy/80 sm:text-[15px]">
+                  <p className="mt-0.5 text-sm leading-snug text-uniba-navy/80 underline decoration-uniba-sky-deep/25 decoration-1 underline-offset-[3px] transition-colors group-hover/rpl:decoration-uniba-sky-deep sm:text-[15px]">
                     {rplPromo.description}
                   </p>
                 </div>
-                <ArrowRight
-                  className="hidden size-4 shrink-0 text-uniba-sky-deep transition-transform group-hover/rpl:translate-x-0.5 sm:block"
+                {/* The action, spelled out. The label is desktop-only because the bar
+                    is already tight at 375px, but the arrow chip is not: on a phone it
+                    was the only affordance and it was the one thing hidden. */}
+                <span className="ml-1 hidden shrink-0 items-center gap-1.5 text-sm font-semibold text-uniba-sky-deep lg:flex">
+                  {rplPromo.ctaLabel}
+                </span>
+                <span
                   aria-hidden="true"
-                />
+                  className="flex size-8 shrink-0 items-center justify-center rounded-full bg-uniba-navy text-white transition-transform duration-300 group-hover/rpl:translate-x-0.5"
+                >
+                  <ArrowRight className="size-4" />
+                </span>
               </Link>
             </motion.div>
           </motion.div>

@@ -677,6 +677,8 @@ export const trustBadges = [
 export const rplPromo = {
   title: "Program RPL",
   description: "Konversi pengalaman kerja kamu menjadi SKS — lulus hanya dalam 2 tahun.",
+  /** Action label. Without one the hero bar reads as a notice, not a link. */
+  ctaLabel: "Lihat Program",
 };
 
 /**
