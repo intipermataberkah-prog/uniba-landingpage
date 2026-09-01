@@ -67,6 +67,15 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
+  /* Display type system measured from getflect.app via site-clone's tokens-probe.
+     See docs/teardown-getflect.md. The reference's fonts are commercially licensed
+     and are NOT used; what transfers is the ratio system, which is font-agnostic:
+     tracking -0.03em on display type, leading 1.06 on headings against 1.6 on body,
+     and hierarchy carried by size and colour rather than by heavy weights. */
+  --tracking-display: -0.03em;
+  --leading-display: 1.06;
+  --leading-heading: 1.1;
+
   --animate-float: float 6s ease-in-out infinite;
   --animate-sheen: sheen 4.5s ease-in-out infinite;
   --animate-shimmer: shimmer 2.6s linear infinite;
@@ -153,6 +162,9 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* 1.6 body leading against 1.06 headings is the rhythm contrast that makes the
+       reference read as calm rather than cramped. */
+    line-height: 1.6;
     /* Crisper type rendering for editorial feel */
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;

@@ -81,7 +81,7 @@ export default function Hero() {
             <motion.h1
               variants={fadeUp}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="max-w-4xl text-balance font-heading text-[2.15rem] font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl"
+              className="max-w-4xl text-balance font-heading text-[2.15rem] font-semibold leading-display tracking-display text-white sm:text-5xl lg:text-[3.25rem]"
             >
               {campaignTagline.lines[0]}{" "}
               {/* nowrap only from sm up. This span inherited whitespace-nowrap from the
@@ -140,7 +140,7 @@ export default function Hero() {
                 trigger={
                   <Button
                     size="lg"
-                    className="group h-12 bg-uniba-gold-gradient px-8 text-[0.95rem] font-semibold text-uniba-navy shadow-gold-glow transition-transform hover:-translate-y-0.5 hover:brightness-105"
+                    className="group h-12 rounded-full bg-uniba-gold-gradient px-8 text-[0.95rem] font-semibold text-uniba-navy shadow-gold-glow transition-transform hover:-translate-y-0.5 hover:brightness-105"
                   >
                     Daftar Sekarang
                     <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
@@ -151,7 +151,7 @@ export default function Hero() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="h-12 w-full border-white/25 bg-white/5 px-8 text-[0.95rem] text-white backdrop-blur-sm transition-colors hover:border-white/40 hover:bg-white/10 hover:text-white sm:w-auto"
+                className="h-12 w-full rounded-full border-white/25 bg-white/5 px-8 text-[0.95rem] text-white backdrop-blur-sm transition-colors hover:border-white/40 hover:bg-white/10 hover:text-white sm:w-auto"
               >
                 <a href="#simulasi-biaya">Simulasi Cicilan Biaya</a>
               </Button>

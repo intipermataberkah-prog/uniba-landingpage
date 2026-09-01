@@ -44,7 +44,7 @@ export function SectionHeading({
       ) : null}
       <h2
         className={cn(
-          "text-balance font-heading text-3xl font-bold tracking-tight sm:text-4xl lg:text-[2.6rem] lg:leading-[1.1]",
+          "text-balance font-heading text-3xl font-semibold tracking-display sm:text-4xl lg:text-[2.6rem] lg:leading-heading",
           light ? "text-white" : "text-slate-dark"
         )}
       >
