@@ -175,7 +175,7 @@ export default function TuitionCalculator() {
         />
 
         <motion.div
-          initial={{ opacity: 0, y: 32, filter: "blur(6px)" }}
+          initial={{ opacity: 0, y: 32, filter: "blur(3px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: DURATION.reveal, ease: EASE_OUT_EXPO }}

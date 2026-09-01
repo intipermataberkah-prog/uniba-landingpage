@@ -34,7 +34,7 @@ const trustBadgeIcons = [ShieldCheck, Users, BadgeCheck];
 const WAIVED_TOTAL = feeGroups[0].pendaftaran + feeGroups[0].spi;
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
+  hidden: { opacity: 0, y: 24, filter: "blur(3px)" },
   visible: { opacity: 1, y: 0, filter: "blur(0px)" },
 };
 

@@ -19,10 +19,11 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
+  hidden: { opacity: 0, y: 24, filter: "blur(3px)" },
   visible: {
     opacity: 1,
     y: 0,
+    filter: "blur(0px)",
     transition: { duration: DURATION.reveal, ease: EASE_OUT_EXPO },
   },
 };
@@ -81,7 +82,7 @@ export default function ScholarshipsSection() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
+          initial={{ opacity: 0, y: 16, filter: "blur(3px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: DURATION.reveal, delay: 0.15 }}

@@ -33,18 +33,27 @@ export const DURATION = {
 export const STAGGER = 0.14;
 
 /**
- * The house reveal. Blur is deliberately small: it is doing the work of suggesting
- * focus, and a heavy blur on a large surface is expensive to composite on the
- * mid-range phones this page is bought for.
+ * The house reveal.
+ *
+ * Blur is kept at 3px for two reasons, and the second one is the important one.
+ * Compositing a heavy blur over a large surface is expensive on the mid-range
+ * phones this page is bought for. More seriously, the failure mode of this effect
+ * is UNREADABLE CONTENT: if a reveal never completes, whatever it was revealing
+ * stays blurred. That already happened once, when three components had `filter`
+ * on their `hidden` variant but not on `visible`, and Framer Motion leaves a
+ * property at its hidden value when the target variant omits it.
+ *
+ * So: any variant that blurs in MUST blur out, and the amount stays small enough
+ * that a stuck state is still legible rather than destroying the page.
  */
 export const revealUp = {
-  hidden: { opacity: 0, y: 20, filter: "blur(6px)" },
+  hidden: { opacity: 0, y: 20, filter: "blur(3px)" },
   visible: { opacity: 1, y: 0, filter: "blur(0px)" },
 };
 
 /** Same arrival without vertical travel, for elements already in position. */
 export const revealIn = {
-  hidden: { opacity: 0, filter: "blur(6px)" },
+  hidden: { opacity: 0, filter: "blur(3px)" },
   visible: { opacity: 1, filter: "blur(0px)" },
 };
 

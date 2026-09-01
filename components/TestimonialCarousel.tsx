@@ -121,7 +121,7 @@ export default function TestimonialCarousel() {
         />
 
         <motion.div
-          initial={{ opacity: 0, y: 32, filter: "blur(6px)" }}
+          initial={{ opacity: 0, y: 32, filter: "blur(3px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: DURATION.reveal, ease: EASE_OUT_EXPO }}
@@ -197,7 +197,7 @@ export default function TestimonialCarousel() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+          initial={{ opacity: 0, y: 20, filter: "blur(3px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: DURATION.reveal, delay: 0.1, ease: EASE_OUT_EXPO }}

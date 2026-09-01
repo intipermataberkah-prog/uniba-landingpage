@@ -36,7 +36,7 @@ function ProgramCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
+      initial={{ opacity: 0, y: 24, filter: "blur(3px)" }}
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: DURATION.reveal, delay: index * 0.06, ease: EASE_OUT_EXPO }}
@@ -134,7 +134,7 @@ export default function FacultyExplorer() {
           {faculties.map((faculty) => (
             <TabsContent key={faculty.id} value={faculty.id} className="mt-10 w-full sm:mt-12">
               <motion.p
-                initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
+                initial={{ opacity: 0, y: 12, filter: "blur(3px)" }}
                 whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: DURATION.reveal }}
