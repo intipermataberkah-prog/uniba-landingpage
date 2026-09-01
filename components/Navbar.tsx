@@ -54,8 +54,8 @@ function LogoMark({ compact = false }: { compact?: boolean }) {
  * header outright would also throw away the primary conversion path, which is not
  * a trade this page can afford.
  *
- * Sticky rather than fixed on purpose: it stays in normal flow, so it sits below
- * AnnouncementBar instead of covering it, and the bar stays dismissible.
+ * Sticky rather than fixed: it stays in normal flow, which keeps it from
+ * overlapping anything placed above it in the page and avoids needing a spacer.
  */
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);

@@ -1,4 +1,3 @@
-import AnnouncementBar from "@/components/AnnouncementBar";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import TuitionCalculator from "@/components/TuitionCalculator";
@@ -17,7 +16,6 @@ export default function Home() {
   return (
     <>
       <StructuredData />
-      <AnnouncementBar />
       <Navbar />
       <main className="flex-1">
         <Hero />
