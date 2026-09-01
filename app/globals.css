@@ -244,6 +244,32 @@
     }
   }
 
+  /*
+   * RIO's idle bob. Deliberately CSS and deliberately independent of the scroll path:
+   * scroll decides where he is, this decides that he is alive. Without it he freezes
+   * solid the moment the reader stops to read, which is most of the time they are on
+   * the page.
+   */
+  @keyframes rio-bob {
+    0%,
+    100% {
+      transform: translate3d(0, -5px, 0) rotate(-2.5deg);
+    }
+    50% {
+      transform: translate3d(0, 5px, 0) rotate(2.5deg);
+    }
+  }
+
+  .rio-bob {
+    animation: rio-bob 3.6s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rio-bob {
+      animation: none;
+    }
+  }
+
   /* Fine film grain for depth on dark surfaces */
   .bg-grain {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
