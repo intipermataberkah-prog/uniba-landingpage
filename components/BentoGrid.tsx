@@ -25,7 +25,7 @@ const itemVariants = {
 
 export default function BentoGrid() {
   return (
-    <section id="keunggulan" className="bg-cream py-20 sm:py-28">
+    <section id="keunggulan" className="bg-white py-24 sm:py-32 lg:py-36">
       <Container>
         <SectionHeading
           eyebrow="Mengapa UNIBA Surakarta?"
@@ -55,7 +55,7 @@ export default function BentoGrid() {
                     : "lg:col-span-1 lg:row-span-1"
                 )}
               >
-                {/* Gold top accent reveal */}
+                {/* Sky top accent reveal */}
                 <span
                   aria-hidden
                   className="pointer-events-none absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-uniba-sky-gradient transition-transform duration-300 ease-out group-hover:scale-x-100"

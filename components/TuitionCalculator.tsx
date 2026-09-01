@@ -165,7 +165,7 @@ export default function TuitionCalculator() {
   const waLink = `https://wa.me/${contactInfo.whatsapp}?text=${encodeURIComponent(waMessage)}`;
 
   return (
-    <section id="simulasi-biaya" className="relative bg-alabaster py-20 sm:py-28">
+    <section id="simulasi-biaya" className="relative bg-uniba-cloud/50 py-24 sm:py-32 lg:py-36">
       <Container>
         <SectionHeading
           eyebrow="Simulasi Biaya"

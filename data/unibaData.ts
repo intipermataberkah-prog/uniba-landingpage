@@ -191,7 +191,7 @@ export const faculties: Faculty[] = [
     description:
       "Mengembangkan inovasi agrikultur dan peternakan berkelanjutan untuk ketahanan pangan nasional.",
     iconName: "Sprout",
-    accentClass: "from-uniba-gold-deep to-uniba-gold",
+    accentClass: "from-uniba-sky-deep to-uniba-sky",
     programIds: ["agroteknologi", "agribisnis", "peternakan"],
   },
   {

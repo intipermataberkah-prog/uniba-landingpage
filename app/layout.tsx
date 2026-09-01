@@ -97,7 +97,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geist.variable} ${geistBody.variable} ${instrumentSerif.variable} h-full antialiased scroll-smooth`}
     >
       <GoogleTagManager />
-      <body className="min-h-full flex flex-col bg-alabaster text-slate-dark">
+      <body className="min-h-full flex flex-col bg-white text-slate-dark">
         <GoogleTagManagerNoScript />
         <AnalyticsProvider />
         {/* StructuredData is rendered per-page, not here: its FAQPage must mirror the

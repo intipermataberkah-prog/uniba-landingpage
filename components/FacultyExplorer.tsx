@@ -105,7 +105,7 @@ function ProgramCard({
 
 export default function FacultyExplorer() {
   return (
-    <section id="program-studi" className="bg-alabaster py-20 sm:py-28">
+    <section id="program-studi" className="bg-uniba-cloud/50 py-24 sm:py-32 lg:py-36">
       <Container>
         <SectionHeading
           eyebrow="Program Studi"

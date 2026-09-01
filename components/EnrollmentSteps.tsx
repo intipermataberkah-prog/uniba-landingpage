@@ -25,7 +25,7 @@ const itemVariants = {
 
 export default function EnrollmentSteps() {
   return (
-    <section id="cara-daftar" className="bg-alabaster py-20 sm:py-28">
+    <section id="cara-daftar" className="bg-uniba-cloud/50 py-24 sm:py-32 lg:py-36">
       <Container>
         <SectionHeading
           eyebrow="Cara Daftar"

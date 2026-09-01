@@ -28,7 +28,7 @@ const itemVariants = {
 
 export default function ScholarshipsSection() {
   return (
-    <section id="beasiswa" className="bg-cream py-20 sm:py-28">
+    <section id="beasiswa" className="bg-white py-24 sm:py-32 lg:py-36">
       <Container>
         <SectionHeading
           eyebrow="Beasiswa"

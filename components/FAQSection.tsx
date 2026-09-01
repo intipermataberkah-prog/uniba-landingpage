@@ -14,7 +14,7 @@ import { faqItems } from "@/data/unibaData";
 
 export default function FAQSection() {
   return (
-    <section id="faq" className="bg-cream py-20 sm:py-28">
+    <section id="faq" className="bg-white py-24 sm:py-32 lg:py-36">
       <Container>
         <SectionHeading
           eyebrow="FAQ"

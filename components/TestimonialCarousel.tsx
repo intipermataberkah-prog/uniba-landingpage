@@ -104,7 +104,7 @@ export default function TestimonialCarousel() {
   const scrollTo = useCallback((index: number) => emblaApi?.scrollTo(index), [emblaApi]);
 
   return (
-    <section id="testimoni" className="relative overflow-hidden bg-uniba-navy py-20 sm:py-28">
+    <section id="testimoni" className="relative overflow-hidden bg-uniba-navy py-24 sm:py-32 lg:py-36">
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-batik-kawung opacity-20" />
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-grain opacity-[0.12] mix-blend-overlay" />
       <div

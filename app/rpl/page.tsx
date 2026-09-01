@@ -225,7 +225,7 @@ export default function RplPage() {
         </section>
 
         {/* ---------------- Advantages ---------------- */}
-        <section className="bg-alabaster py-20 sm:py-28">
+        <section className="bg-uniba-cloud/50 py-24 sm:py-32 lg:py-36">
           <Container>
             <SectionHeading eyebrow={rplPromo.title} title={LABELS.advantages} />
             <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -286,7 +286,7 @@ export default function RplPage() {
         </section>
 
         {/* ---------------- Fees ---------------- */}
-        <section id="biaya-rpl" className="bg-white py-20 sm:py-28">
+        <section id="biaya-rpl" className="bg-white py-24 sm:py-32 lg:py-36">
           <Container>
             <SectionHeading
               eyebrow={classTypeLabels.karyawan}
@@ -358,7 +358,7 @@ export default function RplPage() {
 
         {/* ---------------- Alumni story ---------------- */}
         {rplTestimonial ? (
-          <section className="bg-alabaster py-20 sm:py-28">
+          <section className="bg-uniba-cloud/50 py-24 sm:py-32 lg:py-36">
             <Container>
               <SectionHeading eyebrow={classTypeLabels.karyawan} title={LABELS.story} />
               <figure className="mx-auto mt-12 max-w-3xl rounded-2xl border border-uniba-navy/10 bg-white p-8 shadow-elev-1 sm:p-10">
@@ -381,7 +381,7 @@ export default function RplPage() {
         ) : null}
 
         {/* ---------------- Steps ---------------- */}
-        <section className="bg-white py-20 sm:py-28">
+        <section className="bg-white py-24 sm:py-32 lg:py-36">
           <Container>
             <SectionHeading eyebrow="One Day Service" title={LABELS.steps} />
             <ol className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -417,7 +417,7 @@ export default function RplPage() {
         </section>
 
         {/* ---------------- FAQ ---------------- */}
-        <section className="bg-alabaster py-20 sm:py-28">
+        <section className="bg-uniba-cloud/50 py-24 sm:py-32 lg:py-36">
           <Container>
             <SectionHeading eyebrow="FAQ" title={LABELS.faq} />
             <dl className="mx-auto mt-12 max-w-3xl">
