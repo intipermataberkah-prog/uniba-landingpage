@@ -54,8 +54,15 @@ function LogoMark({ compact = false }: { compact?: boolean }) {
  * header outright would also throw away the primary conversion path, which is not
  * a trade this page can afford.
  *
- * Sticky rather than fixed: it stays in normal flow, which keeps it from
- * overlapping anything placed above it in the page and avoids needing a spacer.
+ * Fixed, not sticky. Sticky kept the header in normal flow, so it occupied its
+ * own 64px band with the white page ground behind it and the sky hero could only
+ * begin underneath. Taking it out of flow lets the hero start at the very top
+ * edge, so the sky runs full bleed and the header floats over it.
+ *
+ * This was sticky only because AnnouncementBar sat above it and would have been
+ * covered. That bar is gone, so the constraint is gone with it. The hero's own
+ * top padding (96px and up) already clears the 64px header, so nothing needs a
+ * spacer.
  */
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -82,7 +89,7 @@ export default function Navbar() {
       initial={{ y: -24, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: DURATION.reveal, ease: EASE_OUT_EXPO }}
-      className="sticky top-2 z-50 px-2 sm:top-3 sm:px-3"
+      className="fixed inset-x-0 top-2 z-50 px-2 sm:top-3 sm:px-3"
     >
       <div
         className={cn(
