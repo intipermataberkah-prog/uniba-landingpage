@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import BackgroundMusic from "@/components/BackgroundMusic";
+import { PaperTearProvider } from "@/components/PaperTear";
 import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
 import {
   GoogleTagManager,
@@ -102,7 +103,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <AnalyticsProvider />
         {/* StructuredData is rendered per-page, not here: its FAQPage must mirror the
             questions actually visible on that page, and /rpl only shows a subset. */}
-        {children}
+        {/* Here rather than inside a page so one sweep can span two routes: the page
+            that starts the transition unmounts the moment the route commits. */}
+        <PaperTearProvider>{children}</PaperTearProvider>
         {/* In the layout rather than the page so playback survives client-side
             navigation between / and /rpl instead of restarting each time. */}
         <BackgroundMusic />

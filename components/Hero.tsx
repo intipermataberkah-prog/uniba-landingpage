@@ -16,6 +16,7 @@ import { Container } from "@/components/Container";
 import { Button } from "@/components/ui/button";
 import { DaftarDialog } from "@/components/DaftarDialog";
 import { SkyBackdrop } from "@/components/SkyBackdrop";
+import { usePaperTear } from "@/components/PaperTear";
 import { formatIDR } from "@/lib/utils";
 import {
   campaignTagline,
@@ -52,6 +53,8 @@ const fadeUp = {
  * is buying.
  */
 export default function Hero() {
+  const tearTo = usePaperTear();
+
   return (
     <section id="beranda" className="relative isolate overflow-hidden bg-white">
       <SkyBackdrop />
@@ -182,6 +185,24 @@ export default function Hero() {
             >
               <Link
                 href="/rpl"
+                onClick={(event) => {
+                  // Only a plain left click. A modified or middle click means the
+                  // visitor asked for a new tab, and swallowing that to play an
+                  // animation in this one would be taking the page off them.
+                  if (
+                    !tearTo ||
+                    event.defaultPrevented ||
+                    event.button !== 0 ||
+                    event.metaKey ||
+                    event.ctrlKey ||
+                    event.shiftKey ||
+                    event.altKey
+                  ) {
+                    return;
+                  }
+                  event.preventDefault();
+                  tearTo("/rpl");
+                }}
                 className="group/rpl flex items-center gap-3.5 rounded-2xl border border-uniba-sky/45 bg-uniba-cloud/85 px-4 py-3.5 text-left shadow-elev-1 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-uniba-sky-deep/50 hover:bg-uniba-cloud hover:shadow-elev-3 focus-visible:ring-2 focus-visible:ring-uniba-sky-deep focus-visible:outline-none sm:px-5"
               >
                 <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-uniba-navy text-white sm:size-11">
