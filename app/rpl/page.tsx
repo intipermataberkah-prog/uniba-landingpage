@@ -36,6 +36,7 @@ import {
   paymentScheme,
   rplConversion,
   rplPromo,
+  getRplFixedComponents,
   getRplPrograms,
   rplProgramIds,
   testimonials,
@@ -65,6 +66,7 @@ const LABELS = {
     // lists five of nine. The count is derived so it cannot drift from the list.
   programsDesc: `${rplProgramIds.length} program studi S1 di bawah ini membuka jalur RPL dengan skema biaya Kelas Malam.`,
   fees: "Rincian Biaya RPL",
+  fixedCosts: "Komponen yang sama untuk semua prodi",
   feesDesc:
     "Skema biaya RPL mengikuti Kelas Malam, dengan satu potongan yang hanya ada di jalur ini.",
   conversion: "Potongan khusus RPL",
@@ -90,6 +92,9 @@ const rplFeatures = FEATURE_IDS.map((id) =>
  * Teknik Sipil and Informatika on a page promising RPL they do not offer.
  */
 const rplPrograms = getRplPrograms();
+
+/** Pendaftaran + SPI + Biaya Lain-lain: identical on every RPL programme. */
+const rplFixed = getRplFixedComponents();
 
 /** The two contract questions that speak to this audience, verbatim. */
 const rplFaqs = faqItems.filter((item) => /kelas karyawan|bunga/i.test(item.question));
@@ -403,6 +408,45 @@ export default function RplPage() {
               <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
                 {LABELS.programsDesc}
               </p>
+              {/* The fixed two-thirds of the bill, named. These three are equal on
+                  every RPL programme, so they sit outside the table rather than
+                  repeating down five rows of three extra columns. */}
+              <div className="mt-5 rounded-2xl border border-uniba-navy/10 bg-alabaster p-5 sm:p-6">
+                <p className="text-xs font-bold uppercase tracking-[0.14em] text-uniba-sky-deep">
+                  {LABELS.fixedCosts}
+                </p>
+                <dl className="mt-4 space-y-2.5 text-sm">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <dt className="text-muted-foreground">Pendaftaran</dt>
+                    <dd className="font-semibold text-slate-dark tabular-nums">
+                      {formatIDR(rplFixed.pendaftaran)}
+                    </dd>
+                  </div>
+                  <div className="flex items-baseline justify-between gap-4">
+                    <dt className="text-muted-foreground">SPI (Uang Gedung)</dt>
+                    <dd className="font-semibold text-slate-dark tabular-nums">
+                      {formatIDR(rplFixed.spi)}
+                    </dd>
+                  </div>
+                  <div className="flex items-baseline justify-between gap-4">
+                    <dt className="text-muted-foreground">Biaya Lain-lain (sekali bayar)</dt>
+                    <dd className="font-semibold text-slate-dark tabular-nums">
+                      {formatIDR(rplFixed.biayaLainLain)}
+                    </dd>
+                  </div>
+                  <div className="flex items-baseline justify-between gap-4 border-t border-uniba-navy/10 pt-2.5">
+                    <dt className="font-semibold text-slate-dark">Subtotal</dt>
+                    <dd className="font-heading text-base font-bold text-uniba-navy tabular-nums">
+                      {formatIDR(rplFixed.total)}
+                    </dd>
+                  </div>
+                </dl>
+                <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+                  Sudah termasuk dalam Total Semester 1 di tabel bawah. Yang berbeda antar
+                  prodi hanya SPP Basis dan SPP SKS.
+                </p>
+              </div>
+
               <div className="mt-5 overflow-hidden rounded-2xl border border-uniba-navy/10">
                 <div className="hidden grid-cols-[1.6fr_1fr_1fr_1.1fr] gap-4 bg-uniba-navy px-6 py-4 sm:grid">
                   <span className="text-xs font-bold uppercase tracking-[0.14em] text-white/70">

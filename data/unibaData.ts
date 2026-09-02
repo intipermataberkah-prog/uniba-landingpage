@@ -714,6 +714,40 @@ export function getRplPrograms(): StudyProgram[] {
 }
 
 /**
+ * The parts of an RPL semester 1 that are the same whatever you study.
+ *
+ * Pendaftaran, SPI and Biaya Lain-lain are identical across every RPL fee group, and
+ * together they are Rp6.100.000 of an Rp11.000.000 total. The page used to show only
+ * SPP Basis and SPP SKS, so a visitor could read two figures adding to Rp4.900.000 and
+ * a total of Rp11.000.000 with the difference never named. On a page that exists to
+ * answer "how much", an unexplained six million is the gap that loses trust.
+ *
+ * The uniformity is asserted rather than assumed. If a future fee table ever prices
+ * these differently per programme, this throws instead of printing one figure that is
+ * wrong for four of the five.
+ */
+export function getRplFixedComponents() {
+  const groups = getRplPrograms().map(getFeeGroup);
+  const [first] = groups;
+
+  for (const key of ["pendaftaran", "spi", "biayaLainLain"] as const) {
+    if (groups.some((g) => g[key] !== first[key])) {
+      throw new Error(
+        `${key} is no longer uniform across RPL programmes; the fixed-cost panel would ` +
+          "print one figure that is wrong for some of them"
+      );
+    }
+  }
+
+  return {
+    pendaftaran: first.pendaftaran,
+    spi: first.spi,
+    biayaLainLain: first.biayaLainLain,
+    total: first.pendaftaran + first.spi + first.biayaLainLain,
+  };
+}
+
+/**
  * The RPL conversion fee, charged once per credit recognised from prior work experience.
  *
  * This is the ONLY concession RPL carries, and it works the other way round from the main
