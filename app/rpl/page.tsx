@@ -36,7 +36,8 @@ import {
   paymentScheme,
   rplConversion,
   rplPromo,
-  studyPrograms,
+  getRplPrograms,
+  rplProgramIds,
   testimonials,
   trustBadges,
 } from "@/data/unibaData";
@@ -59,8 +60,10 @@ const LABELS = {
   back: "Kembali ke Halaman Utama",
   advantages: "Kenapa Program RPL",
   programs: "Pilihan Program Studi",
-  programsDesc:
-    "Seluruh program studi S1 di bawah ini tersedia dengan skema biaya Kelas Malam.",
+  // Was "Seluruh program studi S1 di bawah ini" -- true of the table, but it read as
+    // "every S1 programme", which is exactly the wrong impression on a page that now
+    // lists five of nine. The count is derived so it cannot drift from the list.
+  programsDesc: `${rplProgramIds.length} program studi S1 di bawah ini membuka jalur RPL dengan skema biaya Kelas Malam.`,
   fees: "Rincian Biaya RPL",
   feesDesc:
     "Skema biaya RPL mengikuti Kelas Malam, dengan satu potongan yang hanya ada di jalur ini.",
@@ -80,8 +83,13 @@ const rplFeatures = FEATURE_IDS.map((id) =>
   bentoFeatures.find((feature) => feature.id === id)
 ).filter((feature): feature is NonNullable<typeof feature> => feature !== undefined);
 
-/** Only programs the official fee document covers can be priced. */
-const pricedPrograms = studyPrograms.filter((p) => p.feeGroupId !== undefined);
+/**
+ * Only the programmes that actually run RPL -- five of the nine priced ones.
+ *
+ * This used to be every programme with a fee group, which put Agribisnis, Peternakan,
+ * Teknik Sipil and Informatika on a page promising RPL they do not offer.
+ */
+const rplPrograms = getRplPrograms();
 
 /** The two contract questions that speak to this audience, verbatim. */
 const rplFaqs = faqItems.filter((item) => /kelas karyawan|bunga/i.test(item.question));
@@ -389,6 +397,12 @@ export default function RplPage() {
               <h3 className="font-heading text-xl font-bold text-slate-dark">
                 {LABELS.semester1}
               </h3>
+              {/* Stated, not left to inference. RPL runs on five of the nine priced
+                  programmes, and a visitor who does not find theirs in a shorter table
+                  is more likely to assume an oversight than a restriction. */}
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                {LABELS.programsDesc}
+              </p>
               <div className="mt-5 overflow-hidden rounded-2xl border border-uniba-navy/10">
                 <div className="hidden grid-cols-[1.6fr_1fr_1fr_1.1fr] gap-4 bg-uniba-navy px-6 py-4 sm:grid">
                   <span className="text-xs font-bold uppercase tracking-[0.14em] text-white/70">
@@ -406,7 +420,7 @@ export default function RplPage() {
                 </div>
 
                 <ul>
-                  {pricedPrograms.map((program) => {
+                  {rplPrograms.map((program) => {
                     const detail = calculateRplSemester1Detail(program);
                     return (
                       <li

@@ -682,6 +682,38 @@ export const rplPromo = {
 };
 
 /**
+ * The study programmes that actually run RPL.
+ *
+ * This is NOT every programme with a fee group. The /rpl page used to list all nine
+ * priced programmes, which advertised RPL on four that do not offer it -- Agribisnis,
+ * Peternakan, Teknik Sipil and Informatika. A working adult could have read that page,
+ * paid to register, and been turned away at the counter.
+ *
+ * Ordered as written, not sorted, so the table reads in the order the campus lists them.
+ */
+export const rplProgramIds = [
+  "manajemen",
+  "akuntansi",
+  "ilmu-hukum",
+  "agroteknologi",
+  "teknik-industri",
+] as const;
+
+/** The programmes open to RPL, in listing order. Throws if an id ever goes stale. */
+export function getRplPrograms(): StudyProgram[] {
+  return rplProgramIds.map((id) => {
+    const program = studyPrograms.find((p) => p.id === id);
+    if (!program) {
+      throw new Error(`rplProgramIds references unknown study program "${id}"`);
+    }
+    if (!program.feeGroupId) {
+      throw new Error(`RPL programme "${id}" has no fee group, so it cannot be priced`);
+    }
+    return program;
+  });
+}
+
+/**
  * The RPL conversion fee, charged once per credit recognised from prior work experience.
  *
  * This is the ONLY concession RPL carries, and it works the other way round from the main
