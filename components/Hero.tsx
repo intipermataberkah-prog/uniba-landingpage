@@ -181,7 +181,7 @@ export default function Hero() {
             <motion.div
               variants={fadeUp}
               transition={{ duration: DURATION.reveal, ease: EASE_OUT_EXPO }}
-              className="mt-3 w-full max-w-3xl"
+              className="mt-8 w-full max-w-3xl"
             >
               <Link
                 href="/rpl"
@@ -203,30 +203,45 @@ export default function Hero() {
                   event.preventDefault();
                   tearTo("/rpl");
                 }}
-                className="group/rpl flex items-center gap-3.5 rounded-2xl border border-uniba-sky/45 bg-uniba-cloud/85 px-4 py-3.5 text-left shadow-elev-1 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-uniba-sky-deep/50 hover:bg-uniba-cloud hover:shadow-elev-3 focus-visible:ring-2 focus-visible:ring-uniba-sky-deep focus-visible:outline-none sm:px-5"
+                /*
+                  Navy, not a tint. It was bg-uniba-cloud/85 -- a pale blue card on a
+                  pale blue sky, the same width, radius and value as the three trust
+                  badges directly above it, 12px away. Nothing about it said "this one
+                  is an action"; the eye filed it as a fourth badge.
+
+                  A dark bar is the one treatment nothing else in this hero uses, so it
+                  separates on material rather than on degree. It sits below the primary
+                  CTA in reading order, and the bright pill inside it carries the click,
+                  so it anchors the foot of the hero without taking the money button's
+                  job.
+                */
+                className="group/rpl relative flex items-center gap-4 overflow-hidden rounded-2xl bg-uniba-navy py-4 pr-4 pl-5 text-left shadow-elev-3 transition-all duration-300 hover:-translate-y-0.5 hover:bg-uniba-navy-deep hover:shadow-sky-glow focus-visible:ring-2 focus-visible:ring-uniba-sky focus-visible:ring-offset-2 focus-visible:outline-none sm:gap-5 sm:pr-5 sm:pl-6"
               >
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-uniba-navy text-white sm:size-11">
-                  <GraduationCap className="size-5 sm:size-6" aria-hidden="true" />
+                {/* Colour identity on a bar that is otherwise all one navy. */}
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-y-0 left-0 w-1.5 bg-uniba-sky-gradient"
+                />
+                <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-uniba-sky ring-1 ring-inset ring-white/15 sm:size-12">
+                  <GraduationCap className="size-5.5 sm:size-6" aria-hidden="true" />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="text-[11px] font-semibold tracking-[0.14em] text-uniba-sky-deep uppercase">
+                  <p className="text-[11px] font-bold tracking-[0.16em] text-uniba-sky uppercase">
                     {rplPromo.title}
                   </p>
-                  <p className="mt-0.5 text-sm leading-snug text-uniba-navy/80 underline decoration-uniba-sky-deep/25 decoration-1 underline-offset-[3px] transition-colors group-hover/rpl:decoration-uniba-sky-deep sm:text-[15px]">
+                  <p className="mt-1 text-[15px] leading-snug font-medium text-white sm:text-base">
                     {rplPromo.description}
                   </p>
                 </div>
                 {/* The action, spelled out. The label is desktop-only because the bar
                     is already tight at 375px, but the arrow chip is not: on a phone it
                     was the only affordance and it was the one thing hidden. */}
-                <span className="ml-1 hidden shrink-0 items-center gap-1.5 text-sm font-semibold text-uniba-sky-deep lg:flex">
-                  {rplPromo.ctaLabel}
-                </span>
-                <span
-                  aria-hidden="true"
-                  className="flex size-8 shrink-0 items-center justify-center rounded-full bg-uniba-navy text-white transition-transform duration-300 group-hover/rpl:translate-x-0.5"
-                >
-                  <ArrowRight className="size-4" />
+                {/* One pill instead of a bare label plus a separate chip. On a dark
+                    bar a bright filled pill is the strongest possible affordance, and
+                    it collapses to just the arrow below lg where the bar is tight. */}
+                <span className="flex shrink-0 items-center gap-2 rounded-full bg-uniba-sky-gradient px-3 py-2 text-sm font-bold text-uniba-navy shadow-sm transition-transform duration-300 group-hover/rpl:translate-x-0.5 sm:px-4 sm:py-2.5">
+                  <span className="hidden lg:inline">{rplPromo.ctaLabel}</span>
+                  <ArrowRight className="size-4" aria-hidden="true" />
                 </span>
               </Link>
             </motion.div>
