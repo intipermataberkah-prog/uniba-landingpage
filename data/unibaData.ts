@@ -1017,6 +1017,13 @@ export const s2Reasons = [
   },
 ] as const;
 
+/** The hero's entry point to /s2, mirroring rplPromo. */
+export const s2Promo = {
+  title: "Program S2",
+  description: "Magister Manajemen & Magister Hukum — lanjut kuliah tanpa berhenti kerja.",
+  ctaLabel: "Lihat Program",
+};
+
 /**
  * Registration for a Magister goes through WhatsApp, and only WhatsApp.
  *

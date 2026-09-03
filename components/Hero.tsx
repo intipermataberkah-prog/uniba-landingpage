@@ -7,6 +7,7 @@ import {
   Users,
   BadgeCheck,
   GraduationCap,
+  Award,
   ArrowRight,
   CalendarClock,
 } from "lucide-react";
@@ -16,7 +17,6 @@ import { Container } from "@/components/Container";
 import { Button } from "@/components/ui/button";
 import { DaftarDialog } from "@/components/DaftarDialog";
 import { SkyBackdrop } from "@/components/SkyBackdrop";
-import { usePaperTear } from "@/components/PaperTear";
 import { formatIDR } from "@/lib/utils";
 import {
   campaignTagline,
@@ -24,6 +24,7 @@ import {
   paymentScheme,
   promoPeriod,
   rplPromo,
+  s2Promo,
   trustBadges,
 } from "@/data/unibaData";
 
@@ -53,8 +54,6 @@ const fadeUp = {
  * is buying.
  */
 export default function Hero() {
-  const tearTo = usePaperTear();
-
   return (
     <section id="beranda" className="relative isolate overflow-hidden bg-white">
       <SkyBackdrop />
@@ -185,24 +184,6 @@ export default function Hero() {
             >
               <Link
                 href="/rpl"
-                onClick={(event) => {
-                  // Only a plain left click. A modified or middle click means the
-                  // visitor asked for a new tab, and swallowing that to play an
-                  // animation in this one would be taking the page off them.
-                  if (
-                    !tearTo ||
-                    event.defaultPrevented ||
-                    event.button !== 0 ||
-                    event.metaKey ||
-                    event.ctrlKey ||
-                    event.shiftKey ||
-                    event.altKey
-                  ) {
-                    return;
-                  }
-                  event.preventDefault();
-                  tearTo("/rpl");
-                }}
                 /*
                   Navy, not a tint. It was bg-uniba-cloud/85 -- a pale blue card on a
                   pale blue sky, the same width, radius and value as the three trust
@@ -241,6 +222,41 @@ export default function Hero() {
                     it collapses to just the arrow below lg where the bar is tight. */}
                 <span className="flex shrink-0 items-center gap-2 rounded-full bg-uniba-sky-gradient px-3 py-2 text-sm font-bold text-uniba-navy shadow-sm transition-transform duration-300 group-hover/rpl:translate-x-0.5 sm:px-4 sm:py-2.5">
                   <span className="hidden lg:inline">{rplPromo.ctaLabel}</span>
+                  <ArrowRight className="size-4" aria-hidden="true" />
+                </span>
+              </Link>
+
+              {/*
+                The S2 route, as a sibling of the RPL bar rather than a copy of it.
+
+                Deliberately lighter. The RPL bar is the one dark mass in this hero and
+                it already sits heavier than the primary CTA above it; a second navy bar
+                would double that and turn the foot of the hero into the loudest thing on
+                the page. White with the same sky rail keeps the two legible as a pair --
+                both are alternative routes for someone who is not a standard fresh-
+                intake S1 applicant -- while leaving the reading order intact.
+              */}
+              <Link
+                href="/s2"
+                className="group/s2 relative mt-3 flex items-center gap-4 overflow-hidden rounded-2xl border border-uniba-navy/10 bg-white/85 py-4 pr-4 pl-5 text-left shadow-elev-1 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-uniba-sky/40 hover:bg-white hover:shadow-elev-3 focus-visible:ring-2 focus-visible:ring-uniba-sky-deep focus-visible:ring-offset-2 focus-visible:outline-none sm:gap-5 sm:pr-5 sm:pl-6"
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-y-0 left-0 w-1.5 bg-uniba-sky-gradient"
+                />
+                <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-uniba-navy/5 text-uniba-sky-deep ring-1 ring-inset ring-uniba-navy/10 sm:size-12">
+                  <Award className="size-5.5 sm:size-6" aria-hidden="true" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-[11px] font-bold tracking-[0.16em] text-uniba-sky-deep uppercase">
+                    {s2Promo.title}
+                  </p>
+                  <p className="mt-1 text-[15px] leading-snug font-medium text-uniba-navy sm:text-base">
+                    {s2Promo.description}
+                  </p>
+                </div>
+                <span className="flex shrink-0 items-center gap-2 rounded-full bg-uniba-navy px-3 py-2 text-sm font-bold text-white shadow-sm transition-transform duration-300 group-hover/s2:translate-x-0.5 sm:px-4 sm:py-2.5">
+                  <span className="hidden lg:inline">{s2Promo.ctaLabel}</span>
                   <ArrowRight className="size-4" aria-hidden="true" />
                 </span>
               </Link>
