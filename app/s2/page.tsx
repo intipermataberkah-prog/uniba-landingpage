@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Check, GraduationCap } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, GraduationCap, MessageCircle, Phone } from "lucide-react";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -11,7 +11,6 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
 import { CloudDrift } from "@/components/CloudDrift";
 import { SkyBackdrop } from "@/components/SkyBackdrop";
-import { DaftarDialog } from "@/components/DaftarDialog";
 import { Button } from "@/components/ui/button";
 import { getBaseUrl } from "@/lib/site";
 import { formatIDR } from "@/lib/utils";
@@ -23,7 +22,9 @@ import {
   s2Payment,
   s2Programs,
   s2Reasons,
+  s2Registration,
   s2SemesterTotal,
+  s2WhatsAppLink,
 } from "@/data/unibaData";
 
 /**
@@ -58,6 +59,7 @@ const LABELS = {
 } as const;
 
 const grandTotal = s2GrandTotal();
+const waHref = s2WhatsAppLink();
 const recurringSpp = s2FeeSchedule[0].items.find((item) => item.recurring)?.amount ?? 0;
 
 const pageTitle = "Program S2 — Magister Manajemen & Magister Hukum Solo";
@@ -164,17 +166,21 @@ export default function S2Page() {
                 index={4}
                 className="mt-10 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row"
               >
-                <DaftarDialog
-                  trigger={
-                    <Button
-                      size="lg"
-                      className="group h-13 rounded-full bg-uniba-navy px-8 text-[0.95rem] font-medium text-white transition-transform hover:-translate-y-0.5 hover:bg-uniba-navy-deep"
-                    >
-                      Daftar Sekarang
-                      <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-                    </Button>
-                  }
-                />
+                {/* A real wa.me link, not the shared dialog. Besides being the only
+                    route that works here, it means the delegated analytics listener
+                    records this as wa_click -- the primary conversion -- exactly as it
+                    does everywhere else on the site. */}
+                <Button
+                  asChild
+                  size="lg"
+                  className="group h-13 rounded-full bg-uniba-navy px-8 text-[0.95rem] font-medium text-white transition-transform hover:-translate-y-0.5 hover:bg-uniba-navy-deep"
+                >
+                  <a href={waHref} target="_blank" rel="noopener noreferrer">
+                    <MessageCircle className="size-4" aria-hidden="true" />
+                    Daftar via WhatsApp
+                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                  </a>
+                </Button>
                 <Button
                   asChild
                   size="lg"
@@ -183,6 +189,17 @@ export default function S2Page() {
                 >
                   <a href="#biaya-s2">Lihat Rincian Biaya</a>
                 </Button>
+              </Reveal>
+
+              {/* Stated rather than implied. A visitor who has just come from the
+                  homepage has seen a "Daftar Sekarang" that opens a portal, and would
+                  otherwise go looking for the same form here. */}
+              <Reveal
+                as="p"
+                index={5}
+                className="mt-6 max-w-xl text-sm leading-relaxed text-uniba-navy/60"
+              >
+                {s2Registration.channelNote}
               </Reveal>
             </div>
           </Container>
@@ -380,25 +397,28 @@ export default function S2Page() {
                 index={2}
                 className="mt-9 flex w-full flex-col gap-3.5 sm:w-auto sm:flex-row"
               >
-                <DaftarDialog
-                  trigger={
-                    <Button
-                      size="lg"
-                      className="group h-12 bg-uniba-sky-gradient px-8 text-[0.95rem] font-semibold text-uniba-navy shadow-sky-glow transition-transform hover:-translate-y-0.5 hover:brightness-105"
-                    >
-                      Daftar Sekarang
-                      <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-                    </Button>
-                  }
-                />
+                <Button
+                  asChild
+                  size="lg"
+                  className="group h-12 bg-uniba-sky-gradient px-8 text-[0.95rem] font-semibold text-uniba-navy shadow-sky-glow transition-transform hover:-translate-y-0.5 hover:brightness-105"
+                >
+                  <a href={waHref} target="_blank" rel="noopener noreferrer">
+                    <MessageCircle className="size-4" aria-hidden="true" />
+                    Daftar via WhatsApp
+                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                  </a>
+                </Button>
+                {/* The PMB portal used to sit here. It is the S1 intake and cannot take a
+                    postgraduate applicant, so the secondary is the campus line instead. */}
                 <Button
                   asChild
                   size="lg"
                   variant="outline"
                   className="h-12 w-full border-white/25 bg-white/5 px-8 text-[0.95rem] text-white backdrop-blur-sm transition-colors hover:border-white/40 hover:bg-white/10 hover:text-white sm:w-auto"
                 >
-                  <a href={contactInfo.pmbWebsite} target="_blank" rel="noopener noreferrer">
-                    {contactInfo.pmbWebsite.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                  <a href={contactInfo.phoneHref}>
+                    <Phone className="size-4" aria-hidden="true" />
+                    {contactInfo.phone}
                   </a>
                 </Button>
               </Reveal>
@@ -408,7 +428,7 @@ export default function S2Page() {
       </main>
 
       <Footer />
-      <StickyCTA />
+      <StickyCTA whatsappOnly />
       <SocialFloatingDock />
     </>
   );

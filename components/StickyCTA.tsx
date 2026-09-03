@@ -5,16 +5,24 @@ import { MessageCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { DaftarDialog } from "@/components/DaftarDialog";
-import { contactInfo } from "@/data/unibaData";
+import { contactInfo, s2WhatsAppLink } from "@/data/unibaData";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 /**
  * Floating overlay CTAs: a persistent WhatsApp shortcut plus a mobile/tablet
  * sticky bottom bar. Both stay hidden until the visitor has scrolled past the
  * Hero so they never collide with the Hero's own primary CTAs on load.
+ *
+ * `whatsappOnly` exists for /s2, where registration runs through admissions on
+ * WhatsApp and the self-serve PMB portal cannot accept a postgraduate applicant.
+ * The shared dialog offers that portal as its first option, so on that route the
+ * bar has to skip the dialog entirely rather than present a dead end.
  */
-export default function StickyCTA() {
+export default function StickyCTA({ whatsappOnly = false }: { whatsappOnly?: boolean }) {
   const visible = useScrollReveal(400);
+  const waHref = whatsappOnly
+    ? s2WhatsAppLink()
+    : `https://wa.me/${contactInfo.whatsapp}`;
 
   return (
     <>
@@ -22,7 +30,7 @@ export default function StickyCTA() {
         {visible ? (
           <motion.a
             key="whatsapp-fab"
-            href={`https://wa.me/${contactInfo.whatsapp}`}
+            href={waHref}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Hubungi via WhatsApp"
@@ -54,16 +62,28 @@ export default function StickyCTA() {
             className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-between gap-3 bg-uniba-navy px-4 py-3 text-white shadow-[0_-4px_24px_rgba(0,0,0,0.2)] lg:hidden"
           >
             <p className="text-sm font-medium text-balance">Siap jadi bagian dari UNIBA?</p>
-            <DaftarDialog
-              trigger={
-                <Button
-                  size="sm"
-                  className="shrink-0 bg-uniba-sky-gradient font-semibold text-uniba-navy hover:brightness-105"
-                >
-                  Daftar Sekarang
-                </Button>
-              }
-            />
+            {whatsappOnly ? (
+              <Button
+                asChild
+                size="sm"
+                className="shrink-0 bg-uniba-sky-gradient font-semibold text-uniba-navy hover:brightness-105"
+              >
+                <a href={waHref} target="_blank" rel="noopener noreferrer">
+                  Daftar via WhatsApp
+                </a>
+              </Button>
+            ) : (
+              <DaftarDialog
+                trigger={
+                  <Button
+                    size="sm"
+                    className="shrink-0 bg-uniba-sky-gradient font-semibold text-uniba-navy hover:brightness-105"
+                  >
+                    Daftar Sekarang
+                  </Button>
+                }
+              />
+            )}
           </motion.div>
         ) : null}
       </AnimatePresence>

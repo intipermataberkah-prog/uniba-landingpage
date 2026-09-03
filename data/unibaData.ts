@@ -1017,6 +1017,33 @@ export const s2Reasons = [
   },
 ] as const;
 
+/**
+ * Registration for a Magister goes through WhatsApp, and only WhatsApp.
+ *
+ * This is not a styling preference, it is a routing fact: the self-serve PMB portal
+ * handles the S1 intake. Offering it on this page -- which the shared DaftarDialog did
+ * -- sends a postgraduate applicant to a form that cannot take them, and the lead is
+ * most likely lost at that point rather than redirected.
+ *
+ * The prefilled message names the programme so admissions can route the conversation
+ * without a round trip.
+ */
+export const s2Registration = {
+  channelNote:
+    "Pendaftaran Program Magister dilayani langsung oleh tim admisi melalui WhatsApp, " +
+    "bukan lewat portal pendaftaran online.",
+  waMessage:
+    "Assalamu'alaikum, saya ingin mendaftar Program Magister (S2) UNIBA Surakarta. " +
+    "Mohon informasi jadwal kelas dan langkah pendaftarannya.",
+};
+
+/** The admissions WhatsApp link for the Magister route, message already filled in. */
+export function s2WhatsAppLink(): string {
+  return `https://wa.me/${contactInfo.whatsapp}?text=${encodeURIComponent(
+    s2Registration.waMessage
+  )}`;
+}
+
 /** Steps that are specific to postgraduate entry rather than the S1 flow. */
 export const s2Notes = {
   asn:
