@@ -80,9 +80,15 @@ export default function Footer() {
               <ul className="flex flex-col gap-3 text-sm text-white/70">
                 {navLinks.map((link) => (
                   <li key={link.href}>
-                    {/* Absolute so these still resolve from /rpl, where a bare
-                        "#section" would point at a section that isn't there. */}
-                    <a href={`/${link.href}`} className="transition-colors hover:text-white">
+                    {/* Anchors get an absolute prefix so they still resolve from a
+                        sub-route, where a bare "#section" would point at a section that
+                        isn't on the page. Real routes are already absolute -- prefixing
+                        those turned "/s2" into "//s2", which a browser reads as a
+                        protocol-relative URL and sends to the host "s2". */}
+                    <a
+                      href={link.href.startsWith("#") ? `/${link.href}` : link.href}
+                      className="transition-colors hover:text-white"
+                    >
                       {link.label}
                     </a>
                   </li>

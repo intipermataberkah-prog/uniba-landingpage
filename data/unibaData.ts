@@ -640,6 +640,8 @@ export const faqItems: FaqItem[] = [
 
 export const navLinks = [
   { label: "Program Studi", href: "#program-studi" },
+  // A real route among the anchors. Both Navbar and Footer branch on the leading "#".
+  { label: "Program S2", href: "/s2" },
   { label: "Simulasi Biaya", href: "#simulasi-biaya" },
   { label: "Beasiswa", href: "#beasiswa" },
   { label: "Cara Daftar", href: "#cara-daftar" },
@@ -849,3 +851,173 @@ export function calculateNextSemesterMonthly(
   const monthly = Math.ceil(total / months / 1000) * 1000;
   return { total, monthly };
 }
+
+/* ---------------------------------------------------------------------------
+ * S2 / Magister
+ *
+ * A separate contract from the S1 tables above, because the two are priced on
+ * different shapes entirely. S1 quotes per semester against SPP Basis + SPP SKS and a
+ * one-off SPI; S2 quotes a flat SPP every semester with named milestone fees attached to
+ * the semesters they fall in -- matrikulasi at the start, seminar proposal in semester 2,
+ * the thesis examination in semester 3. Forcing S2 through calculateSemester1Detail would
+ * have meant inventing an SPI and an SKS rate that do not exist on this route.
+ * ------------------------------------------------------------------------ */
+
+export interface S2FeeItem {
+  label: string;
+  amount: number;
+  /** Recurring every semester, as opposed to a one-off milestone charge. */
+  recurring?: boolean;
+}
+
+export interface S2Semester {
+  semester: number;
+  items: S2FeeItem[];
+}
+
+/** Verbatim from the official S2 fee schedule. Do not adjust without a new document. */
+export const s2FeeSchedule: S2Semester[] = [
+  {
+    semester: 1,
+    items: [
+      { label: "Pendaftaran", amount: 500_000 },
+      { label: "SPP", amount: 5_400_000, recurring: true },
+      { label: "Biaya Lain-lain", amount: 1_900_000 },
+      { label: "Matrikulasi", amount: 1_000_000 },
+    ],
+  },
+  {
+    semester: 2,
+    items: [
+      { label: "SPP", amount: 5_400_000, recurring: true },
+      { label: "Seminar Proposal", amount: 500_000 },
+    ],
+  },
+  {
+    semester: 3,
+    items: [
+      { label: "SPP", amount: 5_400_000, recurring: true },
+      { label: "Ujian Tesis", amount: 1_500_000 },
+    ],
+  },
+  {
+    semester: 4,
+    items: [{ label: "SPP", amount: 5_400_000, recurring: true }],
+  },
+];
+
+/** The figure that secures a seat, and the total the schedule above adds up to. */
+export const s2Payment = {
+  downPayment: 2_400_000,
+  /**
+   * Stated on the official schedule as Rp27.000.000. Asserted rather than printed:
+   * the page derives every total from the line items, so a typo in any single line
+   * would otherwise publish a schedule that quietly disagrees with its own sum.
+   */
+  statedGrandTotal: 27_000_000,
+  semesters: 4,
+};
+
+export function s2SemesterTotal(semester: S2Semester): number {
+  return semester.items.reduce((sum, item) => sum + item.amount, 0);
+}
+
+export function s2GrandTotal(): number {
+  const total = s2FeeSchedule.reduce((sum, s) => sum + s2SemesterTotal(s), 0);
+  if (total !== s2Payment.statedGrandTotal) {
+    throw new Error(
+      `S2 fee schedule adds up to ${total} but the official document states ` +
+        `${s2Payment.statedGrandTotal}. One of the two is wrong; do not publish either.`
+    );
+  }
+  if (s2FeeSchedule.length !== s2Payment.semesters) {
+    throw new Error("s2FeeSchedule length disagrees with s2Payment.semesters");
+  }
+  return total;
+}
+
+/**
+ * The two Magister routes, with the degree titles UNIBA publishes for them.
+ *
+ * Accreditation is carried per programme and only where UNIBA actually states it. The
+ * PMB portal publishes "Baik Sekali" for Manajemen and publishes none for Hukum, so
+ * none is claimed for Hukum -- an invented grade on a postgraduate page is the kind of
+ * thing a prospective student checks against BAN-PT directly.
+ */
+export const s2Programs = [
+  {
+    id: "s2-manajemen",
+    name: "Magister Manajemen",
+    degree: "M.Si / M.M.",
+    accreditation: "Baik Sekali",
+    summary:
+      "Untuk yang sudah memimpin tim atau unit dan butuh dasar analitis untuk keputusan " +
+      "yang lebih besar — perencanaan, pengendalian, dan pengambilan keputusan berbasis data.",
+    prospects: [
+      "Manajer / Direktur Perusahaan",
+      "Konsultan Manajemen Senior",
+      "Dosen / Akademisi",
+      "Peneliti Bisnis",
+      "Wirausahawan Strategis",
+    ],
+  },
+  {
+    id: "s2-hukum",
+    name: "Magister Hukum",
+    degree: "M.H.",
+    concentration: "Cyber Law",
+    summary:
+      "Satu-satunya konsentrasi hukum siber di Solo Raya. Visi program studinya menyebut " +
+      "hukum siber secara eksplisit, bukan sebagai mata kuliah pilihan.",
+    prospects: [
+      "Pengacara / Advokat",
+      "Konsultan hukum perusahaan atau institusi",
+      "Hakim",
+      "Jaksa",
+      "Polisi",
+      "Dosen",
+      "Birokrat",
+      "Perbankan",
+      "Peneliti masalah hukum",
+    ],
+  },
+] as const;
+
+/**
+ * Why an S2 page exists at all, in the words the audience uses.
+ *
+ * Sourced from UNIBA's own reporting on its BKPSDM Kota Surakarta collaboration: for an
+ * ASN, a higher qualification maps directly onto job class and talent-management
+ * weighting. That is a concrete career mechanism, not a slogan, and it is the strongest
+ * reason this page has to say anything at all.
+ */
+export const s2Reasons = [
+  {
+    title: "Naik jenjang, naik kelas jabatan",
+    body:
+      "Bagi ASN, kualifikasi pendidikan setingkat lebih tinggi berbanding lurus dengan " +
+      "penyesuaian kelas jabatan dan bobot penilaian dalam talent management.",
+  },
+  {
+    title: "Kelas malam Senin–Jumat",
+    body:
+      "Perkuliahan digelar malam hari pada hari kerja, sehingga tugas kedinasan di siang " +
+      "hari tetap jalan dan akhir pekan tidak terpakai.",
+  },
+  {
+    title: "43 tahun di pusat Kota Solo",
+    body:
+      "Kampus di Jl. KH Agus Salim No. 10, Purwosari — dapat ditempuh langsung selepas jam " +
+      "kerja tanpa keluar kota.",
+  },
+] as const;
+
+/** Steps that are specific to postgraduate entry rather than the S1 flow. */
+export const s2Notes = {
+  asn:
+    "Khusus ASN: ajukan rekomendasi ke BKPSDM instansi Anda sebelum mendaftar, sesuai " +
+    "prosedur administrasi kepegawaian yang berlaku.",
+  thesis:
+    "Lulusan S2 memaparkan hasil tesisnya agar temuannya dapat diterapkan di unit kerja " +
+    "masing-masing.",
+} as const;
