@@ -999,15 +999,15 @@ export const s2Reasons = [
       "penyesuaian kelas jabatan dan bobot penilaian dalam talent management.",
   },
   {
-    // Outside working hours, WEIGHTED to Friday-Sunday -- not "Monday to Friday evenings"
-    // and not "Friday to Sunday only". The first was an over-extension of a UNIBA article
-    // about the D3-to-S1 route; the second was an over-correction of that mistake. The
-    // wording below says where the bulk of the timetable sits without claiming a grid
-    // nobody has published.
+    // Named days deliberately absent. This claim has been wrong twice -- first as
+    // "Senin-Jumat malam", borrowed from a UNIBA article about the D3-to-S1 route, then
+    // as "Jumat-Minggu", which overcorrected -- so the page now states only the part
+    // that has held throughout: the timetable sits outside working hours. The actual
+    // day grid belongs with admissions, like the intake dates already do.
     title: "Kelas di luar jam kerja",
     body:
-      "Perkuliahan digelar di luar jam kerja, dengan porsi terbanyak pada Jumat, Sabtu " +
-      "dan Minggu — sehingga pekerjaan dan tugas kedinasan di hari kerja tetap jalan.",
+      "Perkuliahan digelar di luar jam kerja, sehingga pekerjaan dan tugas kedinasan " +
+      "sehari-hari tetap jalan.",
   },
   {
     title: "43 tahun di pusat Kota Solo",

@@ -68,8 +68,8 @@ export const metadata: Metadata = {
   title: pageTitle,
   description:
     "Program Magister UNIBA Surakarta: Magister Manajemen (M.Si/M.M.) dan Magister Hukum " +
-    "(M.H. konsentrasi Cyber Law). Kelas di luar jam kerja, terbanyak Jumat–Minggu. " +
-    "Mulai kuliah cukup Rp2.400.000.",
+    "(M.H. konsentrasi Cyber Law). Kelas di luar jam kerja, mulai kuliah cukup " +
+    "Rp2.400.000.",
   alternates: { canonical: "/s2" },
   openGraph: {
     type: "website",
@@ -137,7 +137,7 @@ export default function S2Page() {
                 className="mt-7 max-w-2xl text-balance text-base leading-relaxed text-uniba-navy/70 sm:text-lg"
               >
                 Magister Manajemen dan Magister Hukum di pusat Kota Solo. Kelas di luar jam
-                kerja, terbanyak Jumat–Minggu. Mulai kuliah cukup{" "}
+                kerja. Mulai kuliah cukup{" "}
                 <strong className="font-semibold text-uniba-navy">
                   {formatIDR(s2Payment.downPayment)}
                 </strong>
