@@ -948,7 +948,7 @@ export const s2Programs = [
   {
     id: "s2-manajemen",
     name: "Magister Manajemen",
-    degree: "M.Si / M.M.",
+    degree: "M.Si",
     accreditation: "Baik Sekali",
     summary:
       "Untuk yang sudah memimpin tim atau unit dan butuh dasar analitis untuk keputusan " +

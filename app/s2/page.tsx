@@ -67,7 +67,7 @@ const pageTitle = "Program S2 — Magister Manajemen & Magister Hukum Solo";
 export const metadata: Metadata = {
   title: pageTitle,
   description:
-    "Program Magister UNIBA Surakarta: Magister Manajemen (M.Si/M.M.) dan Magister Hukum " +
+    "Program Magister UNIBA Surakarta: Magister Manajemen (M.Si) dan Magister Hukum " +
     "(M.H. konsentrasi Cyber Law). Kelas di luar jam kerja, mulai kuliah cukup " +
     "Rp2.400.000.",
   alternates: { canonical: "/s2" },
