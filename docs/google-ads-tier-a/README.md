@@ -22,11 +22,13 @@ Mata uang: **IDR**. Semua budget/bid ditulis dalam rupiah penuh (bukan sen).
 
 | Campaign | Bid strategy | Budget/hari | Budget/bulan |
 |---|---|---|---|
-| `GOOG_Search_Brand_PMB_2026` | Maximize Clicks, CPC limit Rp2.000 | Rp15.000 | Rp450.000 |
-| `GOOG_Search_NonBrand_PMB_2026` | **Manual CPC** | Rp85.000 | Rp2.550.000 |
+| `GOOG_Search_Brand_PMB_2026` | Maximize Clicks, CPC limit Rp2.000 | Rp5.000 | Rp150.000 |
+| `GOOG_Search_NonBrand_PMB_2026` | **Manual CPC** | Rp95.000 | Rp2.850.000 |
 | **Total** | | **Rp100.000** | **Rp3.000.000** |
 
 Tagihan aktual ±**Rp3.330.000** setelah PPN 11%.
+
+> **Realokasi 15 September 2026:** Brand diturunkan dari Rp15.000 ke Rp5.000/hari (nyaris tidak pernah menghabiskan budget-nya — hanya 10 impresi dalam 30 hari, jadi bukan bottleneck budget tapi memang volume pencarian brand-nya rendah). Selisihnya dipindah ke Non-Brand. Brand tetap dijalankan dengan budget minimal untuk melindungi query brand dari kompetitor, bukan dimatikan total.
 
 > **Kenapa Non-Brand pakai Manual CPC, bukan Maximize Clicks seperti di dokumen rencana?**
 > Maximize Clicks mengabaikan max CPC per keyword — hanya CPC limit level campaign yang berlaku. Karena satu campaign Non-Brand menampung ad group dengan plafon berbeda (Karyawan Rp5.000, Kampus Solo Rp3.500, Prodi Rp3.000), Maximize Clicks akan meratakan semuanya. Di budget Rp85.000/hari, kontrol bid per keyword lebih berharga daripada otomatisasi. Brand tetap Maximize Clicks karena kompetisinya rendah dan CPC-nya sudah murah.

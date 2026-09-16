@@ -1,0 +1,2 @@
+Campaign,Campaign Type,Status,Budget,Budget Type,Bid Strategy Type,Start Date,End Date,Ad Rotation,Final URL Suffix
+GOOG_Search_S2_PMB_2026,Search,Paused,40000,Daily,Manual CPC,2026-09-04,,Optimize,utm_source=google&utm_medium=cpc&utm_campaign={campaignid}&utm_term={keyword}&utm_content={creative}
