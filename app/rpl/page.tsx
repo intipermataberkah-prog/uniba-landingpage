@@ -66,7 +66,7 @@ const LABELS = {
   programsDesc: `${rplProgramIds.length} program studi S1 di bawah ini membuka jalur RPL dengan skema biaya Kelas Malam.`,
   fees: "Rincian Biaya RPL",
   feesDesc:
-    "Skema biaya RPL mengikuti Kelas Malam, dengan satu potongan yang hanya ada di jalur ini.",
+    "Skema biaya RPL mengikuti Kelas Malam, dengan potongan Rp4.300.000 yang sama plus satu potongan tambahan yang hanya ada di jalur ini.",
   conversion: "Potongan khusus RPL",
   semester1: "Biaya Semester 1",
   story: "Cerita Alumni",
@@ -323,8 +323,9 @@ export default function RplPage() {
               description={LABELS.feesDesc}
             />
 
-            {/* The RPL concession, first, because it is the only thing on this page
-                that differs from the Kelas Malam schedule. */}
+            {/* The RPL concession, first, because it is the one thing on this page
+                that differs from the Kelas Malam schedule -- the Rp4.300.000 Pendaftaran
+                + SPI waiver below is shared with Kelas Pagi and Kelas Malam, this is not. */}
             <Reveal className="mt-14 overflow-hidden rounded-2xl border border-uniba-sky/30 bg-uniba-cloud/60">
               <div className="flex flex-col gap-6 p-6 sm:p-8 lg:flex-row lg:items-center lg:gap-10">
                 <div className="lg:w-2/5">
@@ -391,8 +392,8 @@ export default function RplPage() {
             {/* Semester 1. Four columns instead of the previous two: the old table showed
                 SPP SKS and a Bayar di Awal that is Rp2.000.000 on every row, so it printed
                 the same figure nine times and never showed what the semester actually
-                costs. It also ran through calculateSemester1Detail, which waives
-                Pendaftaran + SPI -- a discount this route does not get. */}
+                costs. Pendaftaran and SPI render struck through with a GRATIS tag, same
+                treatment as the homepage calculator, now that RPL carries that waiver too. */}
             <Reveal index={2} className="mt-10">
               <h3 className="font-heading text-xl font-bold text-slate-dark">
                 {LABELS.semester1}
@@ -458,14 +459,20 @@ export default function RplPage() {
                         </div>
                         <div className="flex items-baseline justify-between gap-2 sm:block">
                           <span className="text-xs text-muted-foreground sm:hidden">Pendaftaran</span>
-                          <span className="text-[13px] text-slate-dark tabular-nums">
-                            {formatIDR(detail.pendaftaran)}
+                          <span className="flex items-baseline gap-1.5 text-[13px] tabular-nums">
+                            <span className="text-muted-foreground/60 line-through">
+                              {formatIDR(detail.pendaftaran)}
+                            </span>
+                            <span className="text-[11px] font-bold text-uniba-sky-deep">GRATIS</span>
                           </span>
                         </div>
                         <div className="flex items-baseline justify-between gap-2 sm:block">
                           <span className="text-xs text-muted-foreground sm:hidden">SPI (Uang Gedung)</span>
-                          <span className="text-[13px] text-slate-dark tabular-nums">
-                            {formatIDR(detail.spi)}
+                          <span className="flex items-baseline gap-1.5 text-[13px] tabular-nums">
+                            <span className="text-muted-foreground/60 line-through">
+                              {formatIDR(detail.spi)}
+                            </span>
+                            <span className="text-[11px] font-bold text-uniba-sky-deep">GRATIS</span>
                           </span>
                         </div>
                         <div className="flex items-baseline justify-between gap-2 sm:block">
@@ -500,8 +507,8 @@ export default function RplPage() {
                 </ul>
               </div>
               <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-                Pendaftaran, SPI dan Biaya Lain-lain dibayar sekali di semester 1. SPP Basis
-                dan SPP SKS berulang tiap semester.
+                Pendaftaran dan SPI gratis. Biaya Lain-lain dibayar sekali di semester 1.
+                SPP Basis dan SPP SKS berulang tiap semester.
               </p>
               </Reveal>
 
