@@ -26,8 +26,10 @@ import { getBaseUrl } from "@/lib/site";
 import { cn, formatIDR } from "@/lib/utils";
 import {
   bentoFeatures,
+  calculateNextSemesterMonthly,
   calculateRplConversion,
   calculateRplSemester1Detail,
+  MONTHS_PER_SEMESTER,
   classTypeLabels,
   contactInfo,
   enrollmentSteps,
@@ -90,6 +92,14 @@ const rplFeatures = FEATURE_IDS.map((id) =>
  * Teknik Sipil and Informatika on a page promising RPL they do not offer.
  */
 const rplPrograms = getRplPrograms();
+
+/** Lowest semester 2+ monthly installment across RPL programmes -- the "mulai" figure ads quote. */
+const cheapestRplMonthly = Math.min(
+  ...rplPrograms.map(
+    (program) =>
+      calculateNextSemesterMonthly(program, "karyawan", MONTHS_PER_SEMESTER).monthly
+  )
+);
 
 /** The two contract questions that speak to this audience, verbatim. */
 const rplFaqs = faqItems.filter((item) => /kelas karyawan|bunga/i.test(item.question));
@@ -523,6 +533,13 @@ export default function RplPage() {
               </p>
               <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/70">
                 {paymentScheme.remainingPolicy}
+              </p>
+              <p className="mt-4 text-sm text-white/90">
+                Semester berikutnya dicicil mulai{" "}
+                <span className="font-bold text-uniba-sky tabular-nums">
+                  {formatIDR(cheapestRplMonthly)}/bulan
+                </span>{" "}
+                ({MONTHS_PER_SEMESTER}× per semester).
               </p>
             </Reveal>
 
