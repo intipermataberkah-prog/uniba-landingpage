@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+/* Token dari portal PMB (landing/app/globals.css), dipangkas ke yang dipakai situs resmi.
+   Teks sky di atas putih wajib pakai uniba-sky-deep (5,9:1); uniba-sky gagal AA di putih. */
+@theme {
+  --color-uniba-navy: #0f2c59;
+  --color-uniba-navy-deep: #003366;
+  --color-uniba-navy-950: #081a37;
+  --color-uniba-sky: #38bdf8;
+  --color-uniba-sky-deep: #0369a1;
+  --color-uniba-cloud: #eaf4fd;
+
+  /* Kartu: bayangan tipis + garis tepi halus (PRD, Desain: "Dikurangi"). */
+  --shadow-card: 0 1px 2px rgb(15 44 89 / 0.06), 0 1px 1px rgb(15 44 89 / 0.03);
+
+  --animate-fade-up: fade-up 300ms ease-out both;
+}
+
+@theme inline {
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  /* Hanya untuk judul hero. Jangan dipakai di tempat lain (PRD, Desain). */
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    translate: 0 0.75rem;
+  }
+}
+
+@layer base {
+  body {
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background-color: rgb(56 189 248 / 0.28);
+    color: var(--color-uniba-navy);
+  }
+}
+
+/* Satu-satunya gerak di bawah hero: muncul-naik 300 ms saat masuk layar.
+   Disembunyikan hanya bila JS jalan dan pengguna tidak minta kurangi gerak,
+   jadi tanpa JS atau dengan reduced-motion semua langsung tampil. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  [data-fade-up]:not([data-shown]) {
+    opacity: 0;
+    translate: 0 0.75rem;
+  }
+  [data-fade-up] {
+    transition:
+      opacity 300ms ease-out,
+      translate 300ms ease-out;
+  }
+}
+
+/* Tekstur batik kawung: empat kelopak lonjong yang berbagi pusat dengan petak tetangga.
+   Garis 1px dengan opasitas rendah supaya terasa sebagai tekstur, bukan ornamen. */
+@utility batik-kawung {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%230f2c59' stroke-opacity='.14'%3E%3Cellipse cx='10' cy='10' rx='12' ry='6' transform='rotate(45 10 10)'/%3E%3Cellipse cx='30' cy='10' rx='12' ry='6' transform='rotate(-45 30 10)'/%3E%3Cellipse cx='10' cy='30' rx='12' ry='6' transform='rotate(-45 10 30)'/%3E%3Cellipse cx='30' cy='30' rx='12' ry='6' transform='rotate(45 30 30)'/%3E%3C/g%3E%3Cg fill='%230f2c59' fill-opacity='.14'%3E%3Ccircle cx='20' cy='20' r='1.5'/%3E%3Ccircle r='1.5'/%3E%3Ccircle cx='40' r='1.5'/%3E%3Ccircle cy='40' r='1.5'/%3E%3Ccircle cx='40' cy='40' r='1.5'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 40px 40px;
+}
+
+@utility batik-kawung-inverse {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.06'%3E%3Cellipse cx='10' cy='10' rx='12' ry='6' transform='rotate(45 10 10)'/%3E%3Cellipse cx='30' cy='10' rx='12' ry='6' transform='rotate(-45 30 10)'/%3E%3Cellipse cx='10' cy='30' rx='12' ry='6' transform='rotate(-45 10 30)'/%3E%3Cellipse cx='30' cy='30' rx='12' ry='6' transform='rotate(45 30 30)'/%3E%3C/g%3E%3Cg fill='%23ffffff' fill-opacity='.06'%3E%3Ccircle cx='20' cy='20' r='1.5'/%3E%3Ccircle r='1.5'/%3E%3Ccircle cx='40' r='1.5'/%3E%3Ccircle cy='40' r='1.5'/%3E%3Ccircle cx='40' cy='40' r='1.5'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 40px 40px;
+}
