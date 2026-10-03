@@ -1,0 +1,14 @@
+# Situs resmi (root). landing/ punya .gitignore sendiri.
+node_modules/
+.next/
+out/
+build/
+coverage/
+.DS_Store
+*.pem
+npm-debug.log*
+.env*
+!.env.example
+.vercel
+*.tsbuildinfo
+next-env.d.ts
