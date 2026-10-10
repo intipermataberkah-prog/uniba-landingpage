@@ -9,7 +9,6 @@ import {
   GraduationCap,
   Award,
   ArrowRight,
-  CalendarClock,
 } from "lucide-react";
 
 import { DURATION, EASE_OUT_EXPO, STAGGER } from "@/lib/motion";
@@ -22,7 +21,6 @@ import {
   campaignTagline,
   feeGroups,
   paymentScheme,
-  promoPeriod,
   rplPromo,
   s2Promo,
   trustBadges,
@@ -66,15 +64,6 @@ export default function Hero() {
             transition={{ staggerChildren: STAGGER }}
             className="flex w-full flex-col items-center"
           >
-            <motion.div
-              variants={fadeUp}
-              transition={{ duration: DURATION.reveal, ease: EASE_OUT_EXPO }}
-              className="mb-8 inline-flex items-center gap-2 rounded-full border border-uniba-navy/12 bg-white/70 px-4 py-2 text-sm text-uniba-navy shadow-sm backdrop-blur-sm"
-            >
-              <CalendarClock className="size-4 text-uniba-sky-deep" aria-hidden="true" />
-              <span>{promoPeriod.name} &middot; Ditutup 30 September 2026</span>
-            </motion.div>
-
             <motion.h1
               variants={fadeUp}
               transition={{ duration: DURATION.reveal, ease: EASE_OUT_EXPO }}

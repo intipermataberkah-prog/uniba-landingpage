@@ -29,7 +29,6 @@ import {
   getFacultyProgramsWithPricing,
   nextSemesterInstallmentOptions,
   paymentScheme,
-  promoPeriod,
   studyPrograms,
   type ClassType,
   type NextSemesterInstallmentMonths,
@@ -172,7 +171,7 @@ export default function TuitionCalculator() {
         <SectionHeading
           eyebrow="Simulasi Biaya"
           title="Hitung Skema Pembayaran Kuliahmu"
-          description={`Rincian biaya resmi ${promoPeriod.name} — Pendaftaran & SPI gratis, cukup bayar Rp2.000.000 untuk mulai kuliah, sisanya fleksibel hingga akhir semester 1.`}
+          description={`Rincian biaya resmi — Pendaftaran & SPI gratis, cukup bayar Rp2.000.000 untuk mulai kuliah, sisanya fleksibel hingga akhir semester 1.`}
         />
 
         <motion.div
@@ -380,17 +379,7 @@ export default function TuitionCalculator() {
                 </div>
 
                 <p className="text-xs text-white/50">
-                  *Berlaku untuk pendaftaran {promoPeriod.name}, periode{" "}
-                  {new Date(promoPeriod.startDate).toLocaleDateString("id-ID", {
-                    day: "numeric",
-                    month: "long",
-                  })}{" "}
-                  – {new Date(promoPeriod.endDate).toLocaleDateString("id-ID", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  })}
-                  . {feeExclusions}
+                  *{feeExclusions}
                 </p>
               </div>
 

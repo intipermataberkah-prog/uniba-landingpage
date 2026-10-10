@@ -61,8 +61,6 @@ def read_facts() -> dict:
         "line2": lines[1],
         "down": int(one(r"paymentScheme = \{[^}]*?downPayment:\s*([\d_]+)", "paymentScheme.downPayment").replace("_", "")),
         "pendaftaran": int(one(r"pendaftaran:\s*([\d_]+),\n\s*spi:", "feeGroups[].pendaftaran").replace("_", "")) if False else None,
-        "wave": one(r'name:\s*"(Gelombang[^"]+)"', "promoPeriod.name"),
-        "end": one(r'endDate:\s*"([\d-]+)"', "promoPeriod.endDate"),
     }
 
 
@@ -153,15 +151,6 @@ def main() -> int:
     wm = d.textlength("UNIBA ", font=mark)
     d.text((160 + wm, 66), "Surakarta", font=mark, fill=SKY_DEEP)
 
-    eyebrow = load_face("Geist", "Regular", 20)
-    end = f["end"]
-    months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli",
-              "Agustus", "September", "Oktober", "November", "Desember"]
-    y, m, dd = (int(x) for x in end.split("-"))
-    closes = "%d %s %d" % (dd, months[m - 1], y)
-    d.text((72, 178), ("%s  ·  Ditutup %s" % (f["wave"], closes)).upper(),
-           font=eyebrow, fill=SKY_DEEP)
-
     head = load_face("Geist", "Regular", 74)
     accent = load_face("Instrument Serif", "Italic", 78)
     d.text((72, 218), f["line1"], font=head, fill=NAVY)
@@ -178,8 +167,8 @@ def main() -> int:
 
     card.convert("RGB").save(OUT_IMG, "JPEG", quality=88, optimize=True, progressive=True)
 
-    alt = ("%s UNIBA Surakarta — mulai kuliah cukup %s, gratis uang gedung, "
-           "potongan %s. Ditutup %s." % (f["wave"], rupiah(f["down"]), rupiah(waived), closes))
+    alt = ("PMB UNIBA Surakarta — mulai kuliah cukup %s, gratis uang gedung, "
+           "potongan %s." % (rupiah(f["down"]), rupiah(waived)))
     # No trailing newline: Next copies this file verbatim into the og:image:alt
     # attribute, and on Windows a trailing newline checks out as CRLF and lands as
     # stray whitespace inside the tag.

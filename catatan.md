@@ -1,5 +1,13 @@
 # Catatan kerja — landing PMB UNIBA
 
+## 2026-10-10 — Hapus tulisan "Gelombang Terakhir · Ditutup 30 September 2026"
+
+- **Apa:** pill di hero, nama gelombang di judul + catatan kaki Simulasi Biaya, dan baris
+  atas + alt OG image dihapus. `promoPeriod` dihapus dari `data/unibaData.ts` (tak dipakai lagi).
+- **Sisa:** iklan Google Ads yang aktif (Brand Exact, Kampus Pembanding) masih memuat headline
+  "Ditutup 30 September 2026" dan deskripsi "Gelombang terakhir, pendaftaran ditutup…" — harus
+  diganti di akun Ads (bersamaan dengan ganti final URL ke daftar.uniba.ac.id).
+
 ## 2026-10-10 — Pindah domain ke daftar.uniba.ac.id
 
 - **Apa:** domain utama landing sekarang `https://daftar.uniba.ac.id`. Semua trafik

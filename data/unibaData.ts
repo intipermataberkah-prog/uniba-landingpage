@@ -136,24 +136,6 @@ export const paymentScheme = {
 };
 
 /**
- * The registration wave currently open.
- *
- * `name` is an ADMINISTRATIVE label. It gets interpolated into sentences like
- * "Rincian biaya resmi ...", so it has to stay a noun phrase. The campaign slogan lives
- * in campaignTagline below, deliberately separate.
- *
- * No wave number here. The next number was never supplied, and "Gelombang Terakhir" works
- * as its own label; inventing "Gelombang 3" would publish an official designation that has
- * no source behind it.
- */
-export const promoPeriod = {
-  name: "Gelombang Terakhir",
-  academicYear: "2026/2027",
-  startDate: "2026-09-01",
-  endDate: "2026-09-30",
-};
-
-/**
  * September campaign line.
  *
  * It sells the change in the person rather than the size of the discount, and UNIBA has
