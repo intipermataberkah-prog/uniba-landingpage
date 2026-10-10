@@ -1,6 +1,6 @@
 # Kampanye S2 — Magister Manajemen & Magister Hukum
 
-Paket impor Google Ads Editor untuk program Magister, mendarat di `https://www.daftaruniba.site/s2`.
+Paket impor Google Ads Editor untuk program Magister, mendarat di `https://daftar.uniba.ac.id/s2`.
 Disusun 4 September 2026. File CSV-nya ada di [`../google-ads-tier-a/`](../google-ads-tier-a/) (nomor 14–19).
 
 Semua klaim di iklan diambil **verbatim dari halaman /s2 yang live**, bukan estimasi.

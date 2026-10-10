@@ -1,8 +1,8 @@
 # Google Ads Plan — UNIBA Surakarta PMB 2026/2027
 
-**Landing pages:** `https://www.daftaruniba.site/` (utama) · `https://www.daftaruniba.site/rpl` (RPL / kelas karyawan)
+**Landing pages:** `https://daftar.uniba.ac.id/` (utama) · `https://daftar.uniba.ac.id/rpl` (RPL / kelas karyawan)
 
-> Semua Final URL memakai **www** — apex `daftaruniba.site` 301 ke www, dan hop itu terbayar di setiap klik berbayar.
+> Semua Final URL memakai **www** — apex `daftar.uniba.ac.id` 301 ke www, dan hop itu terbayar di setiap klik berbayar.
 **Disusun:** 10 Agustus 2026, diperbarui 1 September 2026 · **Konteks:** Gelombang Terakhir berakhir **30 September 2026**. Tagline kampanye: "Upgrade Dirimu, Upgrade Masa Depanmu"
 **Constraint:** budget ketat → **Search-only**, satu geo, tanpa PMax/Display/Demand Gen.
 
@@ -29,12 +29,12 @@ Semua klaim harga/prodi/beasiswa di dokumen ini diambil dari `data/unibaData.ts`
 
 Jangan nyalakan campaign sebelum 6 hal ini beres. Melanggar ini adalah cara tercepat membakar budget ketat.
 
-1. **Google Ads conversion tag via GTM** terpasang di `daftaruniba.site` — bukan hanya GA4. Impor GA4 key event punya delay 24–48 jam yang merusak bidding.
+1. **Google Ads conversion tag via GTM** terpasang di `daftar.uniba.ac.id` — bukan hanya GA4. Impor GA4 key event punya delay 24–48 jam yang merusak bidding.
 2. **Event `wa_click`** — listener pada semua tombol/link `wa.me`, di-deduplikasi 1x per sesi (LP punya banyak CTA WA; tanpa dedup, angka konversi menggelembung 3–4x dan bidding jadi salah).
 3. **Event `form_submit`** dan **`simulasi_biaya_selesai`** (secondary, untuk audience remarketing).
 4. **UTM konsisten** — pakai auto-tagging (`gclid`) + template: `?utm_source=google&utm_medium=cpc&utm_campaign={campaignid}&utm_term={keyword}&utm_content={creative}`.
 5. **Nomor WA admisi (0895-6219-80090) diverifikasi punya orang yang standby** 08.00–21.00. CPL bagus tanpa respons cepat = nol pendaftar.
-6. **Verifikasi advertiser Google.** Ini risiko nyata: domain iklan (`daftaruniba.site`) ≠ domain resmi institusi (`uniba.ac.id`). Google bisa menandai ini sebagai *misrepresentation* untuk brand institusi pendidikan. Mitigasi: (a) tampilkan logo + badan hukum UNIBA/YPB dan alamat kampus di footer LP, (b) siapkan surat kuasa dari universitas saat verifikasi identitas advertiser, (c) idealnya pindahkan LP ke subdomain resmi (`pmb2.uniba.ac.id`) — ini juga menaikkan trust brand searcher.
+6. **Verifikasi advertiser Google.** Ini risiko nyata: domain iklan (`daftar.uniba.ac.id`) ≠ domain resmi institusi (`uniba.ac.id`). Google bisa menandai ini sebagai *misrepresentation* untuk brand institusi pendidikan. Mitigasi: (a) tampilkan logo + badan hukum UNIBA/YPB dan alamat kampus di footer LP, (b) siapkan surat kuasa dari universitas saat verifikasi identitas advertiser, (c) idealnya pindahkan LP ke subdomain resmi (`pmb2.uniba.ac.id`) — ini juga menaikkan trust brand searcher.
 
 **Catatan billing:** Google Ads Indonesia menagih **PPN 11%** di atas belanja. Budget Rp5 jt = tagihan ±Rp5,55 jt. Anggarkan dari awal.
 

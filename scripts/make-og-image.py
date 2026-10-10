@@ -59,7 +59,7 @@ def read_facts() -> dict:
     return {
         "line1": lines[0],
         "line2": lines[1],
-        "down": int(one(r"downPayment:\s*([\d_]+)", "paymentScheme.downPayment").replace("_", "")),
+        "down": int(one(r"paymentScheme = \{[^}]*?downPayment:\s*([\d_]+)", "paymentScheme.downPayment").replace("_", "")),
         "pendaftaran": int(one(r"pendaftaran:\s*([\d_]+),\n\s*spi:", "feeGroups[].pendaftaran").replace("_", "")) if False else None,
         "wave": one(r'name:\s*"(Gelombang[^"]+)"', "promoPeriod.name"),
         "end": one(r'endDate:\s*"([\d-]+)"', "promoPeriod.endDate"),
@@ -174,7 +174,7 @@ def main() -> int:
     d.text((72, 482), "Gratis Uang Gedung  ·  Potongan %s (Pendaftaran + SPI)" % rupiah(waived),
            font=proof, fill=(15, 44, 89, 170))
 
-    d.text((72, 546), "daftaruniba.site", font=proof, fill=SKY_DEEP)
+    d.text((72, 546), "daftar.uniba.ac.id", font=proof, fill=SKY_DEEP)
 
     card.convert("RGB").save(OUT_IMG, "JPEG", quality=88, optimize=True, progressive=True)
 

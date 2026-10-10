@@ -1,6 +1,6 @@
 # RPL di Non-Brand — ad group `Karyawan & RPL`
 
-Disusun 26 September 2026. File CSV ada di [`../google-ads-tier-a/`](../google-ads-tier-a/) (nomor 20–24). Tidak ada campaign baru: semuanya masuk ke ad group `Karyawan & RPL` di `GOOG_Search_NonBrand_PMB_2026`, budget Non-Brand tetap Rp95.000/hari. Mendarat di `https://www.daftaruniba.site/rpl`.
+Disusun 26 September 2026. File CSV ada di [`../google-ads-tier-a/`](../google-ads-tier-a/) (nomor 20–24). Tidak ada campaign baru: semuanya masuk ke ad group `Karyawan & RPL` di `GOOG_Search_NonBrand_PMB_2026`, budget Non-Brand tetap Rp95.000/hari. Mendarat di `https://daftar.uniba.ac.id/rpl`.
 
 ## Kenapa
 
